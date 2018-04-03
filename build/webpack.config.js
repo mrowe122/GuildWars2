@@ -6,7 +6,7 @@ module.exports = {
   context: path.src,
   devServer: {
     port: 9000,
-    open: true
+    contentBase: path.src
   },
   entry: './index',
   output: {
@@ -18,24 +18,42 @@ module.exports = {
       path.src,
       'node_modules'
     ],
-    extensions: ['*', '.js', '.jsx', '.json']
+    extensions: ['*', '.js', '.jsx', '.scss']
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            'es2015',
-            'babel-preset-react'
-          ]
-        }
+        use: [{
+          loader: 'babel-loader',
+          query: {
+            cacheDirectory: true,
+            plugins: [
+              [ 'transform-object-rest-spread', { 'useBuiltIns': true } ]
+            ],
+            presets: [
+              'babel-preset-react',
+              [
+                'babel-preset-env', {
+                  targets: {
+                    ie9: true,
+                    uglify: true,
+                    modules: false
+                  }
+                }
+              ]
+            ]
+          }
+        }]
       },
       {
         test: /\.html$/,
         loader: 'html-loader'
+      },
+      {
+        test: /\.scss$/,
+        loader: 'style-loader!css-loader!sass-loader'
       }
     ]
   },
