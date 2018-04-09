@@ -2,8 +2,8 @@ import React, { Fragment } from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 
 // modules
-import { Home } from 'modules'
 import { Header, Footer } from 'components'
+import { Home } from 'modules'
 
 const App = () => (
   <Fragment>

@@ -3,34 +3,31 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { compose, get } from 'lodash/fp'
 import { withState, withHandlers } from 'recompose'
+import { DailyAchievements } from 'components'
 
-const HomeTemplate = ({ className, setApi, setPass, saveInput }) => (
+const HomeTemplate = ({ className, setApi, saveInput }) => (
   <div className={className}>
-    <label htmlFor='api'>API key</label>
+    {/* <label htmlFor='api'>API key</label>
     <input id='api' type='text' onChange={compose(setApi, get('target.value'))} />
-    <button onClick={saveInput}>submit</button>
+    <button onClick={saveInput}>submit</button> */}
+    <DailyAchievements />
   </div>
 )
 
 HomeTemplate.propTypes = {
   className: PropTypes.string,
   setApi: PropTypes.func,
-  setPass: PropTypes.func,
   saveInput: PropTypes.func
 }
 
 const Home = styled(HomeTemplate)`
-  & > * {
-    display: block;
-  }
 `
 
 export default compose(
   withState('api', 'setApi', ''),
-  withState('pass', 'setPass', ''),
   withHandlers({
     saveInput: ({ api, pass }) => () => {
-      // sessionStorage.setItem('key', api)
+      localStorage.setItem('key', api)
     }
   })
 )(Home)

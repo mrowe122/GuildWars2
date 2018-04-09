@@ -18,7 +18,7 @@ module.exports = {
       path.src,
       'node_modules'
     ],
-    extensions: ['*', '.js', '.jsx', '.scss']
+    extensions: ['*', '.js', '.jsx']
   },
   module: {
     rules: [
@@ -30,6 +30,7 @@ module.exports = {
           query: {
             cacheDirectory: true,
             plugins: [
+              'babel-plugin-transform-class-properties',
               [ 'transform-object-rest-spread', { 'useBuiltIns': true } ]
             ],
             presets: [
@@ -52,8 +53,15 @@ module.exports = {
         loader: 'html-loader'
       },
       {
-        test: /\.scss$/,
+        test: /\.(scss|css)$/,
         loader: 'style-loader!css-loader!sass-loader'
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 8192
+        }
       }
     ]
   },
