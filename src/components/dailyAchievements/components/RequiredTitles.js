@@ -12,13 +12,10 @@ const mapIcons = {
   PathOfFire: pofIcon
 }
 
-const IconContainer = styled.div``
-
 const RequiredTitlesTemplate = ({ className, games }) => (
   <div className={className}>
-    <IconContainer>
-      { games.map(game => <img key={game} src={mapIcons[game]} />) }
-    </IconContainer>
+    <p><small>Requires</small></p>
+    { games.map(game => <img key={game} src={mapIcons[game]} />) }
   </div>
 )
 
@@ -28,7 +25,6 @@ RequiredTitlesTemplate.propTypes = {
 }
 
 export default styled(RequiredTitlesTemplate)`
-  ${IconContainer} {
-    display: inline-block;
-  }
+  text-align: center;
+  display: inline-block;
 `
