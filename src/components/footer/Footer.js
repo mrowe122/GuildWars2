@@ -17,8 +17,10 @@ FooterTemplate.propTypes = {
 
 const Footer = styled(FooterTemplate)`
   background: red;
+  padding: 1rem;
   bottom: 0;
   position: absolute;
+  
 `
 
 export default Footer

@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { withAchievements } from 'utils/HOC'
-import { compose, uniqueId } from 'lodash/fp'
+import { withAchievements } from 'utils/compositions'
+import { compose, uniqueId, map } from 'lodash/fp'
 import { withState, branch, renderComponent } from 'recompose'
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs'
 import RequiredTitles from './RequiredTitles'
@@ -13,10 +13,10 @@ const Loading = () => (
 
 const DailyEntryTemplate = ({ className, daily }) => (
   <div className={className} title={daily.description}>
-    <p>{daily.tiers.map(tier => tier.count)}</p>
+    <p>{map('count', daily.tiers)}</p>
     <div>
-      <p>{daily.name} <small>(levels {daily.level.min} - {daily.level.max})</small></p>
-      <p className='req'>{daily.requirement}</p>
+      <h3>{daily.name} <small>(levels {daily.level.min} - {daily.level.max})</small></h3>
+      <em>{daily.requirement}</em>
     </div>
     <RequiredTitles games={daily.required_access} />
   </div>
@@ -33,11 +33,7 @@ const DailyEntry = styled(DailyEntryTemplate)`
   padding: 0.5rem 1rem;
   border-bottom: 1px solid black;
 
-  .req {
-    font-style: italic;
-    line-height: 20px;
-    font-size: smaller;
-  }
+  h3 { margin-bottom: .7rem; }
 
   & > p:first-child {
     width: 2rem;
@@ -50,7 +46,7 @@ const DailyEntry = styled(DailyEntryTemplate)`
   }
 `
 
-const DailyAchievementsTemplate = ({ className, loading, data }) => {
+const DailyAchievementsTemplate = ({ className, loading, data: { pve, pvp, fractals, wvw } }) => {
   return (
     <div className={className}>
       <Tabs>
@@ -62,19 +58,19 @@ const DailyAchievementsTemplate = ({ className, loading, data }) => {
         </TabList>
 
         <TabPanel>
-          { data.pve.map(e => <DailyEntry key={uniqueId('pve')} daily={e} />) }
+          { pve.map(e => <DailyEntry key={uniqueId('pve')} daily={e} />) }
         </TabPanel>
 
         <TabPanel>
-          { data.pvp.map(e => <DailyEntry key={uniqueId('pvp')} daily={e} />) }
+          { pvp.map(e => <DailyEntry key={uniqueId('pvp')} daily={e} />) }
         </TabPanel>
 
         <TabPanel>
-          { data.fractals.map(e => <DailyEntry key={uniqueId('fractals')} daily={e} />) }
+          { fractals.map(e => <DailyEntry key={uniqueId('fractals')} daily={e} />) }
         </TabPanel>
 
         <TabPanel>
-          { data.wvw.map(e => <DailyEntry key={uniqueId('wvw')} daily={e} />) }
+          { wvw.map(e => <DailyEntry key={uniqueId('wvw')} daily={e} />) }
         </TabPanel>
       </Tabs>
     </div>
