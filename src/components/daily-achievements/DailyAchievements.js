@@ -3,22 +3,20 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { withAchievements } from 'utils/compositions'
 import { compose, uniqueId, map } from 'lodash/fp'
-import { withState, branch, renderComponent } from 'recompose'
+import { branch, renderComponent } from 'recompose'
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs'
 import RequiredTitles from './RequiredTitles'
 
-const Loading = () => (
-  <div>loading</div>
-)
+const Loading = () => <div />
 
 const DailyEntryTemplate = ({ className, daily }) => (
-  <div className={className} title={daily.description}>
-    <p>{map('count', daily.tiers)}</p>
-    <div>
-      <h3>{daily.name} <small>(levels {daily.level.min} - {daily.level.max})</small></h3>
-      <em>{daily.requirement}</em>
-    </div>
+  <div className={className}>
     <RequiredTitles games={daily.required_access} />
+    <div>
+      <h4>{daily.name}</h4>
+      <em>(levels {daily.level.min} - {daily.level.max})<br />{daily.requirement}</em>
+    </div>
+    <p>{map('count', daily.tiers)}</p>
   </div>
 )
 
@@ -30,19 +28,22 @@ DailyEntryTemplate.propTypes = {
 const DailyEntry = styled(DailyEntryTemplate)`
   display: flex;
   align-items: center;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem .7rem;
   border-bottom: 1px solid black;
 
-  h3 { margin-bottom: .7rem; }
+  h4 {
+    font-weight: bold;
+    margin-bottom: .7rem;
+  }
 
-  & > p:first-child {
+  & > p {
     width: 2rem;
     text-align: center;
   }
 
   & > div:nth-child(2) {
     flex: 1;
-    padding: 0 1rem;
+    padding: 0 .7rem;
   }
 `
 
@@ -84,16 +85,10 @@ DailyAchievementsTemplate.propTypes = {
 }
 
 const DailyAchievements = styled(DailyAchievementsTemplate)`
-  width: 600px;
-
-  .react-tabs__tab-panel {
-    overflow: auto;
-    height: 400px;
-  }
+  width: 385px;
 `
 
 const enhancer = compose(
-  withState('api', 'setApi', ''),
   withAchievements,
   branch(
     props => props.loading,

@@ -8,7 +8,7 @@ module.exports = {
     port: 9000,
     contentBase: path.src
   },
-  entry: './index',
+  entry: ['./index', 'whatwg-fetch'],
   output: {
     path: path.dev,
     filename: '[name].js'

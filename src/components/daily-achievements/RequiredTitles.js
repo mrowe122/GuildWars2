@@ -14,7 +14,6 @@ const mapIcons = {
 
 const RequiredTitlesTemplate = ({ className, games }) => (
   <div className={className}>
-    <p><small>Requires</small></p>
     { games.map(game => <img key={game} src={mapIcons[game]} />) }
   </div>
 )
@@ -25,6 +24,12 @@ RequiredTitlesTemplate.propTypes = {
 }
 
 export default styled(RequiredTitlesTemplate)`
-  text-align: center;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+
+  img {
+    align-self: center;
+    margin-bottom: .4rem;
+    &:last-child { margin-bottom: 0; }
+  }
 `

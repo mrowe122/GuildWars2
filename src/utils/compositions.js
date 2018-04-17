@@ -1,5 +1,6 @@
 import { compose, map, keyBy, assign } from 'lodash/fp'
 import { lifecycle, withStateHandlers } from 'recompose'
+import { cachedFetch } from './cachedFetch'
 import { config } from 'config'
 
 export const withAchievements = compose(
@@ -9,7 +10,7 @@ export const withAchievements = compose(
   }),
   lifecycle({
     componentDidMount () {
-      fetch(`${config.gwHost}/achievements/daily`)
+      cachedFetch(`${config.gwHost}/achievements/daily`)
         .then(res1 => res1.json())
         .then(({ pvp, pve, wvw, fractals, special }) => {
           const allIds = [].concat(
@@ -19,7 +20,7 @@ export const withAchievements = compose(
             map('id')(fractals),
             map('id')(special)
           )
-          fetch(`${config.gwHost}/achievements?ids=${allIds}`)
+          cachedFetch(`${config.gwHost}/achievements?ids=${allIds}`)
             .then(res2 => res2.json())
             .then(data2 => {
               const keyData = keyBy('id')(data2)

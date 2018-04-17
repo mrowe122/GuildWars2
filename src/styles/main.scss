@@ -4,7 +4,7 @@
 * {
   margin: 0;
   padding: 0;
-  font: 14px/1 'Andika', sans-serif;
+  font: 15px/1 'Exo 2', sans-serif;
 }
 
 html, body {
@@ -44,4 +44,44 @@ em {
   font-style: italic;
   line-height: 1.5;
   font-size: smaller;
+}
+
+// react-tabs overwrite
+.react-tabs {
+
+  .react-tabs__tab-list {
+    margin: 0;
+    display: flex;
+  }
+
+  .react-tabs__tab {
+    flex: 1;
+    text-align: center;
+    border: 0;
+    background-color: blue;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+
+    &:hover { background-color: dodgerblue; }
+    &.react-tabs__tab--selected {
+      background-color: green;
+      border-radius: 0;
+      border: none;
+    }
+    &:focus {
+      box-shadow: none;
+      &:after { content: none; }
+    }
+  }
+
+  .react-tabs__tab-panel {
+    overflow: auto;
+    height: 400px;
+    background: green;
+  }
 }
