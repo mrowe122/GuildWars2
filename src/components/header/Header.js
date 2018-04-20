@@ -1,17 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { sizes } from 'styles/variables'
-import DailyHeader from './DailyHeader'
 import { Logo } from 'components'
-import AccountIcon from 'mdi-react/AccountIcon'
 
 const HeaderTemplate = ({ className }) => (
   <div className={className}>
     <Logo />
     <div>
-      <DailyHeader />
-      <AccountIcon />
+      <p>Dailies</p>
+      <p>Join</p>
     </div>
   </div>
 )
@@ -25,9 +22,16 @@ const Header = styled(HeaderTemplate)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: red;
-  height: ${sizes.header};
-  line-height: ${sizes.header};
+  height: ${props => props.theme.sizes.header};
+  line-height: ${props => props.theme.sizes.header};
+
+  p {
+    margin: 0 .5rem;
+    text-transform: uppercase;
+    background: ${props => props.theme.colors.primary};
+    color: ${props => props.theme.colors.white};
+    padding: 0.7rem 1.2rem;
+  }
 
   & > div:nth-child(2) {
     display: flex;

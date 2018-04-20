@@ -11,7 +11,6 @@ const LogoTemplate = ({ className }) => (
 LogoTemplate.propTypes = { className: PropTypes.string }
 
 const Logo = styled(LogoTemplate)`
-  color: white;
 `
 
 export default Logo
