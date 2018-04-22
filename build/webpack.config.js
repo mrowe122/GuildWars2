@@ -1,6 +1,7 @@
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CircularDependencyPlugin = require('circular-dependency-plugin')
 const path = require('../paths')
 
 module.exports = {
@@ -21,7 +22,7 @@ module.exports = {
       cacheGroups: {
         commons: {
           chunks: 'initial',
-          minChunks: 2
+          minChunks: 5
         },
         vendor: {
           test: /node_modules/,
@@ -92,6 +93,9 @@ module.exports = {
       { from: 'media', to: 'images' }
     ]),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
+    new CircularDependencyPlugin({
+      failOnError: true
+    })
   ]
 }
