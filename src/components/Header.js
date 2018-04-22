@@ -1,14 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Logo } from 'components'
+import Logo from './Logo'
 
 const HeaderTemplate = ({ className }) => (
   <div className={className}>
     <Logo />
     <div>
-      <p>Dailies</p>
-      {/* <p>Join</p> */}
+      <p>Join</p>
     </div>
   </div>
 )
@@ -26,7 +25,7 @@ const Header = styled(HeaderTemplate)`
   line-height: ${({ theme }) => theme.sizes.header};
   ${({ theme }) => theme.generators.boxShadow(0, 0, 15, 0, 'rgba(0, 0, 0, 0.3)')}
 
-  p {
+  & > div > p {
     border-radius: 5px;
     margin: 0 .5rem;
     padding: 0.7rem 1.2rem;

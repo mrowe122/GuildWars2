@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components'
 
 // modules
 import { Header, Footer } from 'components'
-import { Home } from 'modules'
+import { Home } from 'pages'
 import theme from 'styles/variables'
 
 const App = () => (

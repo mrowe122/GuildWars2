@@ -1,7 +1,7 @@
-import Header from './header/Header'
-import Footer from './footer/Footer'
-import DailyAchievements from './daily-achievements/DailyAchievements'
-import Logo from './logo/Logo'
+import Header from './Header'
+import Footer from './Footer'
+import DailyAchievements from './DailyAchievements'
+import Logo from './Logo'
 
 export {
   Header,
