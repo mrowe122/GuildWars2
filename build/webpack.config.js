@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const path = require('../paths')
@@ -7,12 +8,29 @@ module.exports = {
   context: path.src,
   devServer: {
     port: 9000,
-    contentBase: path.src
+    contentBase: path.src,
+    hot: true
   },
-  entry: ['./index', 'whatwg-fetch'],
+  entry: ['react-hot-loader/patch', './index'],
   output: {
     path: path.dev,
-    filename: '[name].js'
+    filename: '[name].[hash].js'
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          chunks: 'initial',
+          minChunks: 2
+        },
+        vendor: {
+          test: /node_modules/,
+          chunks: 'initial',
+          name: 'vendor',
+          priority: 10
+        }
+      }
+    }
   },
   resolve: {
     modules: [
@@ -72,6 +90,8 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       { from: 'media', to: 'images' }
-    ])
+    ]),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin()
   ]
 }
