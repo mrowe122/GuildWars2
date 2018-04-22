@@ -8,7 +8,7 @@ const HeaderTemplate = ({ className }) => (
     <Logo />
     <div>
       <p>Dailies</p>
-      <p>Join</p>
+      {/* <p>Join</p> */}
     </div>
   </div>
 )
@@ -22,15 +22,19 @@ const Header = styled(HeaderTemplate)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: ${props => props.theme.sizes.header};
-  line-height: ${props => props.theme.sizes.header};
+  height: ${({ theme }) => theme.sizes.header};
+  line-height: ${({ theme }) => theme.sizes.header};
+  ${({ theme }) => theme.generators.boxShadow(0, 0, 15, 0, 'rgba(0, 0, 0, 0.3)')}
 
   p {
+    border-radius: 5px;
     margin: 0 .5rem;
-    text-transform: uppercase;
-    background: ${props => props.theme.colors.primary};
-    color: ${props => props.theme.colors.white};
     padding: 0.7rem 1.2rem;
+    text-transform: uppercase;
+    background-color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.white};
+
+    &:hover { background-color: ${({ theme }) => theme.colors.primaryHover}; }
   }
 
   & > div:nth-child(2) {

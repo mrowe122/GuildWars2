@@ -1,16 +1,20 @@
 import { compose, map, keyBy, assign } from 'lodash/fp'
 import { lifecycle, withStateHandlers } from 'recompose'
 import { cachedFetch } from './cachedFetch'
-import { config } from 'config'
+import { key, gwHost } from 'config'
+
+export const withLoading = compose(
+  withStateHandlers(
+    () => ({ loading: true, data: {} }),
+    { doneLoading: () => data => ({ loading: false, data }) }
+  )
+)
 
 export const withAchievements = compose(
-  withStateHandlers(() => ({ loading: true, data: {}
-  }), {
-    doneLoading: () => data => ({ loading: false, data })
-  }),
+  withLoading,
   lifecycle({
     componentDidMount () {
-      cachedFetch(`${config.gwHost}/achievements/daily`)
+      cachedFetch(`${gwHost}/achievements/daily`)
         .then(res1 => res1.json())
         .then(({ pvp, pve, wvw, fractals, special }) => {
           const allIds = [].concat(
@@ -20,7 +24,7 @@ export const withAchievements = compose(
             map('id')(fractals),
             map('id')(special)
           )
-          cachedFetch(`${config.gwHost}/achievements?ids=${allIds}`)
+          cachedFetch(`${gwHost}/achievements?ids=${allIds}`)
             .then(res2 => res2.json())
             .then(data2 => {
               const keyData = keyBy('id')(data2)
@@ -34,6 +38,16 @@ export const withAchievements = compose(
               })
             })
         })
+    }
+  })
+)
+
+export const withCharacters = compose(
+  withLoading,
+  lifecycle({
+    componentDidMount () {
+      cachedFetch(`${gwHost}/characters?access_token=${key}`).then(res1 => res1.json())
+        .then(data => this.props.doneLoading(data))
     }
   })
 )

@@ -38,6 +38,10 @@ p {
   &.p1 {
     font-weight: bold;
   }
+
+  &.p2 {
+    font-size: 12px;
+  }
 }
 
 em {
@@ -48,7 +52,6 @@ em {
 
 // react-tabs overwrite
 .react-tabs {
-
   .react-tabs__tab-list {
     margin: 0;
     display: flex;

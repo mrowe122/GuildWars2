@@ -11,10 +11,10 @@ module.exports = {
     contentBase: path.src,
     hot: true
   },
-  entry: ['react-hot-loader/patch', './index'],
+  entry: ['react-hot-loader/patch', './normalize', './index'],
   output: {
     path: path.dev,
-    filename: '[name].[hash].js'
+    filename: '[name].js'
   },
   optimization: {
     splitChunks: {
