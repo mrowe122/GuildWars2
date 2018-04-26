@@ -1,13 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import routes from 'utils/routes'
 import Logo from './Logo'
 
 const HeaderTemplate = ({ className }) => (
   <div className={className}>
     <Logo />
     <div>
-      <p>Join</p>
+      <Link to={routes.stats}>Stats</Link>
+      <Link to={routes.index}>Login</Link>
     </div>
   </div>
 )
@@ -25,13 +28,14 @@ const Header = styled(HeaderTemplate)`
   line-height: ${({ theme }) => theme.sizes.header};
   ${({ theme }) => theme.generators.boxShadow(0, 0, 15, 0, 'rgba(0, 0, 0, 0.3)')}
 
-  & > div > p {
+  a {
+    color: ${({ theme }) => theme.colors.white};
+    text-decoration: none;
+    text-transform: uppercase;
     border-radius: 5px;
     margin: 0 .5rem;
     padding: 0.7rem 1.2rem;
-    text-transform: uppercase;
     background-color: ${({ theme }) => theme.colors.primary};
-    color: ${({ theme }) => theme.colors.white};
 
     &:hover { background-color: ${({ theme }) => theme.colors.primaryHover}; }
   }
