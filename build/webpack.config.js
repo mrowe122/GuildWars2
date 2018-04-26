@@ -10,7 +10,8 @@ module.exports = {
   devServer: {
     port: 9000,
     contentBase: path.src,
-    hot: true
+    hot: true,
+    historyApiFallback: true
   },
   entry: ['react-hot-loader/patch', './normalize', './index'],
   output: {

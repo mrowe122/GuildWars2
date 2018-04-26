@@ -1,14 +1,17 @@
 import config from 'config'
 import { compose, map, keyBy, assign, pick } from 'lodash/fp'
-import { lifecycle, withStateHandlers, branch, mapProps, renderComponent } from 'recompose'
+import { lifecycle, withStateHandlers, branch, mapProps, renderComponent, withProps } from 'recompose'
 import { cachedFetch } from './cachedFetch'
 import Loading from 'components/Loading'
 
-export const withLoading = compose(
+const withLoading = compose(
   withStateHandlers(
     () => ({ loading: true, data: null }),
     { doneLoading: () => data => ({ loading: false, data }) }
-  )
+  ),
+  withProps(() => ({
+    controller: new AbortController()
+  }))
 )
 
 export const withAchievements = compose(
@@ -25,7 +28,7 @@ export const withAchievements = compose(
             map('id')(fractals),
             map('id')(special)
           )
-          cachedFetch(`${config.gwHost}/achievements?ids=${allIds}`)
+          cachedFetch(`${config.gwHost}/achievements?ids=${allIds}`, { signal: this.props.controller.signal })
             .then(res2 => res2.json())
             .then(data2 => {
               const keyData = keyBy('id')(data2)
@@ -39,7 +42,8 @@ export const withAchievements = compose(
               })
             })
         })
-    }
+    },
+    componentWillUnmount () { this.props.controller.abort() }
   }),
   branch(
     ({ loading }) => loading,
@@ -48,16 +52,20 @@ export const withAchievements = compose(
   mapProps(pick('data'))
 )
 
-console.log(Loading)
-
 export const withCharacters = compose(
   withLoading,
   lifecycle({
     componentDidMount () {
-      cachedFetch(`${config.gwHost}/characters?access_token=${config.key}`)
+      cachedFetch(`${config.gwHost}/characters?access_token=${config.key}`, { signal: this.props.controller.signal })
         .then(res1 => res1.json())
         .then(data => this.props.doneLoading(data))
-    }
+        .catch(err => {
+          if (err.name !== 'AbortError') {
+            console.log('error', err)
+          }
+        })
+    },
+    componentWillUnmount () { this.props.controller.abort() }
   }),
   branch(
     ({ loading }) => loading,
