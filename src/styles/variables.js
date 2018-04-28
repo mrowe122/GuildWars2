@@ -4,13 +4,19 @@ const colors = {
   primary: '#AC0765',
   primaryHover: '#7E0248',
   primaryDark: '#3E0023',
-  white: '#ffffff',
+  white: '#FFFFFF',
   black: '#000000',
+  gray1: '#8B8B8B',
+  gray2: '#6A6A6A',
+  gray3: '#494949',
+  gray4: '#3C3C3C',
+  gray5: '#2F2F2F',
   alphaGray: 'rgba(75, 75, 75, 0.7)'
 }
 
 const sizes = {
-  header: '65px'
+  header: '65px',
+  sideNav: '13rem'
 }
 
 const generators = {

@@ -20,10 +20,15 @@ HeaderTemplate.propTypes = {
 }
 
 const Header = styled(HeaderTemplate)`
+  top: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
   padding: 0rem 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: ${({ theme }) => theme.colors.white};
   height: ${({ theme }) => theme.sizes.header};
   line-height: ${({ theme }) => theme.sizes.header};
   ${({ theme }) => theme.generators.boxShadow(0, 0, 15, 0, 'rgba(0, 0, 0, 0.3)')}

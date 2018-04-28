@@ -12,10 +12,12 @@ const App = () => (
     <ThemeProvider theme={theme}>
       <Fragment>
         <Header />
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route path='/stats' component={PlayerStats} />
-        </Switch>
+        <div className='content'>
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route path='/stats' component={PlayerStats} />
+          </Switch>
+        </div>
         <Footer />
       </Fragment>
     </ThemeProvider>

@@ -12,11 +12,12 @@ html, body {
 }
 
 #root {
+  min-width: 100%;
   min-height: 100%;
-  position: relative;
-  // 2nd child "SHOULD" always be the body
-  & > div:nth-child(2) {
+  position: absolute;
+  .content {
     padding-bottom: 5rem;
+    margin-top: 65px;
   }
 }
 

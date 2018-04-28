@@ -9,8 +9,8 @@ export const cachedFetch = (url, options) => {
   }
   // Use the URL as the cache key to sessionStorage
   let cacheKey = url
-  let cached = localStorage.getItem(cacheKey)
-  let whenCached = localStorage.getItem(cacheKey + ':ts')
+  let cached = sessionStorage.getItem(cacheKey)
+  let whenCached = sessionStorage.getItem(cacheKey + ':ts')
   if (cached !== null && whenCached !== null) {
     // it was in sessionStorage! Yay!
     // Even though 'whenCached' is a string, this operation
@@ -22,8 +22,8 @@ export const cachedFetch = (url, options) => {
       return Promise.resolve(response)
     } else {
       // We need to clean up this old key
-      localStorage.removeItem(cacheKey)
-      localStorage.removeItem(cacheKey + ':ts')
+      sessionStorage.removeItem(cacheKey)
+      sessionStorage.removeItem(cacheKey + ':ts')
     }
   }
 
@@ -40,8 +40,8 @@ export const cachedFetch = (url, options) => {
         // consumed by the time it's returned. This
         // way we're being un-intrusive.
         response.clone().text().then(content => {
-          localStorage.setItem(cacheKey, content)
-          localStorage.setItem(cacheKey + ':ts', Date.now())
+          sessionStorage.setItem(cacheKey, content)
+          sessionStorage.setItem(cacheKey + ':ts', Date.now())
         })
       }
     }
