@@ -1,25 +1,23 @@
 import config from 'config'
-import { compose, map, keyBy, assign, pick } from 'lodash/fp'
-import { lifecycle, withStateHandlers, branch, mapProps, renderComponent, withProps } from 'recompose'
-import { cachedFetch } from './cachedFetch'
+import { compose, map, keyBy, assign } from 'lodash/fp'
+import { lifecycle, withStateHandlers, branch, renderComponent, withProps, withHandlers } from 'recompose'
 import Loading from 'components/Loading'
 
-const withLoading = compose(
+const withLoading = (dataProp = 'data') => compose(
+  withProps(() => ({ controller: new AbortController() })),
+  lifecycle({ componentWillUnmount () { this.props.controller.abort() } }),
   withStateHandlers(
-    () => ({ loading: true, data: null }),
-    { doneLoading: () => data => ({ loading: false, data }) }
-  ),
-  withProps(() => ({
-    controller: new AbortController()
-  }))
+    () => ({ loading: true, [dataProp]: null }),
+    { doneLoading: () => data => ({ loading: false, [dataProp]: data }) }
+  )
 )
 
 export const withAchievements = compose(
-  withLoading,
+  withLoading(),
   lifecycle({
     componentDidMount () {
-      cachedFetch(`${config.gwHost}/achievements/daily`)
-        .then(res1 => res1.json())
+      fetch(`${config.gwHost}/achievements/daily`)
+        .then(res => res.json())
         .then(({ pvp, pve, wvw, fractals, special }) => {
           const allIds = [].concat(
             map('id')(pvp),
@@ -28,7 +26,7 @@ export const withAchievements = compose(
             map('id')(fractals),
             map('id')(special)
           )
-          cachedFetch(`${config.gwHost}/achievements?ids=${allIds}`, { signal: this.props.controller.signal })
+          fetch(`${config.gwHost}/achievements?ids=${allIds}`, { signal: this.props.controller.signal })
             .then(res2 => res2.json())
             .then(data2 => {
               const keyData = keyBy('id')(data2)
@@ -42,34 +40,46 @@ export const withAchievements = compose(
               })
             })
         })
-    },
-    componentWillUnmount () { this.props.controller.abort() }
+    }
   }),
   branch(
     ({ loading }) => loading,
     renderComponent(Loading)
-  ),
-  mapProps(pick('data'))
+  )
 )
 
 export const withCharacters = compose(
-  withLoading,
+  withLoading('allChars'),
   lifecycle({
     componentDidMount () {
-      cachedFetch(`${config.gwHost}/characters?access_token=${config.key}`, { signal: this.props.controller.signal })
-        .then(res1 => res1.json())
+      fetch(`${config.gwHost}/characters?access_token=${config.key}`, { signal: this.props.controller.signal })
+        .then(res => res.json())
         .then(data => this.props.doneLoading(data))
         .catch(err => {
           if (err.name !== 'AbortError') {
             console.log('error', err)
           }
         })
-    },
-    componentWillUnmount () { this.props.controller.abort() }
+    }
   }),
   branch(
     ({ loading }) => loading,
     renderComponent(Loading)
-  ),
-  mapProps(pick('data'))
+  )
+)
+
+export const withCharData = compose(
+  withLoading('charData'),
+  withHandlers({
+    fetchCharData: ({ controller, doneLoading }) => char => {
+      fetch(`${config.gwHost}/characters/${char}?access_token=${config.key}`, { signal: controller.signal })
+        .then(res => res.json())
+        .then(data => doneLoading(data))
+        .catch(err => {
+          if (err.name !== 'AbortError') {
+            console.log('error', err)
+          }
+        })
+    }
+  })
 )
