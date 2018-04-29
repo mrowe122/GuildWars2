@@ -38,9 +38,17 @@ const animations = {
   `
 }
 
+const zIndexLayers = {
+  header: 90,
+  footer: 90,
+  modal: 100,
+  statsContent: 5
+}
+
 export default {
   colors,
   sizes,
   generators,
-  animations
+  animations,
+  zIndexLayers
 }

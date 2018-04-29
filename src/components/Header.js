@@ -23,6 +23,7 @@ const Header = styled(HeaderTemplate)`
   top: 0;
   left: 0;
   right: 0;
+  z-index: ${({ theme }) => theme.zIndexLayers.header};
   position: fixed;
   padding: 0rem 1rem;
   display: flex;
