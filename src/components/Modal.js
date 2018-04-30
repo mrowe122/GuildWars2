@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { compose } from 'lodash/fp'
-import { setPropTypes } from 'recompose'
+import { setPropTypes, withStateHandlers } from 'recompose'
 import CloseIcon from 'mdi-react/CloseIcon'
 
 const sizeMap = {
@@ -17,13 +17,20 @@ const Content = styled.div`
   margin-bottom: 5rem;
   border-radius: 5px;
   background-color: white;
+
+  .closeIcon {
+    cursor: pointer;
+    top: 10px;
+    right: 10px;
+    position: absolute;
+  }
 `
 
-const ModalTemplate = ({ className, children, showModal, closeModal }) => (
+const ModalTemplate = ({ className, contentClass, children, showModal, closeModal, hideClose }) => (
   showModal ? (
     <div className={className}>
-      <Content>
-        <CloseIcon onClick={closeModal} className='closeIcon' />
+      <Content className={contentClass}>
+        { !hideClose && <CloseIcon onClick={closeModal} className='closeIcon' /> }
         {children}
       </Content>
     </div>
@@ -32,9 +39,11 @@ const ModalTemplate = ({ className, children, showModal, closeModal }) => (
 
 ModalTemplate.propTypes = {
   className: PropTypes.string,
+  contentClass: PropTypes.string,
   children: PropTypes.node,
   showModal: PropTypes.bool,
-  closeModal: PropTypes.func
+  closeModal: PropTypes.func,
+  hideClose: PropTypes.bool
 }
 
 const Modal = styled(ModalTemplate)`
@@ -42,29 +51,28 @@ const Modal = styled(ModalTemplate)`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 100;
+  z-index: ${({ theme }) => theme.zIndexLayers.modal};
   position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.colors.alphaGray};
+  background-color: ${({ theme }) => theme.colors.modalOverlay};
   animation: ${({ theme }) => theme.animations.fadeIn} 500ms ease;
 
   ${Content} {
     width: ${({ size = 'md' }) => sizeMap[size]};
     animation: ${({ theme }) => theme.animations.scaleUp} 500ms ease;
   }
-
-  .closeIcon {
-    cursor: pointer;
-    top: 10px;
-    right: 10px;
-    z-index: 10;
-    position: absolute;
-  }
 `
 
 Modal.propTypes = { size: PropTypes.oneOf(['sm', 'md', 'lg']) }
+
+export const withModal = compose(
+  withStateHandlers(
+    () => ({ showModal: false }),
+    { closeModal: ({ showModal }) => () => (({ showModal: !showModal })) }
+  )
+)
 
 export default compose(
   setPropTypes({

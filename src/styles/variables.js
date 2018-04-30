@@ -11,7 +11,8 @@ const colors = {
   gray3: '#494949',
   gray4: '#3C3C3C',
   gray5: '#2F2F2F',
-  alphaGray: 'rgba(75, 75, 75, 0.7)'
+  modalOverlay: 'rgba(75, 75, 75, 0.7)',
+  loadingOverlay: 'rgba(100,100, 100, 0.5)'
 }
 
 const sizes = {
