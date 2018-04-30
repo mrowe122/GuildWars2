@@ -8,7 +8,10 @@ const withLoading = (dataProp = 'data') => compose(
   lifecycle({ componentWillUnmount () { this.props.controller.abort() } }),
   withStateHandlers(
     () => ({ loading: true, [dataProp]: null }),
-    { doneLoading: () => data => ({ loading: false, [dataProp]: data }) }
+    {
+      doneLoading: () => data => ({ loading: false, [dataProp]: data }),
+      startLoading: () => () => ({ loading: true })
+    }
   )
 )
 
@@ -46,40 +49,4 @@ export const withAchievements = compose(
     ({ loading }) => loading,
     renderComponent(Loading)
   )
-)
-
-export const withCharacters = compose(
-  withLoading('allChars'),
-  lifecycle({
-    componentDidMount () {
-      fetch(`${config.gwHost}/characters?access_token=${config.key}`, { signal: this.props.controller.signal })
-        .then(res => res.json())
-        .then(data => this.props.doneLoading(data))
-        .catch(err => {
-          if (err.name !== 'AbortError') {
-            console.log('error', err)
-          }
-        })
-    }
-  }),
-  branch(
-    ({ loading }) => loading,
-    renderComponent(Loading)
-  )
-)
-
-export const withCharData = compose(
-  withLoading('charData'),
-  withHandlers({
-    fetchCharData: ({ controller, doneLoading }) => char => {
-      fetch(`${config.gwHost}/characters/${char}?access_token=${config.key}`, { signal: controller.signal })
-        .then(res => res.json())
-        .then(data => doneLoading(data))
-        .catch(err => {
-          if (err.name !== 'AbortError') {
-            console.log('error', err)
-          }
-        })
-    }
-  })
 )

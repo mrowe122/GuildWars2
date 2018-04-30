@@ -1,3 +1,6 @@
+import { compose, defer, omit, merge } from 'lodash/fp'
+import { withStateHandlers, withHandlers, withProps, lifecycle, branch, mapProps } from 'recompose'
+
 export const cachedFetch = (url, options) => {
   let expiry = 5 * 60 // 5 min default
   if (typeof options === 'number') {
@@ -48,3 +51,58 @@ export const cachedFetch = (url, options) => {
     return response
   })
 }
+
+const catchError = err => {
+  if (err.name !== 'AbortError') {
+    console.log('error', err)
+  }
+}
+
+const parseUrl = (url, variables) => {
+  let _url = url.slice()
+  if (variables) {
+    for (const prop in variables) {
+      _url = url.replace(`:${prop}`, variables[prop])
+    }
+  }
+  return _url
+}
+
+export const fetchHoc = (url, { dataProp = 'data', skip = false, props, method = 'onLoad' }, fetchOptions) => compose(
+  withProps(() => ({ controller: new AbortController() })),
+  lifecycle({ componentWillUnmount () { this.props.controller.abort() } }),
+  withStateHandlers(
+    () => ({ loading: (method !== 'onDemand' && !skip), [dataProp]: undefined }),
+    {
+      startLoading: () => () => ({ loading: true }),
+      finishedLoading: () => data => ({ loading: false, [dataProp]: data })
+    }
+  ),
+  withHandlers({
+    fetchData: ({ startLoading, finishedLoading, controller }) => variables => {
+      if (!skip) {
+        startLoading()
+        fetch(parseUrl(url, variables), merge(fetchOptions, { signal: controller.signal }))
+          .then(res => res.json())
+          .then(data => defer(() => finishedLoading(data)))
+          .catch(catchError)
+      }
+    }
+  }),
+  branch(
+    () => typeof props === 'function',
+    withProps(props)
+  ),
+  branch(
+    () => method === 'onLoad',
+    lifecycle({ componentDidMount () { this.props.fetchData() } })
+  ),
+  mapProps(omit([
+    'controller',
+    'finishedLoading',
+    'history',
+    'location',
+    'match',
+    'staticContext'
+  ]))
+)
