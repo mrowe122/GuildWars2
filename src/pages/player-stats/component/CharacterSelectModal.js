@@ -30,6 +30,7 @@ const CharacterSelectModal = styled(CharacterSelectModalTemplate)`
   background-size: 30rem;
   background-color: ${({ theme }) => theme.colors.primaryDark2};
   background-image: url('media/images/small_modal.png');
+  ${({ theme }) => theme.generators.boxShadow(0, 0, 70, -5, 'rgba(0, 0, 0, 1)')}
 
   h3 {
     margin-bottom: 1.5rem;
