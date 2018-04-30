@@ -6,6 +6,7 @@ import { setPropTypes, withStateHandlers } from 'recompose'
 import CloseIcon from 'mdi-react/CloseIcon'
 
 const sizeMap = {
+  auto: 'auto',
   sm: '20rem',
   md: '30rem',
   lg: '40rem'

@@ -59,7 +59,7 @@ const PlayerStats = styled(PlayerStatsTemplate)`
     justify-content: center;
     background-color: ${({ theme }) => theme.colors.loadingOverlay};
 
-    .sk-spinner { color: ${({ theme }) => theme.colors.primary}; }
+    .sk-spinner { color: ${({ theme }) => theme.colors.primaryLight1}; }
   }
 `
 

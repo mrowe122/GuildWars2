@@ -91,7 +91,7 @@ module.exports = {
       template: './index.html'
     }),
     new CopyWebpackPlugin([
-      { from: 'media', to: 'images' }
+      { from: 'media', to: 'media' }
     ]),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),

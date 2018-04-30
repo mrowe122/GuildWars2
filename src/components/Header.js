@@ -43,7 +43,7 @@ const Header = styled(HeaderTemplate)`
     padding: 0.7rem 1.2rem;
     background-color: ${({ theme }) => theme.colors.primary};
 
-    &:hover { background-color: ${({ theme }) => theme.colors.primaryHover}; }
+    &:hover { background-color: ${({ theme }) => theme.colors.primaryDark1}; }
   }
 
   & > div:nth-child(2) {

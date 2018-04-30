@@ -1,9 +1,11 @@
 import { keyframes } from 'styled-components'
 
 const colors = {
-  primary: '#AC0765',
-  primaryHover: '#7E0248',
-  primaryDark: '#3E0023',
+  primary: '#AC0764',
+  primaryLight1: '#C63185',
+  primaryLight2: '#DA69A9',
+  primaryDark1: '#83004A',
+  primaryDark2: '#51002E',
   white: '#FFFFFF',
   black: '#000000',
   gray1: '#8B8B8B',
@@ -12,7 +14,7 @@ const colors = {
   gray4: '#3C3C3C',
   gray5: '#2F2F2F',
   modalOverlay: 'rgba(75, 75, 75, 0.7)',
-  loadingOverlay: 'rgba(100,100, 100, 0.5)'
+  loadingOverlay: 'rgba(175, 175, 175, 0.5)'
 }
 
 const sizes = {

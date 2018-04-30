@@ -18,7 +18,7 @@ FooterTemplate.propTypes = {
 }
 
 const Footer = styled(FooterTemplate)`
-  background: ${({ theme }) => theme.colors.primaryDark};
+  background: ${({ theme }) => theme.colors.primaryDark2};
   padding: 1rem;
   left: 0;
   right: 0;
