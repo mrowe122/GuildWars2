@@ -20,7 +20,7 @@ const colors = {
 }
 
 const sizes = {
-  header: '65px',
+  header: '4rem',
   sideNav: '12rem'
 }
 
@@ -60,9 +60,9 @@ const animations = {
 }
 
 const zIndexLayers = {
-  header: 90,
-  footer: 90,
-  modal: 100,
+  header: 100,
+  footer: 100,
+  modal: 95,
   statsContent: 5
 }
 

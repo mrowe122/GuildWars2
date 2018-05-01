@@ -15,9 +15,9 @@ html, body {
   min-width: 100%;
   min-height: 100%;
   position: absolute;
-  .content {
+  & > div:nth-child(2) {
     padding-bottom: 5rem;
-    margin-top: 65px;
+    margin-top: 4rem;
   }
 }
 
@@ -64,9 +64,10 @@ p {
   -moz-hyphens: auto;
   -ms-hyphens: auto;
   hyphens: auto;
+  
 
   &.p1 {
-    font-weight: bold;
+    line-height: 1.6rem;
   }
 
   &.p2 {

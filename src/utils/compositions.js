@@ -1,6 +1,6 @@
 import config from 'config'
 import { compose, map, keyBy, assign } from 'lodash/fp'
-import { lifecycle, withStateHandlers, branch, renderComponent, withProps, withHandlers } from 'recompose'
+import { lifecycle, withStateHandlers, branch, renderComponent, withProps } from 'recompose'
 import Loading from 'components/Loading'
 
 const withLoading = (dataProp = 'data') => compose(

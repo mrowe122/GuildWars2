@@ -52,12 +52,6 @@ export const cachedFetch = (url, options) => {
   })
 }
 
-const catchError = err => {
-  if (err.name !== 'AbortError') {
-    console.log('error', err)
-  }
-}
-
 const parseUrl = (url, variables) => {
   let _url = url.slice()
   if (variables) {
@@ -68,24 +62,36 @@ const parseUrl = (url, variables) => {
   return _url
 }
 
-export const fetchHoc = (url, { dataProp = 'data', skip = false, props, method = 'onLoad' }, fetchOptions) => compose(
+const handleErrors = response => {
+  if (!response.ok) {
+    throw response.status
+  }
+  return response.text()
+}
+
+export const fetchHoc = (url, { dataProp = 'data', skip = false, props, method = 'onLoad', handler }, fetchOptions) => compose(
   withProps(() => ({ controller: new AbortController() })),
   lifecycle({ componentWillUnmount () { this.props.controller.abort() } }),
   withStateHandlers(
     () => ({ loading: (method !== 'onDemand' && !skip), [dataProp]: undefined }),
     {
       startLoading: () => () => ({ loading: true }),
-      finishedLoading: () => data => ({ loading: false, [dataProp]: data })
+      finishedLoading: () => data => ({ loading: false, [dataProp]: data }),
+      handleError: () => data => ({ loading: false, error: data })
     }
   ),
   withHandlers({
-    fetchData: ({ startLoading, finishedLoading, controller }) => variables => {
+    fetchData: ({ startLoading, finishedLoading, controller, handleError }) => variables => {
       if (!skip) {
         startLoading()
         fetch(parseUrl(url, variables), merge(fetchOptions, { signal: controller.signal }))
-          .then(res => res.json())
-          .then(data => defer(() => finishedLoading(data)))
-          .catch(catchError)
+          .then(handleErrors)
+          .then(data => defer(() => finishedLoading(JSON.parse(data))))
+          .catch(err => {
+            if (err.name !== 'AbortError') {
+              defer(() => handleError(err))
+            }
+          })
       }
     }
   }),
@@ -99,6 +105,7 @@ export const fetchHoc = (url, { dataProp = 'data', skip = false, props, method =
   ),
   mapProps(omit([
     'controller',
+    'handleError',
     'finishedLoading',
     'history',
     'location',

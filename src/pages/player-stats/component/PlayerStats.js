@@ -4,9 +4,10 @@ import styled from 'styled-components'
 import { compose, omit } from 'lodash/fp'
 import { withProps, withHandlers, branch, renderComponent, lifecycle, mapProps } from 'recompose'
 import { fetchHoc } from 'utils/cachedFetch'
+import { ageFromSeconds } from 'utils/utilities'
 import { withModal } from 'components'
 import Loading from 'components/Loading'
-import CharacterSelectModal from './CharacterSelectModal'
+import { CharacterSelectModal, ErrorCharacterModal } from './PlayerStatsModals'
 import Spinner from 'react-spinkit'
 import config from 'config'
 
@@ -41,8 +42,11 @@ const PlayerStatsTemplate = ({ className, selectChar, allChars, charData, charDa
     {
       charData && (
         <div className='col-xs-12'>
-          <h1>{charData.name}</h1>
-          <p>{charData.level}</p>
+          <h1>{charData.name} ({charData.level})</h1>
+          <p>Playtime: {ageFromSeconds(charData.age)}</p>
+          <p>gender: {charData.gender}</p>
+          <p>profession: {charData.profession}</p>
+          <p>race: {charData.race}</p>
         </div>
       )
     }
@@ -80,34 +84,31 @@ const PlayerStats = styled(PlayerStatsTemplate)`
 
 export default compose(
   withModal,
-  withProps(() => ({ selectedChar: localStorage.getItem('defaultChar') || null })),
+  withProps(() => ({ selectedChar: localStorage.getItem('defaultChar') })),
   fetchHoc(`${config.gwHost}/characters?access_token=${config.key}`, {
     dataProp: 'allChars',
-    props: ({ loading, allChars = [] }) => ({ allCharsLoading: loading, allChars })
+    // TODO: handle new account with no characters
+    props: ({ loading, allChars = [], error }) => ({ allCharsLoading: loading, allChars, error })
   }),
   fetchHoc(`${config.gwHost}/characters/:char?access_token=${config.key}`, {
     method: 'onDemand',
     dataProp: 'charData',
     props: ({ loading, charData = {} }) => ({ charDataLoading: loading, charData })
   }),
-  branch(
-    ({ allCharsLoading }) => allCharsLoading,
-    renderComponent(Loading)
-  ),
+  branch(p => p.error === 403, renderComponent(ErrorCharacterModal)),
+  branch(p => p.allCharsLoading, renderComponent(Loading)),
   withHandlers({
-    selectChar: ({ handleModal, handleCharData, fetchData, selectedChar }) => e => {
-      if (selectedChar !== e.target.innerText) {
+    selectChar: ({ fetchData, charData }) => e => {
+      if (charData.name !== e.target.innerText) {
         localStorage.setItem('defaultChar', e.target.innerText)
         fetchData({ 'char': e.target.innerText })
       }
     }
   }),
-  branch(
-    ({ selectedChar }) => !selectedChar,
-    renderComponent(CharacterSelectModal)
-  ),
+  branch(p => !p.selectedChar, renderComponent(CharacterSelectModal)),
   lifecycle({ componentDidMount () { this.props.fetchData({ 'char': this.props.selectedChar }) } }),
   mapProps(omit([
+    'error',
     'fetchData',
     'loading',
     'selectedChar'
