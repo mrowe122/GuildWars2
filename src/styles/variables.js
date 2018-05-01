@@ -1,11 +1,13 @@
 import { keyframes } from 'styled-components'
 
 const colors = {
-  primary: '#AC0764',
-  primaryLight1: '#C63185',
-  primaryLight2: '#DA69A9',
-  primaryDark1: '#83004A',
-  primaryDark2: '#51002E',
+  primary: '#9B0000',
+  primaryLight1: '#C21E1E',
+  primaryLight2: '#E33939',
+  primaryLight3: '#FF7C7C',
+  primaryDark1: '#730909',
+  primaryDark2: '#550e0e',
+  primaryDark3: '#361212',
   white: '#FFFFFF',
   black: '#000000',
   gray1: '#8B8B8B',
@@ -19,7 +21,7 @@ const colors = {
 
 const sizes = {
   header: '65px',
-  sideNav: '13rem'
+  sideNav: '12rem'
 }
 
 const generators = {
@@ -27,6 +29,22 @@ const generators = {
     box-shadow: ${x}px ${y}px ${blur}px ${spread}px ${color};
     -moz-box-shadow:${x}px ${y}px ${blur}px ${spread}px ${color};
     -webkit-box-shadow: ${x}px ${y}px ${blur}px ${spread}px ${color};
+  `,
+  textShadow: (y, x, blur, color) => `
+    text-shadow: ${y}px ${x}px ${blur}px ${color};
+  `,
+  gradient: (top, bottom) => `
+    background: ${top};
+    background: -moz-linear-gradient(top, ${top} 0%, ${bottom} 100%);
+    background: -webkit-linear-gradient(top, ${top} 0%,${bottom} 100%);
+    background: linear-gradient(to bottom, ${top} 0%,${bottom} 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='${top}', endColorstr='${bottom}',GradientType=0);
+  `,
+  transition: (time, timeFunction) => `
+    -webkit-transition: all ${time}ms ${timeFunction}; 
+    -moz-transition: all ${time}ms ${timeFunction}; 
+    -o-transition: all ${time}ms ${timeFunction}; 
+    transition: all ${time}ms ${timeFunction};
   `
 }
 

@@ -11,17 +11,32 @@ import Spinner from 'react-spinkit'
 import config from 'config'
 
 const SideNav = styled.div`
+  color: ${({ theme }) => theme.colors.gray1};
   height: 100%;
   width: ${({ theme }) => theme.sizes.sideNav};
+  padding: 1rem;
+  box-sizing: border-box;
   position: fixed;
-  background-color: ${({ theme }) => theme.colors.gray2};
+  background-color: ${({ theme }) => theme.colors.gray5};
+
+  a {
+    cursor: pointer;
+    width: inherit;
+    margin: .5rem 0;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    ${({ theme }) => theme.generators.transition(150, 'linear')};
+
+    &[active='1'], &:hover { color: ${({ theme }) => theme.colors.primaryLight2}; }
+  }
 `
 
 const PlayerStatsTemplate = ({ className, selectChar, allChars, charData, charDataLoading }) => (
   <div className={className}>
     { charDataLoading && <div className='overlay'><Spinner name='three-bounce' fadeIn='none' /></div> }
     <SideNav>
-      { allChars.map(char => <p onClick={selectChar} key={char}>{char}</p>) }
+      { allChars.map(c => <a key={c} active={charData.name === c ? '1' : '0'} onClick={selectChar}>{c}</a>) }
     </SideNav>
     {
       charData && (
@@ -65,6 +80,7 @@ const PlayerStats = styled(PlayerStatsTemplate)`
 
 export default compose(
   withModal,
+  withProps(() => ({ selectedChar: localStorage.getItem('defaultChar') || null })),
   fetchHoc(`${config.gwHost}/characters?access_token=${config.key}`, {
     dataProp: 'allChars',
     props: ({ loading, allChars = [] }) => ({ allCharsLoading: loading, allChars })
@@ -78,11 +94,12 @@ export default compose(
     ({ allCharsLoading }) => allCharsLoading,
     renderComponent(Loading)
   ),
-  withProps(() => ({ selectedChar: localStorage.getItem('defaultChar') || null })),
   withHandlers({
-    selectChar: ({ handleModal, handleCharData, fetchData }) => e => {
-      localStorage.setItem('defaultChar', e.target.innerText)
-      fetchData({ 'char': e.target.innerText })
+    selectChar: ({ handleModal, handleCharData, fetchData, selectedChar }) => e => {
+      if (selectedChar !== e.target.innerText) {
+        localStorage.setItem('defaultChar', e.target.innerText)
+        fetchData({ 'char': e.target.innerText })
+      }
     }
   }),
   branch(

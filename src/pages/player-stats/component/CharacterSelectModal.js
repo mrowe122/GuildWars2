@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import { compose } from 'lodash/fp'
 import { Modal } from 'components'
 
+import backgroundModal from 'media/images/small_modal.gif'
+
 const CharacterSelectModalTemplate = ({ className, closeModal, allChars, selectChar }) => (
   <Modal size='sm' contentClass={className} showModal hideClose closeModal={closeModal}>
     <h3>Select Your Character</h3>
@@ -27,25 +29,27 @@ CharacterSelectModalTemplate.propTypes = {
 const CharacterSelectModal = styled(CharacterSelectModalTemplate)`
   text-align: center;
   color: ${({ theme }) => theme.colors.white};
-  background-size: 30rem;
+  font-weight: 700;
+  background-repeat: no-repeat;
   background-color: ${({ theme }) => theme.colors.primaryDark2};
-  background-image: url('media/images/small_modal.png');
+  background-image: url(${backgroundModal});
   ${({ theme }) => theme.generators.boxShadow(0, 0, 70, -5, 'rgba(0, 0, 0, 1)')}
 
   h3 {
     margin-bottom: 1.5rem;
     color: ${({ theme }) => theme.colors.primaryLight2};
+    ${({ theme }) => theme.generators.textShadow(0, 2, 10, 'rgba(0,0,0,1)')};
   }
 
   a {
     cursor: pointer;
     display: inline-block;
     margin-bottom: .8rem;
-    transition: all 150ms linear;
+    ${({ theme }) => theme.generators.transition(150, 'linear')};
 
     &:hover {
-      color: ${({ theme }) => theme.colors.primaryLight2};
-      transition: all 150ms linear;
+      color: ${({ theme }) => theme.colors.primaryLight3};
+      ${({ theme }) => theme.generators.textShadow(0, 2, 10, 'rgba(0,0,0,1)')};
     }
   }
 `
