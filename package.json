@@ -4,7 +4,9 @@
   "description": "View your Guild Wars 2 stats and achievements",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config ./build/webpack.config.js"
+    "start": "node_modules/.bin/npm-run-all --parallel server dev",
+    "dev": "webpack-dev-server --config ./build/webpack.config.js",
+    "server": "node_modules/.bin/gw2_server"
   },
   "repository": {
     "type": "git",
@@ -14,8 +16,8 @@
   "license": "GPL-3.0",
   "homepage": "https://github.com/mrowe122/GuildWars2#readme",
   "dependencies": {
-    "crypto-js": "^3.1.9-1",
     "flexboxgrid": "^6.3.1",
+    "guildwars2-server": "https://github.com/mrowe122/GuildWars2-Server.git",
     "lodash": "^4.17.10",
     "mdi-react": "^3.0.0",
     "prop-types": "^15.6.1",
@@ -51,6 +53,7 @@
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.1.0",
     "node-sass": "^4.9.0",
+    "npm-run-all": "^4.1.2",
     "promise-polyfill": "^7.1.2",
     "react-hot-loader": "^4.1.2",
     "sass-loader": "^7.0.1",

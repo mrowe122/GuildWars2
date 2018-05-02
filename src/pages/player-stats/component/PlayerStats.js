@@ -85,12 +85,12 @@ const PlayerStats = styled(PlayerStatsTemplate)`
 export default compose(
   withModal,
   withProps(() => ({ selectedChar: localStorage.getItem('defaultChar') })),
-  fetchHoc(`${config.gwHost}/characters?access_token=${config.key}`, {
+  fetchHoc(`api/characters?access_token=${config.key}`, {
     dataProp: 'allChars',
     // TODO: handle new account with no characters
     props: ({ loading, allChars = [], error }) => ({ allCharsLoading: loading, allChars, error })
   }),
-  fetchHoc(`${config.gwHost}/characters/:char?access_token=${config.key}`, {
+  fetchHoc(`api/characters/:char?access_token=${config.key}`, {
     method: 'onDemand',
     dataProp: 'charData',
     props: ({ loading, charData = {} }) => ({ charDataLoading: loading, charData })

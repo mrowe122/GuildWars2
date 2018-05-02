@@ -86,7 +86,7 @@ export const fetchHoc = (url, { dataProp = 'data', skip = false, props, method =
         startLoading()
         fetch(parseUrl(url, variables), merge(fetchOptions, { signal: controller.signal }))
           .then(handleErrors)
-          .then(data => defer(() => finishedLoading(JSON.parse(data))))
+          .then(data => defer(() => finishedLoading(JSON.parse(data).body)))
           .catch(err => {
             if (err.name !== 'AbortError') {
               defer(() => handleError(err))

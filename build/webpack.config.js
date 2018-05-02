@@ -11,7 +11,10 @@ module.exports = {
     port: 9000,
     contentBase: path.src,
     hot: true,
-    historyApiFallback: true
+    historyApiFallback: true,
+    proxy: {
+      '/api': 'http://localhost:9001'
+    }
   },
   entry: ['react-hot-loader/patch', './normalize', './index'],
   output: {
