@@ -16,7 +16,7 @@ const colors = {
   gray4: '#3C3C3C',
   gray5: '#2F2F2F',
   modalOverlay: 'rgba(100, 100, 100, 0.5)',
-  loadingOverlay: 'rgba(175, 175, 175, 0.5)'
+  loadingOverlay: 'rgba(0, 0, 0, 0.6)'
 }
 
 const sizes = {
@@ -31,7 +31,7 @@ const generators = {
     -webkit-box-shadow: ${x}px ${y}px ${blur}px ${spread}px ${color};
   `,
   textShadow: (y, x, blur, color) => `
-    text-shadow: ${y}px ${x}px ${blur}px ${color};
+    text-shadow: ${y}px ${x}px ${blur}px ${color}, ${y}px ${x}px ${blur}px ${color};
   `,
   gradient: (top, bottom) => `
     background: ${top};

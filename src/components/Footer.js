@@ -18,13 +18,9 @@ FooterTemplate.propTypes = {
 }
 
 const Footer = styled(FooterTemplate)`
-  background: ${({ theme }) => theme.colors.primaryDark3};
+  background: ${({ theme }) => theme.colors.gray5};
   padding: 1rem;
-  left: 0;
-  right: 0;
-  bottom: 0;
   z-index: ${({ theme }) => theme.zIndexLayers.footer};
-  position: absolute;
   color: ${({ theme }) => theme.colors.white};
 `
 

@@ -29,10 +29,10 @@ const Header = styled(HeaderTemplate)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.gray5};
   height: ${({ theme }) => theme.sizes.header};
   line-height: ${({ theme }) => theme.sizes.header};
-  ${({ theme }) => theme.generators.boxShadow(0, 0, 15, 0, 'rgba(0, 0, 0, 0.3)')}
+  ${({ theme }) => theme.generators.boxShadow(0, 0, 15, 0, 'rgba(0, 0, 0, 1)')}
 
   a {
     color: ${({ theme }) => theme.colors.white};

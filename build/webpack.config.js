@@ -9,6 +9,7 @@ module.exports = {
   context: path.src,
   devServer: {
     port: 9000,
+    host: '0.0.0.0',
     contentBase: path.src,
     hot: true,
     historyApiFallback: true,
