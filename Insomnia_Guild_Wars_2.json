@@ -1,8 +1,8 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-04-09T03:46:27.293Z",
-	"__export_source": "insomnia.desktop.app:v5.15.0",
+	"__export_date": "2018-05-03T16:03:03.642Z",
+	"__export_source": "insomnia.desktop.app:v5.16.1",
 	"resources": [
 		{
 			"_id": "wrk_17543210300546a3ad92f054d3bbdcb1",
@@ -17,9 +17,12 @@
 			"_id": "env_c29c75c8511c4df4ad4630b22efb8378",
 			"color": null,
 			"created": 1522029167521,
-			"data": {},
+			"data": {
+				"base_url": "https://api.guildwars2.com/v2",
+				"local": "localhost:9001/api"
+			},
 			"isPrivate": false,
-			"modified": 1522029167521,
+			"modified": 1525353858170,
 			"name": "New Environment",
 			"parentId": "wrk_17543210300546a3ad92f054d3bbdcb1",
 			"_type": "environment"
@@ -39,10 +42,36 @@
 			"description": "",
 			"environment": {},
 			"metaSortKey": -1522029255404,
-			"modified": 1523209411617,
+			"modified": 1525354104701,
 			"name": "Guild Wars 2",
 			"parentId": "wrk_17543210300546a3ad92f054d3bbdcb1",
 			"_type": "request_group"
+		},
+		{
+			"_id": "env_180b9815d9ec44349e321ab0e1e6e266",
+			"color": "#0080ff",
+			"created": 1525353863533,
+			"data": {
+				"base_url": "localhost:9001/api"
+			},
+			"isPrivate": false,
+			"modified": 1525354620571,
+			"name": "Local",
+			"parentId": "env_c29c75c8511c4df4ad4630b22efb8378",
+			"_type": "environment"
+		},
+		{
+			"_id": "env_30ee3707e0dd41e8933d42dbfc0c2f1b",
+			"color": "#ff0000",
+			"created": 1525353870884,
+			"data": {
+				"base_url": "https://api.guildwars2.com/v2"
+			},
+			"isPrivate": false,
+			"modified": 1525353965828,
+			"name": "Guild Wars",
+			"parentId": "env_c29c75c8511c4df4ad4630b22efb8378",
+			"_type": "environment"
 		},
 		{
 			"_id": "fld_77f07fecd7c649b38b5286857654ad50",
@@ -177,6 +206,17 @@
 			"_type": "request_group"
 		},
 		{
+			"_id": "fld_4bcdfeee165c473dadf7b591d4c9302f",
+			"created": 1525356061062,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1525356061062,
+			"modified": 1525356061062,
+			"name": "Account",
+			"parentId": "fld_af0191d5066548eab382d9b48593983a",
+			"_type": "request_group"
+		},
+		{
 			"_id": "req_cfe57792297b424fb8726748a7b1e463",
 			"authentication": {
 				"disabled": false,
@@ -214,7 +254,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/tokeninfo",
+			"url": "{{ base_url  }}/tokeninfo",
 			"_type": "request"
 		},
 		{
@@ -239,7 +279,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1522614641650,
 			"method": "GET",
-			"modified": 1523200026987,
+			"modified": 1525354071617,
 			"name": "account",
 			"parameters": [
 				{
@@ -254,7 +294,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/account",
+			"url": "{{ base_url  }}/account",
 			"_type": "request"
 		},
 		{
@@ -294,7 +334,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/account/achievements",
+			"url": "{{ base_url  }}/account/achievements",
 			"_type": "request"
 		},
 		{
@@ -334,7 +374,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/account/bank",
+			"url": "{{ base_url  }}/account/bank",
 			"_type": "request"
 		},
 		{
@@ -374,7 +414,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/account/dungeons",
+			"url": "{{ base_url  }}/account/dungeons",
 			"_type": "request"
 		},
 		{
@@ -414,7 +454,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/account/dyes",
+			"url": "{{ base_url  }}/account/dyes",
 			"_type": "request"
 		},
 		{
@@ -454,7 +494,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/account/finishers",
+			"url": "{{ base_url  }}/account/finishers",
 			"_type": "request"
 		},
 		{
@@ -494,7 +534,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/account/home/cats",
+			"url": "{{ base_url  }}/account/home/cats",
 			"_type": "request"
 		},
 		{
@@ -534,7 +574,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/account/home/nodes",
+			"url": "{{ base_url  }}/account/home/nodes",
 			"_type": "request"
 		},
 		{
@@ -574,7 +614,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/account/inventory",
+			"url": "{{ base_url  }}/account/inventory",
 			"_type": "request"
 		},
 		{
@@ -614,7 +654,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/account/masteries?ids=2",
+			"url": "{{ base_url  }}/account/masteries?ids=2",
 			"_type": "request"
 		},
 		{
@@ -654,7 +694,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/account/materials",
+			"url": "{{ base_url  }}/account/materials",
 			"_type": "request"
 		},
 		{
@@ -694,7 +734,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/account/minis",
+			"url": "{{ base_url  }}/account/minis",
 			"_type": "request"
 		},
 		{
@@ -734,7 +774,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/account/outfits",
+			"url": "{{ base_url  }}/account/outfits",
 			"_type": "request"
 		},
 		{
@@ -774,7 +814,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/account/raids",
+			"url": "{{ base_url  }}/account/raids",
 			"_type": "request"
 		},
 		{
@@ -814,7 +854,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/account/recipes",
+			"url": "{{ base_url  }}/account/recipes",
 			"_type": "request"
 		},
 		{
@@ -854,7 +894,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/account/skins",
+			"url": "{{ base_url  }}/account/skins",
 			"_type": "request"
 		},
 		{
@@ -894,7 +934,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/account/titles",
+			"url": "{{ base_url  }}/account/titles",
 			"_type": "request"
 		},
 		{
@@ -934,7 +974,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/account/wallet",
+			"url": "{{ base_url  }}/account/wallet",
 			"_type": "request"
 		},
 		{
@@ -959,7 +999,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1522614641600.0002,
 			"method": "GET",
-			"modified": 1523201641586,
+			"modified": 1525363113842,
 			"name": "characters",
 			"parameters": [
 				{
@@ -974,7 +1014,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/characters",
+			"url": "{{ base_url  }}/characters",
 			"_type": "request"
 		},
 		{
@@ -1014,7 +1054,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/commerce/transactions/current/sells",
+			"url": "{{ base_url  }}/commerce/transactions/current/sells",
 			"_type": "request"
 		},
 		{
@@ -1054,7 +1094,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/pvp/stats",
+			"url": "{{ base_url  }}/pvp/stats",
 			"_type": "request"
 		},
 		{
@@ -1094,7 +1134,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/pvp/games",
+			"url": "{{ base_url  }}/pvp/games",
 			"_type": "request"
 		},
 		{
@@ -1134,7 +1174,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/pvp/standings",
+			"url": "{{ base_url  }}/pvp/standings",
 			"_type": "request"
 		},
 		{
@@ -1171,7 +1211,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/masteries?ids=all",
+			"url": "{{ base_url  }}/masteries?ids=all",
 			"_type": "request"
 		},
 		{
@@ -1208,7 +1248,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/outfits",
+			"url": "{{ base_url  }}/outfits",
 			"_type": "request"
 		},
 		{
@@ -1245,7 +1285,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/pets",
+			"url": "{{ base_url  }}/pets",
 			"_type": "request"
 		},
 		{
@@ -1282,7 +1322,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/professions",
+			"url": "{{ base_url  }}/professions",
 			"_type": "request"
 		},
 		{
@@ -1319,7 +1359,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/races",
+			"url": "{{ base_url  }}/races",
 			"_type": "request"
 		},
 		{
@@ -1356,7 +1396,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/specializations",
+			"url": "{{ base_url  }}/specializations",
 			"_type": "request"
 		},
 		{
@@ -1393,7 +1433,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/skills",
+			"url": "{{ base_url  }}/skills",
 			"_type": "request"
 		},
 		{
@@ -1430,7 +1470,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/traits",
+			"url": "{{ base_url  }}/traits",
 			"_type": "request"
 		},
 		{
@@ -1467,7 +1507,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/legends",
+			"url": "{{ base_url  }}/legends",
 			"_type": "request"
 		},
 		{
@@ -1504,7 +1544,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/guild/F5AFEEF2-F280-4E2C-B291-AB012B307045",
+			"url": "{{ base_url  }}/guild/F5AFEEF2-F280-4E2C-B291-AB012B307045",
 			"_type": "request"
 		},
 		{
@@ -1541,7 +1581,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/emblem/foregrounds",
+			"url": "{{ base_url  }}/emblem/foregrounds",
 			"_type": "request"
 		},
 		{
@@ -1578,7 +1618,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/guild/permissions",
+			"url": "{{ base_url  }}/guild/permissions",
 			"_type": "request"
 		},
 		{
@@ -1615,7 +1655,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/guild/search?name=Defenders Of The Black Citadel",
+			"url": "{{ base_url  }}/guild/search?name=Defenders Of The Black Citadel",
 			"_type": "request"
 		},
 		{
@@ -1652,7 +1692,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/guild/upgrades",
+			"url": "{{ base_url  }}/guild/upgrades",
 			"_type": "request"
 		},
 		{
@@ -1692,7 +1732,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/guild/F5AFEEF2-F280-4E2C-B291-AB012B307045/log",
+			"url": "{{ base_url  }}/guild/F5AFEEF2-F280-4E2C-B291-AB012B307045/log",
 			"_type": "request"
 		},
 		{
@@ -1732,7 +1772,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/guild/F5AFEEF2-F280-4E2C-B291-AB012B307045/members",
+			"url": "{{ base_url  }}/guild/F5AFEEF2-F280-4E2C-B291-AB012B307045/members",
 			"_type": "request"
 		},
 		{
@@ -1772,7 +1812,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/guild/F5AFEEF2-F280-4E2C-B291-AB012B307045/ranks",
+			"url": "{{ base_url  }}/guild/F5AFEEF2-F280-4E2C-B291-AB012B307045/ranks",
 			"_type": "request"
 		},
 		{
@@ -1812,7 +1852,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/guild/F5AFEEF2-F280-4E2C-B291-AB012B307045/stash",
+			"url": "{{ base_url  }}/guild/F5AFEEF2-F280-4E2C-B291-AB012B307045/stash",
 			"_type": "request"
 		},
 		{
@@ -1852,7 +1892,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/guild/F5AFEEF2-F280-4E2C-B291-AB012B307045/treasury",
+			"url": "{{ base_url  }}/guild/F5AFEEF2-F280-4E2C-B291-AB012B307045/treasury",
 			"_type": "request"
 		},
 		{
@@ -1892,7 +1932,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/guild/F5AFEEF2-F280-4E2C-B291-AB012B307045/teams",
+			"url": "{{ base_url  }}/guild/F5AFEEF2-F280-4E2C-B291-AB012B307045/teams",
 			"_type": "request"
 		},
 		{
@@ -1932,7 +1972,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/guild/F5AFEEF2-F280-4E2C-B291-AB012B307045/upgrades",
+			"url": "{{ base_url  }}/guild/F5AFEEF2-F280-4E2C-B291-AB012B307045/upgrades",
 			"_type": "request"
 		},
 		{
@@ -1969,7 +2009,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/finishers",
+			"url": "{{ base_url  }}/finishers",
 			"_type": "request"
 		},
 		{
@@ -1991,7 +2031,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1523204634900.8145,
 			"method": "GET",
-			"modified": 1523208900444,
+			"modified": 1523925410842,
 			"name": "items",
 			"parameters": [
 				{
@@ -2006,7 +2046,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/items",
+			"url": "{{ base_url  }}/items",
 			"_type": "request"
 		},
 		{
@@ -2043,7 +2083,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/itemstats",
+			"url": "{{ base_url  }}/itemstats",
 			"_type": "request"
 		},
 		{
@@ -2080,7 +2120,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/materials",
+			"url": "{{ base_url  }}/materials",
 			"_type": "request"
 		},
 		{
@@ -2117,7 +2157,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/pvp/amulets",
+			"url": "{{ base_url  }}/pvp/amulets",
 			"_type": "request"
 		},
 		{
@@ -2154,7 +2194,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/recipes",
+			"url": "{{ base_url  }}/recipes",
 			"_type": "request"
 		},
 		{
@@ -2191,7 +2231,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/recipes/search",
+			"url": "{{ base_url  }}/recipes/search",
 			"_type": "request"
 		},
 		{
@@ -2228,7 +2268,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/skins",
+			"url": "{{ base_url  }}/skins",
 			"_type": "request"
 		},
 		{
@@ -2265,7 +2305,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/continents/2",
+			"url": "{{ base_url  }}/continents/2",
 			"_type": "request"
 		},
 		{
@@ -2302,7 +2342,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/maps",
+			"url": "{{ base_url  }}/maps",
 			"_type": "request"
 		},
 		{
@@ -2339,7 +2379,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/build",
+			"url": "{{ base_url  }}/build",
 			"_type": "request"
 		},
 		{
@@ -2376,7 +2416,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/colors",
+			"url": "{{ base_url  }}/colors",
 			"_type": "request"
 		},
 		{
@@ -2413,7 +2453,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/currencies",
+			"url": "{{ base_url  }}/currencies",
 			"_type": "request"
 		},
 		{
@@ -2450,7 +2490,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/dungeons",
+			"url": "{{ base_url  }}/dungeons",
 			"_type": "request"
 		},
 		{
@@ -2487,7 +2527,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/files",
+			"url": "{{ base_url  }}/files",
 			"_type": "request"
 		},
 		{
@@ -2524,7 +2564,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/quaggans",
+			"url": "{{ base_url  }}/quaggans",
 			"_type": "request"
 		},
 		{
@@ -2561,7 +2601,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/minis",
+			"url": "{{ base_url  }}/minis",
 			"_type": "request"
 		},
 		{
@@ -2598,7 +2638,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/raids",
+			"url": "{{ base_url  }}/raids",
 			"_type": "request"
 		},
 		{
@@ -2635,7 +2675,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/titles",
+			"url": "{{ base_url  }}/titles",
 			"_type": "request"
 		},
 		{
@@ -2672,7 +2712,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/worlds",
+			"url": "{{ base_url  }}/worlds",
 			"_type": "request"
 		},
 		{
@@ -2709,7 +2749,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/backstory/answers",
+			"url": "{{ base_url  }}/backstory/answers",
 			"_type": "request"
 		},
 		{
@@ -2746,7 +2786,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/backstory/questions",
+			"url": "{{ base_url  }}/backstory/questions",
 			"_type": "request"
 		},
 		{
@@ -2783,7 +2823,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/stories",
+			"url": "{{ base_url  }}/stories",
 			"_type": "request"
 		},
 		{
@@ -2820,7 +2860,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/stories/seasons",
+			"url": "{{ base_url  }}/stories/seasons",
 			"_type": "request"
 		},
 		{
@@ -2857,7 +2897,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/pvp",
+			"url": "{{ base_url  }}/pvp",
 			"_type": "request"
 		},
 		{
@@ -2894,7 +2934,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/pvp/ranks",
+			"url": "{{ base_url  }}/pvp/ranks",
 			"_type": "request"
 		},
 		{
@@ -2931,7 +2971,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/pvp/seasons",
+			"url": "{{ base_url  }}/pvp/seasons",
 			"_type": "request"
 		},
 		{
@@ -2968,7 +3008,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/pvp/seasons/44B85826-B5ED-4890-8C77-82DDF9F2CF2B/leaderboards/legendary/na",
+			"url": "{{ base_url  }}/pvp/seasons/44B85826-B5ED-4890-8C77-82DDF9F2CF2B/leaderboards/legendary/na",
 			"_type": "request"
 		},
 		{
@@ -3005,7 +3045,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/commerce/listings",
+			"url": "{{ base_url  }}/commerce/listings",
 			"_type": "request"
 		},
 		{
@@ -3042,7 +3082,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/commerce/exchange",
+			"url": "{{ base_url  }}/commerce/exchange",
 			"_type": "request"
 		},
 		{
@@ -3079,7 +3119,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/commerce/exchange/coins?quantity=10000",
+			"url": "{{ base_url  }}/commerce/exchange/coins?quantity=10000",
 			"_type": "request"
 		},
 		{
@@ -3116,7 +3156,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/commerce/exchange/gems?quantity=100",
+			"url": "{{ base_url  }}/commerce/exchange/gems?quantity=100",
 			"_type": "request"
 		},
 		{
@@ -3153,7 +3193,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/commerce/prices",
+			"url": "{{ base_url  }}/commerce/prices",
 			"_type": "request"
 		},
 		{
@@ -3190,7 +3230,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/wvw",
+			"url": "{{ base_url  }}/wvw",
 			"_type": "request"
 		},
 		{
@@ -3227,7 +3267,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/wvw/abilities",
+			"url": "{{ base_url  }}/wvw/abilities",
 			"_type": "request"
 		},
 		{
@@ -3264,7 +3304,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/wvw/matches",
+			"url": "{{ base_url  }}/wvw/matches",
 			"_type": "request"
 		},
 		{
@@ -3301,7 +3341,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/wvw/objectives",
+			"url": "{{ base_url  }}/wvw/objectives",
 			"_type": "request"
 		},
 		{
@@ -3338,7 +3378,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/wvw/ranks",
+			"url": "{{ base_url  }}/wvw/ranks",
 			"_type": "request"
 		},
 		{
@@ -3375,7 +3415,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/wvw/upgrades",
+			"url": "{{ base_url  }}/wvw/upgrades",
 			"_type": "request"
 		},
 		{
@@ -3397,7 +3437,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/achievements",
+			"url": "{{ base_url  }}/achievements",
 			"_type": "request"
 		},
 		{
@@ -3419,7 +3459,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/achievements/daily",
+			"url": "{{ base_url  }}/achievements/daily",
 			"_type": "request"
 		},
 		{
@@ -3441,7 +3481,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/achievements/daily/tomorrow",
+			"url": "{{ base_url  }}/achievements/daily/tomorrow",
 			"_type": "request"
 		},
 		{
@@ -3454,7 +3494,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1523200601214.25,
 			"method": "GET",
-			"modified": 1523204942185,
+			"modified": 1523359342873,
 			"name": "achievements/groups",
 			"parameters": [],
 			"parentId": "fld_f2ca88db16de4c4ea88847316a35d497",
@@ -3463,7 +3503,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/achievements/groups",
+			"url": "{{ base_url  }}/achievements/groups/",
 			"_type": "request"
 		},
 		{
@@ -3476,7 +3516,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1523200297778.125,
 			"method": "GET",
-			"modified": 1523204965137,
+			"modified": 1523589117095,
 			"name": "achievements/categories",
 			"parameters": [],
 			"parentId": "fld_f2ca88db16de4c4ea88847316a35d497",
@@ -3485,7 +3525,54 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "https://api.guildwars2.com/v2/achievements/categories",
+			"url": "{{ base_url  }}/achievements/categories/2",
+			"_type": "request"
+		},
+		{
+			"_id": "req_e62c08c47f954cc79102048939ad1321",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/x-www-form-urlencoded",
+				"params": [
+					{
+						"id": "pair_3f880c4bfd994664bbb4896142796fa9",
+						"name": "user",
+						"value": "1"
+					},
+					{
+						"id": "pair_d89b849f73e94aca9e82bd2b84914c30",
+						"name": "password",
+						"value": "1"
+					},
+					{
+						"id": "pair_39d1671b90ad4424a31d58a8a6a9ecca",
+						"name": "apiKey",
+						"value": "E8F4232E-7A73-A945-A8F9-415D2E5E4820ABFF0ECC-0593-4B42-AF42-EF9D669563CD"
+					}
+				]
+			},
+			"created": 1525356080250,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_217d7d75d5b34857b66a4f85b4636898",
+					"name": "Content-Type",
+					"value": "application/x-www-form-urlencoded"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1525356080250,
+			"method": "POST",
+			"modified": 1525356569181,
+			"name": "Create Account",
+			"parameters": [],
+			"parentId": "fld_4bcdfeee165c473dadf7b591d4c9302f",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ base_url  }}/authenticate",
 			"_type": "request"
 		}
 	]

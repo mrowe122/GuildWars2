@@ -9,7 +9,6 @@ import { withModal } from 'components'
 import Loading from 'components/Loading'
 import { CharacterSelectModal, ErrorCharacterModal } from './PlayerStatsModals'
 import Spinner from 'react-spinkit'
-import config from 'config'
 
 const SideNav = styled.div`
   color: ${({ theme }) => theme.colors.gray1};
@@ -18,7 +17,8 @@ const SideNav = styled.div`
   padding: 1rem;
   box-sizing: border-box;
   position: fixed;
-  background-color: ${({ theme }) => theme.colors.gray5};
+  background-color: ${({ theme }) => theme.colors.gray4};
+  ${({ theme }) => theme.generators.textShadow(0, 0, 5, 'rgba(0,0,0,1)')};
 
   a {
     cursor: pointer;
@@ -62,9 +62,9 @@ PlayerStatsTemplate.propTypes = {
 }
 
 const PlayerStats = styled(PlayerStatsTemplate)`
-  .col-xs-12 {
-    margin-left: ${({ theme }) => theme.sizes.sideNav};
-  }
+  color: ${({ theme }) => theme.colors.white};
+
+  .col-xs-12 { margin-left: ${({ theme }) => theme.sizes.sideNav}; }
 
   .overlay {
     top: 0;
@@ -85,12 +85,12 @@ const PlayerStats = styled(PlayerStatsTemplate)`
 export default compose(
   withModal,
   withProps(() => ({ selectedChar: localStorage.getItem('defaultChar') })),
-  fetchHoc(`api/characters?access_token=${config.key}`, {
+  fetchHoc(`api/characters`, {
     dataProp: 'allChars',
     // TODO: handle new account with no characters
     props: ({ loading, allChars = [], error }) => ({ allCharsLoading: loading, allChars, error })
   }),
-  fetchHoc(`api/characters/:char?access_token=${config.key}`, {
+  fetchHoc(`api/characters/:char`, {
     method: 'onDemand',
     dataProp: 'charData',
     props: ({ loading, charData = {} }) => ({ charDataLoading: loading, charData })
