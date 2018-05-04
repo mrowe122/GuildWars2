@@ -103,7 +103,8 @@ export default compose(
         localStorage.setItem('defaultChar', e.target.innerText)
         fetchData({ 'char': e.target.innerText })
       }
-    }
+    },
+    modalSelectChar: () => e => localStorage.setItem('defaultChar', e.target.innerText)
   }),
   branch(p => !p.selectedChar, renderComponent(CharacterSelectModal)),
   lifecycle({ componentDidMount () { this.props.fetchData({ 'char': this.props.selectedChar }) } }),

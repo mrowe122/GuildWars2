@@ -34,13 +34,13 @@ const ModalStyling = css`
   }
 `
 
-const CharacterSelectModalTemplate = ({ className, closeModal, allChars, selectChar }) => (
+const CharacterSelectModalTemplate = ({ className, closeModal, allChars, modalSelectChar }) => (
   <Modal size='sm' contentClass={className} showModal hideClose closeModal={closeModal}>
     <h3>Select Your Character</h3>
     {
       allChars.length ? allChars.map(char => (
         <div key={char}>
-          <a onClick={compose(closeModal, selectChar)}>{char}</a>
+          <a onClick={compose(closeModal, modalSelectChar)}>{char}</a>
         </div>
       )) : (
         <a>You have not created any characters yet</a>
@@ -53,7 +53,7 @@ CharacterSelectModalTemplate.propTypes = {
   className: PropTypes.string,
   closeModal: PropTypes.func,
   allChars: PropTypes.array,
-  selectChar: PropTypes.func
+  modalSelectChar: PropTypes.func
 }
 
 const CharacterSelectModal = styled(CharacterSelectModalTemplate)`${ModalStyling}`

@@ -3183,6 +3183,10 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
 
+fs@^0.0.1-security:
+  version "0.0.1-security"
+  resolved "https://registry.yarnpkg.com/fs/-/fs-0.0.1-security.tgz#8a7bd37186b6dddf3813f23858b57ecaaf5e41d4"
+
 fsevents@^1.1.2:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.2.3.tgz#08292982e7059f6674c93d8b829c1e8604979ac0"
@@ -3483,10 +3487,13 @@ grouped-queue@^0.3.3:
 
 "guildwars2-server@https://github.com/mrowe122/GuildWars2-Server.git":
   version "0.0.0"
-  resolved "https://github.com/mrowe122/GuildWars2-Server.git#c3f54e0fe0808b1be361b368380b01ebe3417680"
+  resolved "https://github.com/mrowe122/GuildWars2-Server.git#fcf19cbf5c659fa5dd97c19b36c2cbab7df6d171"
   dependencies:
+    body-parser "^1.18.2"
     express "^4.16.3"
+    fs "^0.0.1-security"
     json-server "^0.12.1"
+    lodash "^4.17.10"
     unirest "^0.5.1"
 
 handle-thing@^1.2.5:
