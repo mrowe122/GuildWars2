@@ -5,7 +5,7 @@ import { compose, omit } from 'lodash/fp'
 import { withProps, withHandlers, branch, renderComponent, lifecycle, mapProps } from 'recompose'
 import { fetchHoc } from 'utils/cachedFetch'
 import { ageFromSeconds } from 'utils/utilities'
-import { withModal } from 'components'
+import { withModal, ItemSlot } from 'components'
 import Loading from 'components/Loading'
 import { CharacterSelectModal, ErrorCharacterModal } from './PlayerStatsModals'
 import Spinner from 'react-spinkit'
@@ -33,25 +33,82 @@ const SideNav = styled.div`
   }
 `
 
-const PlayerStatsTemplate = ({ className, selectChar, allChars, charData, charDataLoading }) => (
-  <div className={className}>
-    { charDataLoading && <div className='overlay'><Spinner name='three-bounce' fadeIn='none' /></div> }
-    <SideNav>
-      { allChars.map(c => <a key={c} active={charData.name === c ? '1' : '0'} onClick={selectChar}>{c}</a>) }
-    </SideNav>
-    {
-      charData && (
-        <div className='col-xs-12'>
-          <h1>{charData.name} ({charData.level})</h1>
-          <p>Playtime: {ageFromSeconds(charData.age)}</p>
-          <p>gender: {charData.gender}</p>
-          <p>profession: {charData.profession}</p>
-          <p>race: {charData.race}</p>
-        </div>
-      )
-    }
-  </div>
-)
+const Content = styled.div`
+  padding-top: 2rem;
+  margin-left: ${({ theme }) => theme.sizes.sideNav};
+  display: flex;
+  flex-direction: row;
+
+  & > div {
+    padding: 0 2rem;
+  }
+
+  .lb {
+    display: flex;
+    flex-direction: column;
+    div:nth-child(7) { margin-top: 1.5rem; }
+  }
+
+  .background {
+    width: 400px;
+    height: 600px;
+    background-color: ${({ theme }) => theme.colors.gray3}
+  }
+`
+
+const PlayerStatsTemplate = ({ className, selectChar, allChars, charData, charDataLoading }) => {
+  console.log(charData)
+  return (
+    <div className={className}>
+      { charDataLoading && <div className='overlay'><Spinner name='three-bounce' fadeIn='none' /></div> }
+      <SideNav>
+        { charData && allChars.map(c => <a key={c} active={charData.name === c ? '1' : '0'} onClick={selectChar}>{c}</a>) }
+      </SideNav>
+      {
+        charData && (
+          <Content className='col-xs-12'>
+            <div>
+              <h1>{charData.name} ({charData.level})</h1>
+              <p>Playtime: {ageFromSeconds(charData.age)}</p>
+              <p>profession: {charData.profession}</p>
+            </div>
+
+            <div className='lb'>
+              <ItemSlot item={charData.equipment.Helm} />
+              <ItemSlot item={charData.equipment.Shoulders} />
+              <ItemSlot item={charData.equipment.Coat} />
+              <ItemSlot item={charData.equipment.Gloves} />
+              <ItemSlot item={charData.equipment.Leggings} />
+              <ItemSlot item={charData.equipment.Boots} />
+
+              <ItemSlot item={charData.equipment.WeaponA1} />
+              <ItemSlot item={charData.equipment.WeaponA2} />
+              <ItemSlot item={charData.equipment.WeaponB1} />
+              <ItemSlot item={charData.equipment.WeaponB2} />
+            </div>
+
+            <div className='c'>
+              <div className='background' />
+            </div>
+
+            <div className='rb'>
+              <div className='row'>
+                <ItemSlot item={charData.equipment.Backpack} />
+                <ItemSlot item={charData.equipment.Accessory1} />
+                <ItemSlot item={charData.equipment.Accessory2} />
+              </div>
+              <div className='row'>
+                <ItemSlot item={charData.equipment.Amulet} />
+                <ItemSlot item={charData.equipment.Ring1} />
+                <ItemSlot item={charData.equipment.Ring2} />
+              </div>
+            </div>
+          </Content>
+        )
+      }
+    </div>
+  )
+}
 
 PlayerStatsTemplate.propTypes = {
   className: PropTypes.string,
@@ -63,8 +120,6 @@ PlayerStatsTemplate.propTypes = {
 
 const PlayerStats = styled(PlayerStatsTemplate)`
   color: ${({ theme }) => theme.colors.white};
-
-  .col-xs-12 { margin-left: ${({ theme }) => theme.sizes.sideNav}; }
 
   .overlay {
     top: 0;
@@ -93,7 +148,7 @@ export default compose(
   fetchHoc(`api/characters/:char`, {
     method: 'onDemand',
     dataProp: 'charData',
-    props: ({ loading, charData = {} }) => ({ charDataLoading: loading, charData })
+    props: ({ loading, charData = undefined }) => ({ charDataLoading: loading, charData })
   }),
   branch(p => p.error === 403, renderComponent(ErrorCharacterModal)),
   branch(p => p.allCharsLoading, renderComponent(Loading)),
@@ -104,6 +159,7 @@ export default compose(
         fetchData({ 'char': e.target.innerText })
       }
     },
+    // will be removed once caching is implemented
     modalSelectChar: () => e => localStorage.setItem('defaultChar', e.target.innerText)
   }),
   branch(p => !p.selectedChar, renderComponent(CharacterSelectModal)),
