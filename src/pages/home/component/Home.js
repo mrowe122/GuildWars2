@@ -13,6 +13,7 @@ HomeTemplate.propTypes = {
 }
 
 const Home = styled(HomeTemplate)`
+  color: ${({ theme }) => theme.colors.white};
 `
 
 export default Home

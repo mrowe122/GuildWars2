@@ -17,7 +17,7 @@ const Content = styled.div`
   position: relative;
   margin-bottom: 5rem;
   border-radius: 5px;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.white};
 
   .closeIcon {
     cursor: pointer;

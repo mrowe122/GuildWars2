@@ -97,8 +97,8 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: 'media', to: 'media' }
     ]),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new CircularDependencyPlugin({
       failOnError: true
     })

@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node_modules/.bin/npm-run-all --parallel server dev",
+    "mock": "node_modules/.bin/npm-run-all --parallel mockServer dev",
     "dev": "webpack-dev-server --config ./build/webpack.config.js",
-    "server": "node_modules/.bin/gw2_server"
+    "server": "node_modules/.bin/gw2_server",
+    "mockServer": "node_modules/.bin/gw2_mock_server"
   },
   "repository": {
     "type": "git",
@@ -42,7 +44,7 @@
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
-    "eslint-config-standard": "^11.0.0",
+    "eslint-config-standard": "^12.0.0-alpha.0",
     "eslint-config-standard-react": "^6.0.0",
     "eslint-plugin-babel": "^5.0.0",
     "eslint-plugin-import": "^2.9.0",

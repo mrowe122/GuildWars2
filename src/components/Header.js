@@ -55,7 +55,7 @@ const Header = styled(HeaderTemplate)`
     width: 26px;
     cursor: pointer;
     padding: .4rem;
-    fill: white;
+    fill: ${({ theme }) => theme.colors.white};
   }
 `
 
