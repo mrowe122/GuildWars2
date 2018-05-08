@@ -37,7 +37,7 @@ const DailyEntry = styled(DailyEntryTemplate)`
   display: flex;
   align-items: center;
   padding: 0.5rem .7rem;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.black};
 
   h4 {
     font-weight: bold;
