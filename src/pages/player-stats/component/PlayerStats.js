@@ -102,6 +102,11 @@ const PlayerStatsTemplate = ({ className, selectChar, allChars, charData, charDa
                 <ItemSlot item={charData.equipment.Ring1} />
                 <ItemSlot item={charData.equipment.Ring2} />
               </div>
+              <div className='row'>
+                <ItemSlot item={charData.equipment.Sickle} />
+                <ItemSlot item={charData.equipment.Axe} />
+                <ItemSlot item={charData.equipment.Pick} />
+              </div>
             </div>
           </Content>
         )
@@ -126,7 +131,7 @@ const PlayerStats = styled(PlayerStatsTemplate)`
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: ${({ theme }) => theme.zIndexLayers.statsContent};
+    z-index: ${({ theme }) => theme.zIndexLayers.modalOverlay};
     position: fixed;
     display: flex;
     align-items: center;

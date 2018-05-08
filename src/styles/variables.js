@@ -15,8 +15,9 @@ const colors = {
   gray3: '#494949',
   gray4: '#3C3C3C',
   gray5: '#2F2F2F',
+  loadingOverlay: 'rgba(0, 0, 0, 0.6)',
   modalOverlay: 'rgba(100, 100, 100, 0.5)',
-  loadingOverlay: 'rgba(0, 0, 0, 0.6)'
+  tooltip: 'rgba(5, 5, 5, 0.8)'
 }
 
 const sizes = {
@@ -63,7 +64,8 @@ const zIndexLayers = {
   header: 100,
   footer: 100,
   modal: 95,
-  statsContent: 5
+  modalOverlay: 5,
+  tooltip: 10
 }
 
 export default {
