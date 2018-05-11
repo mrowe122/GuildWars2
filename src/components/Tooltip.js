@@ -15,14 +15,26 @@ TooltipTemplate.propTypes = {
 
 const Tooltip = styled(TooltipTemplate)`
   color: ${({ theme }) => theme.colors.white};
-  width: 100px;
-  height: 100px;
+  min-height: 100px;
+  padding: .7rem;
   margin: 0 1rem;
   top: -50%;
-  left: 100%;
+  left: 120%;
   position: absolute;
+  white-space: nowrap;
   z-index: ${({ theme }) => theme.zIndexLayers.tooltip};
   background-color: ${({ theme }) => theme.colors.tooltip};
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 50px;
+    margin-top: -15px;
+    left:-30px;
+    border: solid 15px transparent;
+    border-right-color: ${({ theme }) => theme.colors.tooltip};
+    z-index: 1;
+  }
 `
 
 export default Tooltip
