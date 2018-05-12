@@ -24,16 +24,19 @@ const Tooltip = styled(TooltipTemplate)`
   white-space: nowrap;
   z-index: ${({ theme }) => theme.zIndexLayers.tooltip};
   background-color: ${({ theme }) => theme.colors.tooltip};
+  border: 1px solid ${({ theme }) => theme.colors.primary};
 
   &:before {
-    content: "";
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
     position: absolute;
-    top: 50px;
-    margin-top: -15px;
-    left:-30px;
-    border: solid 15px transparent;
-    border-right-color: ${({ theme }) => theme.colors.tooltip};
-    z-index: 1;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 15px solid ${({ theme }) => theme.colors.primary};
+    left: -15px;
+    top: 35px;
   }
 `
 
