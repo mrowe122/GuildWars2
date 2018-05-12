@@ -6,7 +6,7 @@ const colors = {
   primaryLight2: '#E33939',
   primaryLight3: '#FF7C7C',
   primaryDark1: '#730909',
-  primaryDark2: '#550e0e',
+  primaryDark2: '#550E0E',
   primaryDark3: '#361212',
   white: '#FFFFFF',
   black: '#000000',
@@ -17,7 +17,7 @@ const colors = {
   gray5: '#2F2F2F',
   loadingOverlay: 'rgba(0, 0, 0, 0.6)',
   modalOverlay: 'rgba(100, 100, 100, 0.5)',
-  tooltip: 'rgba(125, 125, 125, 0.7)'
+  tooltip: 'rgba(50, 50, 50, 0.8)'
 }
 
 const sizes = {
