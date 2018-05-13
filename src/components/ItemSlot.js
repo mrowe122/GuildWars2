@@ -1,197 +1,86 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { compose, getOr, get } from 'lodash/fp'
+import { compose, get } from 'lodash/fp'
 import { withStateHandlers } from 'recompose'
 import { Slot } from 'utils/constants'
-import Tooltip from './Tooltip'
+import { Tooltip } from './Tooltip'
+import { IconTitle, Attributes, Upgrades, Infusions, ItemInfo, ItemSkin } from './Tooltip/components'
 
 import emptySlot from 'media/images/empty_slot.gif'
 
-const ArmorTooltip = ({ item }) => {
-  return (
-    <Tooltip>
-      <div className='img-title'>
-        <img src={get('skin.icon')(item) || get('data.icon')(item)} />
-        <h4 className={get('data.rarity')(item)}>{get('skin.name')(item) || get('data.name')(item)} {get('upgrades[0].details.suffix')(item)}</h4>
-      </div>
-      <p>Defense: <span className='Masterwork'>{get('data.details.defense')(item)}</span></p>
-      <div>
-        {
-          getOr([], 'data.details.infix_upgrade.attributes')(item).map(a => (
-            <p key={a.attribute} className='p2 Masterwork'>+{a.modifier} {a.attribute}</p>
-          ))
-        }
-      </div>
-      <div className='space'>
-        {
-          getOr([], 'upgrades')(item).map((u, i) => (
-            <div key={u.id + i} className='img-title'>
-              <img src={u.icon} />
-              <p className='Fine'>{u.name}</p>
-            </div>
-          ))
-        }
-      </div>
-      <div className='space'>
-        {
-          getOr([], 'infusions')(item).map((u, i) => (
-            <div key={u.id + i} className='img-title'>
-              <img src={u.icon} />
-              <p className='Fine'>{u.name}</p><br />
-              <p className='Fine'>{get('details.infix_upgrade.buff.description')(u)}</p>
-            </div>
-          ))
-        }
-      </div>
-      {item.skin &&
-        <div className='space'>
-          <p>Transmuted</p>
-          <p>{item.data.name}</p>
-        </div>
-      }
-      <div>
-        <p className='p2'>{get('data.rarity')(item)}</p>
-        <p className='p2'>{get('data.details.weight_class')(item)}</p>
-        <p className='p2'>{Slot[item.slot]}</p>
-        <p className='p2'>Required Level: {get('data.level')(item)}</p>
-        <p className='p2'>{Slot[item.binding]}</p>
-      </div>
-    </Tooltip>
-  )
-}
+const ArmorTooltip = ({ item }) => (
+  <Tooltip item={item}>
+    <IconTitle />
+    <p>Defense: <span className='Masterwork'>{get('data.details.defense')(item)}</span></p>
+    <Attributes />
+    <Upgrades />
+    <Infusions />
+    <ItemSkin />
+    <ItemInfo />
+  </Tooltip>
+)
 
 ArmorTooltip.propTypes = {
   item: PropTypes.object
 }
 
-const WeaponTooltip = ({ item }) => {
-  return (
-    <Tooltip>
-      <div className='img-title'>
-        <img src={get('skin.icon')(item) || get('data.icon')(item)} />
-        <h4 className={get('data.rarity')(item)}>{get('skin.name')(item) || get('data.name')(item)}</h4>
-      </div>
-      <p>Weapon Strength: <span className='Masterwork'>{get('data.details.min_power')(item)} - {get('data.details.max_power')(item)}</span></p>
-      <div>
-        {
-          getOr([], 'data.details.infix_upgrade.attributes')(item).map(a => (
-            <p key={a.attribute} className='p2 Masterwork'>+{a.modifier} {a.attribute}</p>
-          ))
-        }
-      </div>
-      <div className='space'>
-        {
-          getOr([], 'upgrades')(item).map((u, i) => (
-            <div key={u.id + i} className='img-title'>
-              <img src={u.icon} />
-              <p className='Fine'>{u.name}</p>
-            </div>
-          ))
-        }
-      </div>
-      <div className='space'>
-        {
-          getOr([], 'infusions')(item).map((u, i) => (
-            <div key={u.id + i} className='img-title'>
-              <img src={u.icon} />
-              <p className='Fine'>{u.name}</p><br />
-              <p className='Fine'>{get('details.infix_upgrade.buff.description')(u)}</p>
-            </div>
-          ))
-        }
-      </div>
-      {item.skin &&
-        <div className='space'>
-          <p>Transmuted</p>
-          <p>{item.data.name}</p>
-        </div>
-      }
-      <div>
-        <p className='p2'>{get('data.rarity')(item)}</p>
-        <p className='p2'>{get('data.details.weight_class')(item)}</p>
-        <p className='p2'>{Slot[item.slot]}</p>
-        <p className='p2'>Required Level: {get('data.level')(item)}</p>
-        <p className='p2'>{Slot[item.binding]}</p>
-      </div>
-    </Tooltip>
-  )
-}
+const WeaponTooltip = ({ item }) => (
+  <Tooltip item={item}>
+    <IconTitle weapon />
+    <p>Weapon Strength: <span className='Masterwork'>{get('data.details.min_power')(item)} - {get('data.details.max_power')(item)}</span></p>
+    <Attributes />
+    <Upgrades />
+    <Infusions />
+    <ItemSkin />
+    <ItemInfo />
+  </Tooltip>
+)
 
 WeaponTooltip.propTypes = {
   item: PropTypes.object
 }
 
-const UtilityTooltip = ({ item }) => {
-  return (
-    <Tooltip>
-      <div className='img-title'>
-        <img src={get('skin.icon')(item) || get('data.icon')(item)} />
-        <h4 className={get('data.rarity')(item)}>{get('skin.name')(item) || get('data.name')(item)}</h4>
-      </div>
-      <div>
-        {
-          getOr([], 'data.details.infix_upgrade.attributes')(item).map(a => (
-            <p key={a.attribute} className='p2 Masterwork'>+{a.modifier} {a.attribute}</p>
-          ))
-        }
-      </div>
-      <div className='space'>
-        {
-          getOr([], 'upgrades')(item).map((u, i) => (
-            <div key={u.id + i} className='img-title'>
-              <img src={u.icon} />
-              <p className='Fine'>{u.name}</p>
-            </div>
-          ))
-        }
-      </div>
-      <div className='space'>
-        {
-          getOr([], 'infusions')(item).map((u, i) => (
-            <div key={u.id + i} className='img-title'>
-              <img src={u.icon} />
-              <p className='Fine'>{u.name}</p><br />
-              <p className='Fine'>{get('details.infix_upgrade.buff.description')(u)}</p>
-            </div>
-          ))
-        }
-      </div>
-      {item.skin &&
-        <div className='space'>
-          <p>Transmuted</p>
-          <p>{item.data.name}</p>
-        </div>
-      }
-      <div>
-        <p className='p2'>{get('data.rarity')(item)}</p>
-        <p className='p2'>{get('data.details.weight_class')(item)}</p>
-        <p className='p2'>{Slot[item.slot]}</p>
-        <p className='p2'>Required Level: {get('data.level')(item)}</p>
-        <p className='p2'>{Slot[item.binding]}</p>
-      </div>
-    </Tooltip>
-  )
-}
+const UtilityTooltip = ({ item }) => (
+  <Tooltip item={item}>
+    <IconTitle />
+    <Attributes />
+    <Upgrades />
+    <Infusions />
+    <ItemSkin />
+    <ItemInfo />
+  </Tooltip>
+)
 
 UtilityTooltip.propTypes = {
   item: PropTypes.object
 }
 
-const ItemSlotTemplate = ({ className, item, showTooltip, handleHover }) => {
-  return (
-    <div className={className}>
-      {item
-        ? (
-          <div>
-            <img src={get('skin.icon')(item) || item.data.icon} onMouseOver={handleHover} onMouseLeave={handleHover} />
-            { showTooltip && renderTooltip(item)}
-          </div>
-        )
-        : <img src={emptySlot} />}
-    </div>
-  )
+const GatheringTooltip = ({ item }) => (
+  <Tooltip item={item}>
+    <IconTitle />
+    <Upgrades />
+    <p className='p2'>{get('data.description')(item)}</p>
+    <p className='p2'>{Slot[item.binding]}</p>
+  </Tooltip>
+)
+
+GatheringTooltip.propTypes = {
+  item: PropTypes.object
 }
+
+const ItemSlotTemplate = ({ className, item, showTooltip, handleHover }) => (
+  <div className={className}>
+    {item
+      ? (
+        <div>
+          <img src={get('skin.icon')(item) || item.data.icon} onMouseOver={handleHover} onMouseLeave={handleHover} />
+          { showTooltip && renderTooltip(item)}
+        </div>
+      )
+      : <img src={emptySlot} />}
+  </div>
+)
 
 const renderTooltip = item => {
   switch (item.slot) {
@@ -217,7 +106,7 @@ const renderTooltip = item => {
     case 'Sickle':
     case 'Axe':
     case 'Pick':
-      break
+      return <GatheringTooltip item={item} />
   }
 }
 
