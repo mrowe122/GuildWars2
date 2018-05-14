@@ -18,6 +18,7 @@
   "license": "GPL-3.0",
   "homepage": "https://github.com/mrowe122/GuildWars2#readme",
   "dependencies": {
+    "date-fns": "^1.29.0",
     "flexboxgrid": "^6.3.1",
     "guildwars2-server": "https://github.com/mrowe122/GuildWars2-Server.git",
     "lodash": "^4.17.10",
