@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { compose, omit } from 'lodash/fp'
 import { withProps, withHandlers, branch, renderComponent, lifecycle, mapProps } from 'recompose'
+import Spinner from 'react-spinkit'
 import { fetchHoc } from 'utils/cachedFetch'
-import { ageFromSeconds } from 'utils/utilities'
+import { ageFromSeconds, formatData } from 'utils/utilities'
 import { withModal, ItemSlot } from 'components'
 import Loading from 'components/Loading'
 import { CharacterSelectModal, ErrorCharacterModal } from './PlayerStatsModals'
-import Spinner from 'react-spinkit'
 
 const SideNav = styled.div`
   color: ${({ theme }) => theme.colors.gray1};
@@ -69,8 +69,17 @@ const PlayerStatsTemplate = ({ className, selectChar, allChars, charData, charDa
           <Content className='col-xs-12'>
             <div>
               <h1>{charData.name} ({charData.level})</h1>
-              <p>Playtime: {ageFromSeconds(charData.age)}</p>
-              <p>profession: {charData.profession}</p>
+              <p className='p1'>Birthday: {formatData(charData.created)}</p>
+              <p className='p1'>Playtime: {ageFromSeconds(charData.age)}</p>
+              <p className='p1'>profession: {charData.profession}</p>
+              <div>
+                Crafting:
+                {
+                  charData.crafting.length ? charData.crafting.map(c => (
+                    <p className='p1' disabled={!c.active} key={c.discipline}>{c.discipline} ({c.rating})</p>
+                  )) : ' None'
+                }
+              </div>
             </div>
 
             <div className='lb'>

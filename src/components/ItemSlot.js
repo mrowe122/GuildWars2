@@ -42,7 +42,7 @@ WeaponTooltip.propTypes = {
 }
 
 const UtilityTooltip = ({ item }) => (
-  <Tooltip item={item}>
+  <Tooltip item={item} position='left'>
     <IconTitle />
     <Attributes />
     <Upgrades />
@@ -57,7 +57,7 @@ UtilityTooltip.propTypes = {
 }
 
 const GatheringTooltip = ({ item }) => (
-  <Tooltip item={item}>
+  <Tooltip item={item} position='left'>
     <IconTitle />
     <Upgrades />
     <p className='p2'>{get('data.description')(item)}</p>
