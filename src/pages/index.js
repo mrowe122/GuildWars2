@@ -1,5 +1,5 @@
 import Home from './home/component/Home'
-import PlayerAccount from './player-account/component/PlayerAccount'
+import PlayerAccount from './player-account'
 
 export {
   Home,

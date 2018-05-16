@@ -8,7 +8,7 @@ import { fetchHoc } from 'utils/cachedFetch'
 import { ageFromSeconds, formatDate } from 'utils/utilities'
 import { withModal, ItemSlot } from 'components'
 import Loading from 'components/Loading'
-import { CharacterSelectModal, ErrorCharacterModal } from './PlayerAccountModals'
+import { CharacterSelectModal, ErrorCharacterModal } from './CharactersModals'
 
 const SideNav = styled.div`
   height: 100%;
@@ -62,7 +62,6 @@ const Content = styled.div`
 `
 
 const PlayerStatsTemplate = ({ className, selectChar, allChars, charData, charDataLoading }) => {
-  console.log(charData)
   return (
     <div className={className}>
       { charDataLoading && <div className='overlay'><Spinner name='three-bounce' fadeIn='none' /></div> }
@@ -77,7 +76,7 @@ const PlayerStatsTemplate = ({ className, selectChar, allChars, charData, charDa
               <h1>{charData.name} ({charData.level})</h1>
               <p className='p1'>Birthday: {formatDate(charData.created)}</p>
               <p className='p1'>Playtime: {ageFromSeconds(charData.age)}</p>
-              <p className='p1'>profession: {charData.profession}</p>
+              <p className='p1'>Profession: {charData.profession}</p>
               <div>
                 Crafting:
                 {

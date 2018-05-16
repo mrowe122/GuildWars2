@@ -9,7 +9,7 @@ const HeaderTemplate = ({ className }) => (
   <div className={className}>
     <Logo />
     <div>
-      <Link to={routes.account}>Account</Link>
+      <Link to={routes.account.index}>Account</Link>
       {/* <Link to={routes.index}>Login</Link> */}
     </div>
   </div>

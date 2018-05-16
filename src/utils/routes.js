@@ -1,4 +1,7 @@
 export default {
   index: '/',
-  account: '/account'
+  account: {
+    index: '/account',
+    characters: '/account/characters'
+  }
 }
