@@ -9,8 +9,8 @@ const HeaderTemplate = ({ className }) => (
   <div className={className}>
     <Logo />
     <div>
-      <Link to={routes.stats}>Stats</Link>
-      <Link to={routes.index}>Login</Link>
+      <Link to={routes.account}>Account</Link>
+      {/* <Link to={routes.index}>Login</Link> */}
     </div>
   </div>
 )

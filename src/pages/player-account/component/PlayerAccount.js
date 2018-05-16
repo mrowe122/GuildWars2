@@ -8,7 +8,7 @@ import { fetchHoc } from 'utils/cachedFetch'
 import { ageFromSeconds, formatDate } from 'utils/utilities'
 import { withModal, ItemSlot } from 'components'
 import Loading from 'components/Loading'
-import { CharacterSelectModal, ErrorCharacterModal } from './PlayerStatsModals'
+import { CharacterSelectModal, ErrorCharacterModal } from './PlayerAccountModals'
 
 const SideNav = styled.div`
   height: 100%;

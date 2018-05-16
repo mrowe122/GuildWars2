@@ -1,4 +1,4 @@
 export default {
   index: '/',
-  stats: '/stats'
+  account: '/account'
 }

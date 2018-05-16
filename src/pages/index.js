@@ -1,7 +1,7 @@
 import Home from './home/component/Home'
-import PlayerStats from './player-stats/component/PlayerStats'
+import PlayerAccount from './player-account/component/PlayerAccount'
 
 export {
   Home,
-  PlayerStats
+  PlayerAccount
 }

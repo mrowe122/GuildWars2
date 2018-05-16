@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
+import routes from 'utils/routes'
 
 // modules
 import { Header, Footer } from 'components'
-import { Home, PlayerStats } from 'pages'
+import { Home, PlayerAccount } from 'pages'
 import theme from 'styles/variables'
 
 const App = () => (
@@ -14,8 +15,8 @@ const App = () => (
         <Header />
         <div>
           <Switch>
-            <Route exact path='/' component={Home} />
-            <Route path='/stats' component={PlayerStats} />
+            <Route exact path={routes.index} component={Home} />
+            <Route path={routes.account} component={PlayerAccount} />
           </Switch>
         </div>
         <Footer />
