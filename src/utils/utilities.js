@@ -12,6 +12,6 @@ export const ageFromSeconds = seconds => {
   return time.join(' ')
 }
 
-export const formatData = date => {
-  return format(date, 'MM/DD/YYYY')
-}
+export const formatDate = date => format(date, 'MM/DD/YYYY')
+
+export const cleanString = s => s.replace(/(<([^>]+)>)/ig, ' ')

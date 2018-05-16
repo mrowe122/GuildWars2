@@ -1,17 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { compose, omit } from 'lodash/fp'
+import { compose, omit, get } from 'lodash/fp'
 import { withProps, withHandlers, branch, renderComponent, lifecycle, mapProps } from 'recompose'
 import Spinner from 'react-spinkit'
 import { fetchHoc } from 'utils/cachedFetch'
-import { ageFromSeconds, formatData } from 'utils/utilities'
+import { ageFromSeconds, formatDate } from 'utils/utilities'
 import { withModal, ItemSlot } from 'components'
 import Loading from 'components/Loading'
 import { CharacterSelectModal, ErrorCharacterModal } from './PlayerStatsModals'
 
 const SideNav = styled.div`
-  color: ${({ theme }) => theme.colors.gray1};
   height: 100%;
   width: ${({ theme }) => theme.sizes.sideNav};
   padding: 1rem;
@@ -20,15 +19,21 @@ const SideNav = styled.div`
   background-color: ${({ theme }) => theme.colors.gray4};
   ${({ theme }) => theme.generators.textShadow(0, 0, 5, 'rgba(0,0,0,1)')};
 
+  & > h2 {
+    color: ${({ theme }) => theme.colors.gray1};
+    margin-bottom: 1rem;
+  } 
+
   a {
+    color: ${({ theme }) => theme.colors.gray2};
     cursor: pointer;
-    width: inherit;
+    max-width: 100%;
     margin: .5rem 0;
+    padding: 0 .2rem;
     display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
     ${({ theme }) => theme.generators.transition(150, 'linear')};
-
     &[active='1'], &:hover { color: ${({ theme }) => theme.colors.primaryLight2}; }
   }
 `
@@ -62,14 +67,15 @@ const PlayerStatsTemplate = ({ className, selectChar, allChars, charData, charDa
     <div className={className}>
       { charDataLoading && <div className='overlay'><Spinner name='three-bounce' fadeIn='none' /></div> }
       <SideNav>
-        { charData && allChars.map(c => <a key={c} active={charData.name === c ? '1' : '0'} onClick={selectChar}>{c}</a>) }
+        <h2>Characters</h2>
+        { allChars.map(c => <a key={c} active={get('name')(charData) === c ? '1' : '0'} onClick={selectChar}>{c}</a>) }
       </SideNav>
       {
         charData && (
           <Content className='col-xs-12'>
             <div>
               <h1>{charData.name} ({charData.level})</h1>
-              <p className='p1'>Birthday: {formatData(charData.created)}</p>
+              <p className='p1'>Birthday: {formatDate(charData.created)}</p>
               <p className='p1'>Playtime: {ageFromSeconds(charData.age)}</p>
               <p className='p1'>profession: {charData.profession}</p>
               <div>

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { TooltipContext } from './Tooltip'
 import { get, getOr } from 'lodash/fp'
 import { Slot } from 'utils/constants'
+import { cleanString } from 'utils/utilities'
 
 const TooltipConsumer = TooltipContext.Consumer
 
@@ -49,10 +50,21 @@ export const Upgrades = () => (
         <div className='space'>
           {
             upgrades.map((u, i) => (
-              <div key={u.id + i} className='img-title'>
-                <img src={u.icon} />
-                <p className='Fine'>{u.name}</p>
-              </div>
+              <Fragment key={u.id + i}>
+                <div className='img-title'>
+                  <img src={u.icon} />
+                  <p className='Fine'>{u.name}</p>
+                </div>
+                {
+                  u.details.type === 'Rune' ? (
+                    getOr([], 'details.bonuses')(u).map((b, i) => (
+                      <p key={b} className='Fine p2'>({++i}) {cleanString(b)}</p>
+                    ))
+                  ) : (
+                    <p className='Fine'>{cleanString(get('details.infix_upgrade.buff.description')(u))}</p>
+                  )
+                }
+              </Fragment>
             ))
           }
         </div>
