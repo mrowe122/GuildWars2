@@ -22,6 +22,7 @@ module.exports = {
     path: path.dev,
     filename: '[name].js'
   },
+  devtool: 'source-map',
   optimization: {
     splitChunks: {
       cacheGroups: {
