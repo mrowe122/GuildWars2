@@ -10,11 +10,11 @@ const colors = {
   primaryDark3: '#361212',
   white: '#FFFFFF',
   black: '#000000',
-  gray1: '#8B8B8B',
-  gray2: '#6A6A6A',
-  gray3: '#494949',
-  gray4: '#3C3C3C',
-  gray5: '#2F2F2F',
+  gray1: '#AEAEAE',
+  gray2: '#7E7E7E',
+  gray3: '#5E5E5E',
+  gray4: '#474747',
+  gray5: '#323232',
   loadingOverlay: 'rgba(0, 0, 0, 0.6)',
   modalOverlay: 'rgba(100, 100, 100, 0.5)',
   tooltip: 'rgba(50, 50, 50, 0.8)'
@@ -33,6 +33,14 @@ const generators = {
   `,
   textShadow: (y, x, blur, color) => `
     text-shadow: ${y}px ${x}px ${blur}px ${color}, ${y}px ${x}px ${blur}px ${color};
+  `,
+  textNoSelect: `
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   `,
   gradient: (top, bottom) => `
     background: ${top};
