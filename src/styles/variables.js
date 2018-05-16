@@ -61,11 +61,11 @@ const animations = {
 }
 
 const zIndexLayers = {
-  header: 100,
-  footer: 100,
-  modal: 95,
+  header: 95,
+  footer: 95,
+  modal: 90,
   modalOverlay: 5,
-  tooltip: 10
+  tooltip: 100
 }
 
 export default {
