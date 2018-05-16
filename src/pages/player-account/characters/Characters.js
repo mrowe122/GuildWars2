@@ -1,77 +1,25 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { compose, omit, get } from 'lodash/fp'
 import { withProps, withHandlers, branch, renderComponent, lifecycle, mapProps } from 'recompose'
-import Spinner from 'react-spinkit'
 import { fetchHoc } from 'utils/cachedFetch'
 import { ageFromSeconds, formatDate } from 'utils/utilities'
 import { withModal, ItemSlot } from 'components'
-import Loading from 'components/Loading'
+import { Layout, SideNav, Content } from 'pages/player-account/_components/Layout'
+import { FullPageLoader } from 'components/Loading'
 import { CharacterSelectModal, ErrorCharacterModal } from './CharactersModals'
 
-const SideNav = styled.div`
-  height: 100%;
-  width: ${({ theme }) => theme.sizes.sideNav};
-  padding: 1rem;
-  box-sizing: border-box;
-  position: fixed;
-  background-color: ${({ theme }) => theme.colors.gray4};
-  ${({ theme }) => theme.generators.textShadow(0, 0, 5, 'rgba(0,0,0,1)')};
-
-  & > h2 {
-    color: ${({ theme }) => theme.colors.gray1};
-    margin-bottom: 1rem;
-  } 
-
-  a {
-    color: ${({ theme }) => theme.colors.gray2};
-    cursor: pointer;
-    max-width: 100%;
-    margin: .5rem 0;
-    padding: 0 .2rem;
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    ${({ theme }) => theme.generators.transition(150, 'linear')};
-    &[active='1'], &:hover { color: ${({ theme }) => theme.colors.primaryLight2}; }
-  }
-`
-
-const Content = styled.div`
-  padding-top: 2rem;
-  margin-left: ${({ theme }) => theme.sizes.sideNav};
-  display: flex;
-  flex-direction: row;
-
-  & > div {
-    padding: 0 2rem;
-  }
-
-  .lb {
-    display: flex;
-    flex-direction: column;
-    div:nth-child(7) { margin-top: 1.5rem; }
-  }
-
-  .background {
-    width: 400px;
-    height: 600px;
-    background-color: ${({ theme }) => theme.colors.gray3}
-  }
-`
-
-const PlayerStatsTemplate = ({ className, selectChar, allChars, charData, charDataLoading }) => {
-  return (
-    <div className={className}>
-      { charDataLoading && <div className='overlay'><Spinner name='three-bounce' fadeIn='none' /></div> }
-      <SideNav>
-        <h2>Characters</h2>
-        { allChars.map(c => <a key={c} active={get('name')(charData) === c ? '1' : '0'} onClick={selectChar}>{c}</a>) }
-      </SideNav>
+const CharactersTemplate = ({ className, selectChar, allChars, charData, charDataLoading }) => (
+  <Layout className={className} loading={charDataLoading}>
+    <SideNav>
+      <h2>Characters</h2>
+      { allChars.map(c => <a key={c} active={get('name')(charData) === c ? '1' : '0'} onClick={selectChar}>{c}</a>) }
+    </SideNav>
+    <Content className='col-xs-12'>
       {
         charData && (
-          <Content className='col-xs-12'>
+          <Fragment>
             <div>
               <h1>{charData.name} ({charData.level})</h1>
               <p className='p1'>Birthday: {formatDate(charData.created)}</p>
@@ -105,7 +53,7 @@ const PlayerStatsTemplate = ({ className, selectChar, allChars, charData, charDa
               <div className='background' />
             </div>
 
-            <div className='rb'>
+            <div>
               <div className='row'>
                 <ItemSlot item={charData.equipment.Backpack} />
                 <ItemSlot item={charData.equipment.Accessory1} />
@@ -122,14 +70,14 @@ const PlayerStatsTemplate = ({ className, selectChar, allChars, charData, charDa
                 <ItemSlot item={charData.equipment.Pick} />
               </div>
             </div>
-          </Content>
+          </Fragment>
         )
       }
-    </div>
-  )
-}
+    </Content>
+  </Layout>
+)
 
-PlayerStatsTemplate.propTypes = {
+CharactersTemplate.propTypes = {
   className: PropTypes.string,
   selectChar: PropTypes.func,
   allChars: PropTypes.array,
@@ -137,22 +85,44 @@ PlayerStatsTemplate.propTypes = {
   charDataLoading: PropTypes.bool
 }
 
-const PlayerStats = styled(PlayerStatsTemplate)`
+const Characters = styled(CharactersTemplate)`
   color: ${({ theme }) => theme.colors.white};
 
-  .overlay {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: ${({ theme }) => theme.zIndexLayers.modalOverlay};
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: ${({ theme }) => theme.colors.loadingOverlay};
+  ${SideNav} {
+    & > h2 {
+      color: ${({ theme }) => theme.colors.white};
+      margin-bottom: 1rem;
+    } 
 
-    .sk-spinner { color: ${({ theme }) => theme.colors.primaryLight1}; }
+    a {
+      color: ${({ theme }) => theme.colors.gray1};
+      cursor: pointer;
+      max-width: 100%;
+      margin: .5rem 0;
+      padding: 0 .2rem;
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      ${({ theme }) => theme.generators.transition(150, 'linear')};
+      ${({ theme }) => theme.generators.textNoSelect};
+      &[active='1'], &:hover { color: ${({ theme }) => theme.colors.primaryLight2}; }
+    }
+  }
+
+  ${Content} {
+    & > div { padding: 0 2rem; }
+
+    .lb {
+      display: flex;
+      flex-direction: column;
+      div:nth-child(7) { margin-top: 1.5rem; }
+    }
+
+    .background {
+      width: 400px;
+      height: 600px;
+      background-color: ${({ theme }) => theme.colors.gray3}
+    }
   }
 `
 
@@ -170,7 +140,7 @@ export default compose(
     props: ({ loading, charData = undefined }) => ({ charDataLoading: loading, charData })
   }),
   branch(p => p.error === 403, renderComponent(ErrorCharacterModal)),
-  branch(p => p.allCharsLoading, renderComponent(Loading)),
+  branch(p => p.allCharsLoading, renderComponent(FullPageLoader)),
   withHandlers({
     selectChar: ({ fetchData, charData }) => e => {
       if (charData.name !== e.target.innerText) {
@@ -187,6 +157,10 @@ export default compose(
     'error',
     'fetchData',
     'loading',
-    'selectedChar'
+    'selectedChar',
+    'showModal',
+    'closeModal',
+    'allCharsLoading',
+    'modalSelectChar'
   ]))
-)(PlayerStats)
+)(Characters)
