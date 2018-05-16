@@ -104,6 +104,7 @@ export const fetchHoc = (url, { dataProp = 'data', skip = false, props, method =
     lifecycle({ componentDidMount () { this.props.fetchData() } })
   ),
   mapProps(omit([
+    'startLoading',
     'controller',
     'handleError',
     'finishedLoading',
