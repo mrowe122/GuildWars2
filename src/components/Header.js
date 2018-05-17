@@ -9,7 +9,7 @@ const HeaderTemplate = ({ className }) => (
   <div className={className}>
     <Logo />
     <div>
-      <Link to={routes.account.index}>Account</Link>
+      <Link to={routes.account.characters}>Account</Link>
       {/* <Link to={routes.index}>Login</Link> */}
     </div>
   </div>
@@ -29,10 +29,10 @@ const Header = styled(HeaderTemplate)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: ${({ theme }) => theme.colors.gray5};
   height: ${({ theme }) => theme.sizes.header};
   line-height: ${({ theme }) => theme.sizes.header};
-  ${({ theme }) => theme.generators.boxShadow(0, 0, 15, 0, 'rgba(0, 0, 0, 1)')}
+  ${({ theme }) => theme.generators.boxShadow(0, 0, 15, 0, '#000')}
+  ${({ theme }) => theme.generators.gradient('#1f2730', '#27303c')}
 
   a {
     color: ${({ theme }) => theme.colors.white};
@@ -40,10 +40,10 @@ const Header = styled(HeaderTemplate)`
     text-transform: uppercase;
     border-radius: 5px;
     margin: 0 .5rem;
-    padding: 0.7rem 1.2rem;
-    background-color: ${({ theme }) => theme.colors.primary};
-
-    &:hover { background-color: ${({ theme }) => theme.colors.primaryDark1}; }
+    padding: 0.7rem;
+    border: 2px solid transparent;
+    ${({ theme }) => theme.generators.transition(200, 'ease-out')};
+    &:hover { border-color: ${({ theme }) => theme.colors.primary}; }
   }
 
   & > div:nth-child(2) {

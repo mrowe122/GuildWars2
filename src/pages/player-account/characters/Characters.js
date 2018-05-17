@@ -10,6 +10,16 @@ import { Layout, SideNav, Content } from 'pages/player-account/_components/Layou
 import { FullPageLoader } from 'components/Loading'
 import { CharacterSelectModal, ErrorCharacterModal } from './CharactersModals'
 
+const Banner = styled.div`
+  height: 400px;
+  width: 768px;
+  background-position: 0 -45px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(${({ img }) => img});
+  ${({ theme }) => theme.generators.boxShadow(0, 0, 15, 0, '#000')}
+`
+
 const CharactersTemplate = ({ className, selectChar, allChars, charData, charDataLoading }) => (
   <Layout className={className} loading={charDataLoading}>
     <SideNav>
@@ -50,7 +60,7 @@ const CharactersTemplate = ({ className, selectChar, allChars, charData, charDat
             </div>
 
             <div className='c'>
-              <div className='background' />
+              <Banner img='/media/banners/mesmer.png' />
             </div>
 
             <div>

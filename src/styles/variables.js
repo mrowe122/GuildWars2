@@ -1,13 +1,13 @@
 import { keyframes } from 'styled-components'
 
 const colors = {
-  primary: '#9B0000',
-  primaryLight1: '#C21E1E',
-  primaryLight2: '#E33939',
-  primaryLight3: '#FF7C7C',
-  primaryDark1: '#730909',
-  primaryDark2: '#550E0E',
-  primaryDark3: '#361212',
+  primary: '#2A4E79',
+  primaryLight1: '#506E91',
+  primaryLight2: '#778EA9',
+  primaryLight3: '#9EAEC2',
+  primaryDark1: '#234064',
+  primaryDark2: '#1B324E',
+  primaryDark3: '#142437',
   white: '#FFFFFF',
   black: '#000000',
   gray1: '#AEAEAE',
@@ -42,11 +42,11 @@ const generators = {
     -ms-user-select: none;
     user-select: none;
   `,
-  gradient: (top, bottom) => `
+  gradient: (top, bottom, angle = 0) => `
     background: ${top};
-    background: -moz-linear-gradient(top, ${top} 0%, ${bottom} 100%);
-    background: -webkit-linear-gradient(top, ${top} 0%,${bottom} 100%);
-    background: linear-gradient(to bottom, ${top} 0%,${bottom} 100%);
+    background: -moz-linear-gradient(${angle}deg, ${top} 0%, ${bottom} 100%);
+    background: -webkit-linear-gradient(${angle}deg, ${top} 0%, ${bottom} 100%);
+    background: linear-gradient(${angle}deg, ${top} 0%, ${bottom} 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='${top}', endColorstr='${bottom}',GradientType=0);
   `,
   transition: (time, timeFunction) => `

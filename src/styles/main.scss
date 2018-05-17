@@ -5,11 +5,11 @@
   margin: 0;
   padding: 0;
   font: 15px/1 'Exo 2', sans-serif;
+  letter-spacing: .3px;
 }
 
 html, body {
   height: auto;
-  background-color: #2F2F2F;
 }
 
 body {
@@ -26,9 +26,13 @@ body {
     flex: 1 0 auto;
     margin-top: 4rem;
     padding-bottom: 1rem;
-    background-image: url('/media/images/background.png');
-    background-size: cover;
+    background-size: contain;
     background-attachment: fixed;
+    background-image: url('/media/images/background.png'), rgb(43,52,73);
+    background-image: url('/media/images/background.png'), -moz-linear-gradient(135deg, #2b3449 0%, #000000 100%);
+    background-image: url('/media/images/background.png'), -webkit-linear-gradient(135deg, #2b3449 0%, #000000 100%);
+    background-image: url('/media/images/background.png'), linear-gradient(135deg, #2b3449 0%, #000000 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2b3449",endColorstr="#000b1c",GradientType=1);
   }
 }
 
