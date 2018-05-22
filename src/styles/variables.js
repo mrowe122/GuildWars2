@@ -17,7 +17,9 @@ const colors = {
   gray5: '#323232',
   loadingOverlay: 'rgba(0, 0, 0, 0.6)',
   modalOverlay: 'rgba(100, 100, 100, 0.5)',
-  tooltip: 'rgba(50, 50, 50, 0.8)'
+  tooltip: 'rgba(50, 50, 50, 0.8)',
+  bannerText: 'rgba(27, 31, 41, .8)',
+  dataBubble: 'rgba(43, 52, 73, .6)'
 }
 
 const sizes = {

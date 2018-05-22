@@ -28,8 +28,6 @@ export const SideNav = styled(Template)`
 export const Content = styled(Template)`
   padding-top: 2rem;
   margin-left: ${({ theme }) => theme.sizes.sideNav};
-  display: flex;
-  flex-direction: row;
 `
 
 export const Layout = ({ className, children, loading }) => (

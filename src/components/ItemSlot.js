@@ -90,11 +90,14 @@ const renderTooltip = item => {
     case 'Gloves':
     case 'Leggings':
     case 'Boots':
+    case 'HelmAquatic':
       return <ArmorTooltip item={item} />
     case 'WeaponA1':
     case 'WeaponA2':
     case 'WeaponB1':
     case 'WeaponB2':
+    case 'WeaponAquaticA':
+    case 'WeaponAquaticB':
       return <WeaponTooltip item={item} />
     case 'Backpack':
     case 'Accessory1':
