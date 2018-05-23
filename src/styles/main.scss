@@ -22,7 +22,7 @@ body {
   display: flex;
   flex-direction: column;
 
-  & > div:nth-child(2) {
+  .app {
     flex: 1 0 auto;
     margin-top: 4rem;
     padding-bottom: 1rem;

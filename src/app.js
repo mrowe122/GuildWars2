@@ -13,7 +13,7 @@ const App = () => (
     <ThemeProvider theme={theme}>
       <Fragment>
         <Header />
-        <div>
+        <div className='app'>
           <Switch>
             <Route exact path={routes.index} component={Home} />
             <Route path={routes.account.index} component={PlayerAccount} />

@@ -24,16 +24,18 @@ const CharactersTemplate = ({ className, selectChar, allChars, charData, charDat
         {
           charData && (
             <Fragment>
-              <div className='row'>
-                <BannerText>
-                  <img src={`/media/banners/${charData.profession}.jpg`} />
-                  <div>
-                    <h2>{charData.name}</h2>
-                    <p className='p1'>Level: {charData.level}</p>
-                  </div>
-                </BannerText>
+              <div className='row middle-xs'>
+                <img src={`/media/banners/${charData.profession}.jpg`} />
               </div>
               <div className='row around-xs'>
+                <Bubble>
+                  <h3>Character</h3>
+                  <p className='p3'>
+                    {charData.name}<br />
+                    Level: {charData.level}
+                  </p>
+                </Bubble>
+
                 <Bubble>
                   {
                     charData.guild.name
@@ -72,7 +74,7 @@ const CharactersTemplate = ({ className, selectChar, allChars, charData, charDat
                 </Bubble>
               </div>
               <div className='row around-xs'>
-                <div className='test'>
+                <div className='gw-c1'>
                   <h2>Armor</h2>
                   <ItemSlot item={charData.equipment.Helm} />
                   <ItemSlot item={charData.equipment.Shoulders} />
@@ -83,7 +85,7 @@ const CharactersTemplate = ({ className, selectChar, allChars, charData, charDat
                   <ItemSlot item={charData.equipment.HelmAquatic} />
                 </div>
 
-                <div className='test'>
+                <div className='gw-c1'>
                   <h2>Weapons</h2>
                   <ItemSlot item={charData.equipment.WeaponA1} />
                   <ItemSlot item={charData.equipment.WeaponA2} />
@@ -93,7 +95,7 @@ const CharactersTemplate = ({ className, selectChar, allChars, charData, charDat
                   <ItemSlot item={charData.equipment.WeaponAquaticB} />
                 </div>
 
-                <div className='test'>
+                <div className='gw-c1'>
                   <h2>Trinkets</h2>
                   <ItemSlot item={charData.equipment.Backpack} />
                   <ItemSlot item={charData.equipment.Accessory1} />
@@ -103,7 +105,7 @@ const CharactersTemplate = ({ className, selectChar, allChars, charData, charDat
                   <ItemSlot item={charData.equipment.Ring2} />
                 </div>
 
-                <div className='test'>
+                <div className='gw-c1'>
                   <h2>Tools</h2>
                   <ItemSlot item={charData.equipment.Sickle} />
                   <ItemSlot item={charData.equipment.Axe} />
@@ -152,8 +154,19 @@ const Characters = styled(CharactersTemplate)`
   }
 
   ${Content} {
-    & > div { padding: 0 2rem; }
-    img { width: 100%; }
+    padding: 2rem 2rem 0;
+    .middle-xs {
+      margin-bottom: 1rem;
+      img { width: 100%; }
+    }
+
+    .gw-c1 {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      h2 { margin-bottom: .7rem; }
+    }
   }
 `
 

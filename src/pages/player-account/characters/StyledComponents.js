@@ -18,7 +18,7 @@ export const BannerText = styled.div`
 export const Bubble = styled.div`
   text-align: center;
   width: 200px;
-  margin: 2rem 1rem;
+  margin: 1rem 0.3rem;
   padding: 1rem;
   display: flex;
   align-items: center;

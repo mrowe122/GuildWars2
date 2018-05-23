@@ -14,7 +14,7 @@ export const IconTitle = ({ weapon }) => (
         <div className='img-title'>
           <img src={get('skin.icon')(item) || get('data.icon')(item)} />
           <h4 className={get('data.rarity')(item)}>
-            {get('skin.name')(item) || get('data.name')(item)}
+            {get('skin.name')(item) || get('data.name')(item)}&nbsp;
             {!weapon && get('upgrades[0].details.suffix')(item)}
           </h4>
         </div>
