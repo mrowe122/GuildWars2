@@ -1,20 +1,5 @@
 import styled from 'styled-components'
 
-export const BannerText = styled.div`
-  position: relative;
-  ${({ theme }) => theme.generators.boxShadow(0, 0, 30, -7, '#000')}
-
-  & > div {
-    top: 0;
-    position: absolute;
-    max-height: 100%;
-    padding: 1rem 2rem;
-    box-sizing: border-box;
-    border-bottom-right-radius: 50px;
-    background-color: ${({ theme }) => theme.colors.bannerText};
-  }
-`
-
 export const Bubble = styled.div`
   text-align: center;
   width: 200px;

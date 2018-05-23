@@ -43,6 +43,7 @@ body {
 .Exotic { color: #F7A100; }
 .Ascended { color: #FC4386; }
 .Legendary { color: #972BE9; }
+*[disabled] { opacity: .4; }
 
 h1 {
   font-size: 2rem;
