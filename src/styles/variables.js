@@ -1,13 +1,9 @@
 import { keyframes } from 'styled-components'
 
 const colors = {
-  primary: '#2A4E79',
-  primaryLight1: '#506E91',
-  primaryLight2: '#778EA9',
-  primaryLight3: '#9EAEC2',
-  primaryDark1: '#234064',
-  primaryDark2: '#1B324E',
-  primaryDark3: '#142437',
+  primary: '#1d2730',
+  primaryLight1: '#0090eb',
+  primaryDark1: '#25313a',
   white: '#FFFFFF',
   black: '#000000',
   gray1: '#AEAEAE',
@@ -17,14 +13,13 @@ const colors = {
   gray5: '#323232',
   loadingOverlay: 'rgba(0, 0, 0, 0.6)',
   modalOverlay: 'rgba(100, 100, 100, 0.5)',
-  tooltip: 'rgba(50, 50, 50, 0.8)',
-  bannerText: 'rgba(27, 31, 41, .8)',
-  dataBubble: 'rgba(43, 52, 73, .6)'
+  tooltip: 'rgba(50, 50, 50, 0.8)'
 }
 
 const sizes = {
   header: '4rem',
-  sideNav: '12rem'
+  sideNav: '12rem',
+  pivotBar: '5rem'
 }
 
 const generators = {
@@ -73,6 +68,7 @@ const animations = {
 const zIndexLayers = {
   header: 95,
   footer: 95,
+  pivotBar: 100,
   modal: 90,
   modalOverlay: 5,
   tooltip: 100

@@ -1,11 +1,9 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { TooltipContext } from './Tooltip'
+import { TooltipConsumer } from './Tooltip'
 import { get, getOr } from 'lodash/fp'
 import { Slot } from 'utils/constants'
 import { cleanString } from 'utils/utilities'
-
-const TooltipConsumer = TooltipContext.Consumer
 
 export const IconTitle = ({ weapon }) => (
   <TooltipConsumer>

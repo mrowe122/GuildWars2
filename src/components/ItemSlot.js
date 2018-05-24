@@ -72,11 +72,12 @@ GatheringTooltip.propTypes = {
 const ItemSlotTemplate = ({ className, item, showTooltip, handleHover }) => (
   <div className={className}>
     {item
-      ? <Fragment>
+      ? (
+        <Fragment>
           <img src={get('skin.icon')(item) || item.data.icon} onMouseOver={handleHover} onMouseLeave={handleHover} />
           { showTooltip && renderTooltip(item)}
         </Fragment>
-      : <img src={emptySlot} />}
+      ) : <img src={emptySlot} />}
   </div>
 )
 

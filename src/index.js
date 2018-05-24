@@ -5,4 +5,6 @@ import './styles/main.scss'
 
 ReactDOM.render(<App />, document.getElementById('root'))
 
-module.hot.accept()
+if(__DEV__) {
+  module.hot.accept()
+}

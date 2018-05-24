@@ -1,24 +1,24 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { css } from 'styled-components'
 import { Layout } from 'providers/MainLayout'
 
 const contentClasses = css`
+  margin-left: ${({ theme }) => theme.sizes.pivotBar};
   color: ${({ theme }) => theme.colors.white};
-  margin-left: 0;
 `
 
-const Home = () => (
+const Achievements = () => (
   <Layout>
     {
-      ({ Container, Header, Footer, Content }) => (
-        <Container header>
+      ({ SideNav, Content }) => (
+        <Fragment>
           <Content customClasses={contentClasses}>
-            <h3>Home</h3>
+            Achievements
           </Content>
-        </Container>
+        </Fragment>
       )
     }
   </Layout>
 )
 
-export default Home
+export default Achievements

@@ -12,13 +12,15 @@ export const Bubble = styled.div`
   border-radius: 20px;
   position: relative;
   box-sizing: border-box;
-  background-color: ${({ theme }) => theme.colors.dataBubble};
+  background-color: ${({ theme }) => theme.colors.primaryDark1};
+  ${({ theme }) => theme.generators.boxShadow(0, 0, 20, -3, '#000')}
 
   * { z-index: 5; }
 
   h3 {
     margin-bottom: 0.5rem;
-    color: ${({ theme }) => theme.colors.primaryLight2};
+    color: ${({ theme }) => theme.colors.primaryLight1};
+    ${({ theme }) => theme.generators.textShadow(0, 0, 5, 'rgba(0,0,0,1)')};
   }
 
   .emblem {

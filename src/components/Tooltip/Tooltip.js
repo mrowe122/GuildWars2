@@ -2,16 +2,18 @@ import React, { createContext } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-export const TooltipContext = createContext({
+const { Provider, Consumer } = createContext({
   item: null
 })
 
+export const TooltipConsumer = Consumer
+
 const TooltipTemplate = ({ className, children, item }) => (
-  <TooltipContext.Provider value={item}>
+  <Provider value={item}>
     <div className={className}>
       {children}
     </div>
-  </TooltipContext.Provider>
+  </Provider>
 )
 
 TooltipTemplate.propTypes = {

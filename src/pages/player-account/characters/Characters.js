@@ -4,14 +4,15 @@ import { css } from 'styled-components'
 import { compose, omit, get } from 'lodash/fp'
 import { withProps, withHandlers, branch, renderComponent, lifecycle, mapProps } from 'recompose'
 import { fetchHoc } from 'utils/cachedFetch'
+import routes from 'utils/routes'
 import { ageFromSeconds, formatDate } from 'utils/utilities'
 import { withModal, ItemSlot } from 'components'
-import { Layout } from 'components/MainLayout'
-import { FullPageLoader } from 'components/Loading'
+import { Layout } from 'providers/MainLayout'
 import { CharacterSelectModal, ErrorCharacterModal } from './CharactersModals'
 import { Bubble } from './StyledComponents'
 
 const sideNavClasses = css`
+  margin-left: ${({ theme }) => theme.sizes.pivotBar};
   & > h2 {
     color: ${({ theme }) => theme.colors.white};
     margin-bottom: 1rem;
@@ -28,16 +29,22 @@ const sideNavClasses = css`
     text-overflow: ellipsis;
     ${({ theme }) => theme.generators.transition(150, 'linear')};
     ${({ theme }) => theme.generators.textNoSelect};
-    &[active='1'], &:hover { color: ${({ theme }) => theme.colors.primaryLight2}; }
+    &[active='1'], &:hover { color: ${({ theme }) => theme.colors.primaryLight1}; }
   }
 `
 
 const contentClasses = css`
   color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => `
+    margin-left: calc(${theme.sizes.sideNav} + ${theme.sizes.pivotBar});
+  `}
 
   .middle-xs {
     margin-bottom: 1rem;
-    img { width: 100%; }
+    img {
+      width: 100%;
+      ${({ theme }) => theme.generators.boxShadow(0, 0, 20, -3, '#000')}
+    }
   }
 
   .gw-c1 {
@@ -49,14 +56,13 @@ const contentClasses = css`
   }
 `
 
-const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
+const Characters = ({ selectChar, allChars, charData, charDataLoading, allCharsLoading }) => {
   return (
     <Layout>
       {
-        ({ Header, Footer, SideNav, Content }) => (
+        ({ Container, SideNav, Content, FullPageLoader }) => (
           <Fragment>
-            {charDataLoading && <FullPageLoader />}
-            <Header />
+            {(charDataLoading || allCharsLoading) && <FullPageLoader />}
             <SideNav customClasses={sideNavClasses}>
               <h2>Characters</h2>
               { allChars.map(c => <a key={c} active={get('name')(charData) === c ? '1' : '0'} onClick={selectChar}>{c}</a>) }
@@ -157,7 +163,6 @@ const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
                 )
               }
             </Content>
-            <Footer />
           </Fragment>
         )
       }
@@ -169,7 +174,8 @@ Characters.propTypes = {
   selectChar: PropTypes.func,
   allChars: PropTypes.array,
   charData: PropTypes.object,
-  charDataLoading: PropTypes.bool
+  charDataLoading: PropTypes.bool,
+  allCharsLoading: PropTypes.bool
 }
 
 export default compose(
@@ -177,8 +183,7 @@ export default compose(
   withProps(() => ({ selectedChar: localStorage.getItem('defaultChar') })),
   fetchHoc(`api/characters`, {
     dataProp: 'allChars',
-    // TODO: handle new account with no characters
-    // TODO: handle if someone else uses computer and changes API key (default char no longer valid)
+    // TODO: handle if someone else uses computer and changes API key (defaultChar no longer valid)
     props: ({ loading, allChars = [], error }) => ({ allCharsLoading: loading, allChars, error })
   }),
   fetchHoc(`api/characters/:char`, {
@@ -187,7 +192,6 @@ export default compose(
     props: ({ loading, charData = undefined }) => ({ charDataLoading: loading, charData })
   }),
   branch(p => p.error === 403, renderComponent(ErrorCharacterModal)),
-  branch(p => p.allCharsLoading, renderComponent(FullPageLoader)),
   withHandlers({
     selectChar: ({ fetchData, charData }) => e => {
       if (charData.name !== e.target.innerText) {
@@ -200,14 +204,5 @@ export default compose(
   }),
   branch(p => !p.selectedChar, renderComponent(CharacterSelectModal)),
   lifecycle({ componentDidMount () { this.props.fetchData({ 'char': this.props.selectedChar }) } }),
-  mapProps(omit([
-    'error',
-    'fetchData',
-    'loading',
-    'selectedChar',
-    'showModal',
-    'closeModal',
-    'allCharsLoading',
-    'modalSelectChar'
-  ]))
+  mapProps(omit([ 'error', 'fetchData', 'loading', 'selectedChar', 'showModal', 'closeModal', 'modalSelectChar' ]))
 )(Characters)
