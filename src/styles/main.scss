@@ -12,28 +12,17 @@ html, body {
   height: auto;
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-}
-
 #root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-
-  & > div:nth-child(2) {
-    flex: 1 0 auto;
-    margin-top: 4rem;
-    padding-bottom: 1rem;
-    background-size: contain;
-    background-attachment: fixed;
-    background-image: url('/media/images/background.png'), rgb(43,52,73);
-    background-image: url('/media/images/background.png'), -moz-linear-gradient(135deg, #2b3449 0%, #000000 100%);
-    background-image: url('/media/images/background.png'), -webkit-linear-gradient(135deg, #2b3449 0%, #000000 100%);
-    background-image: url('/media/images/background.png'), linear-gradient(135deg, #2b3449 0%, #000000 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2b3449",endColorstr="#000b1c",GradientType=1);
-  }
+  background-size: contain;
+  background-attachment: fixed;
+  background-image: url('/media/images/background.png'), #20313c;
+  background-image: url('/media/images/background.png'), -moz-linear-gradient(225deg, #20313c 0%, #000000 100%);
+  background-image: url('/media/images/background.png'), -webkit-linear-gradient(225deg, #20313c 0%, #000000 100%);
+  background-image: url('/media/images/background.png'), linear-gradient(225deg, #20313c 0%, #000000 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#20313c",endColorstr="#000b1c",GradientType=1);
 }
 
 .Basic { color: #FBFBFB; }
@@ -43,6 +32,7 @@ body {
 .Exotic { color: #F7A100; }
 .Ascended { color: #FC4386; }
 .Legendary { color: #972BE9; }
+*[disabled] { opacity: .4; }
 
 h1 {
   font-size: 2rem;

@@ -43,7 +43,7 @@ const Header = styled(HeaderTemplate)`
     padding: 0.7rem;
     border: 2px solid transparent;
     ${({ theme }) => theme.generators.transition(200, 'ease-out')};
-    &:hover { border-color: ${({ theme }) => theme.colors.primary}; }
+    &:hover { border-color: ${({ theme }) => theme.colors.primaryLight1}; }
   }
 
   & > div:nth-child(2) {

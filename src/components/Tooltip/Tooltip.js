@@ -2,16 +2,18 @@ import React, { createContext } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-export const TooltipContext = createContext({
+const { Provider, Consumer } = createContext({
   item: null
 })
 
+export const TooltipConsumer = Consumer
+
 const TooltipTemplate = ({ className, children, item }) => (
-  <TooltipContext.Provider value={item}>
+  <Provider value={item}>
     <div className={className}>
       {children}
     </div>
-  </TooltipContext.Provider>
+  </Provider>
 )
 
 TooltipTemplate.propTypes = {
@@ -43,8 +45,7 @@ const Tooltip = styled(TooltipTemplate)`
     border-bottom: 15px solid transparent;
     ${({ position = 'right', theme }) => position === 'right'
     ? `border-right: 15px solid ${theme.colors.gray1}; left: -15px;`
-    : `border-left: 15px solid ${theme.colors.gray1}; right: -15px;`};
-    ;
+    : `border-left: 15px solid ${theme.colors.gray1}; right: -15px;`}
     top: 35px;
   }
 `

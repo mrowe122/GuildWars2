@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { compose, get } from 'lodash/fp'
@@ -73,12 +73,11 @@ const ItemSlotTemplate = ({ className, item, showTooltip, handleHover }) => (
   <div className={className}>
     {item
       ? (
-        <div>
+        <Fragment>
           <img src={get('skin.icon')(item) || item.data.icon} onMouseOver={handleHover} onMouseLeave={handleHover} />
           { showTooltip && renderTooltip(item)}
-        </div>
-      )
-      : <img src={emptySlot} />}
+        </Fragment>
+      ) : <img src={emptySlot} />}
   </div>
 )
 
@@ -124,9 +123,9 @@ const ItemSlot = styled(ItemSlotTemplate)`
   width: 50px;
   height: 50px;
   margin: 0.35rem;
+  position: relative;
   ${({ theme }) => theme.generators.boxShadow(0, 0, 7, 0, theme.colors.gray1)};
 
-  & > div { position: relative; }
   img { width: 100%; }
 
   ${Tooltip} {

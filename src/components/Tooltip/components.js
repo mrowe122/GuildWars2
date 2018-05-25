@@ -1,11 +1,9 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { TooltipContext } from './Tooltip'
+import { TooltipConsumer } from './Tooltip'
 import { get, getOr } from 'lodash/fp'
 import { Slot } from 'utils/constants'
 import { cleanString } from 'utils/utilities'
-
-const TooltipConsumer = TooltipContext.Consumer
 
 export const IconTitle = ({ weapon }) => (
   <TooltipConsumer>
@@ -14,7 +12,7 @@ export const IconTitle = ({ weapon }) => (
         <div className='img-title'>
           <img src={get('skin.icon')(item) || get('data.icon')(item)} />
           <h4 className={get('data.rarity')(item)}>
-            {get('skin.name')(item) || get('data.name')(item)}
+            {get('skin.name')(item) || get('data.name')(item)}&nbsp;
             {!weapon && get('upgrades[0].details.suffix')(item)}
           </h4>
         </div>

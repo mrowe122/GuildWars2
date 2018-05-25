@@ -4,25 +4,13 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CircularDependencyPlugin = require('circular-dependency-plugin')
 const path = require('../paths')
 
+const __DEV__ = process.env.NODE_ENV === 'development'
+const __TEST__ = process.env.NODE_ENV === 'test'
+const __PROD__ = process.env.NODE_ENV === 'production'
+
 module.exports = {
-  mode: 'development',
   context: path.src,
-  devServer: {
-    port: 9000,
-    host: '0.0.0.0',
-    contentBase: path.src,
-    hot: true,
-    historyApiFallback: true,
-    proxy: {
-      '/api': 'http://localhost:9001'
-    }
-  },
   entry: ['react-hot-loader/patch', './normalize', './index'],
-  output: {
-    path: path.dev,
-    filename: '[name].js'
-  },
-  devtool: 'source-map',
   optimization: {
     splitChunks: {
       cacheGroups: {
@@ -92,16 +80,13 @@ module.exports = {
     ]
   },
   plugins: [
-    new HtmlWebPackPlugin({
-      template: './index.html'
-    }),
     new CopyWebpackPlugin([
       { from: 'media', to: 'media' }
     ]),
-    new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new CircularDependencyPlugin({
-      failOnError: true
+    new webpack.DefinePlugin({
+      __DEV__,
+      __TEST__,
+      __PROD__
     })
   ]
 }

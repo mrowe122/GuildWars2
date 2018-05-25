@@ -11,13 +11,12 @@ const ModalStyling = css`
   color: ${({ theme }) => theme.colors.white};
   font-weight: 700;
   background-repeat: no-repeat;
-  background-color: ${({ theme }) => theme.colors.primaryDark2};
   background-image: url(${backgroundModal});
   ${({ theme }) => theme.generators.boxShadow(0, 0, 70, -5, 'rgba(0, 0, 0, 1)')}
 
   h3 {
     margin-bottom: 1.5rem;
-    color: ${({ theme }) => theme.colors.primaryLight2};
+    color: ${({ theme }) => theme.colors.white};
     ${({ theme }) => theme.generators.textShadow(0, 2, 10, 'rgba(0,0,0,1)')};
   }
 
@@ -28,7 +27,7 @@ const ModalStyling = css`
     ${({ theme }) => theme.generators.transition(150, 'linear')};
 
     &:hover {
-      color: ${({ theme }) => theme.colors.primaryLight3};
+      color: ${({ theme }) => theme.colors.primaryLight1};
       ${({ theme }) => theme.generators.textShadow(0, 2, 10, 'rgba(0,0,0,1)')};
     }
   }
