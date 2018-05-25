@@ -10,24 +10,20 @@ const SideNav = styled.div`
   height: 100%;
   width: ${({ theme }) => theme.sizes.sideNav};
   padding: 1rem;
-  box-sizing: border-box;
   position: fixed;
+  box-sizing: border-box;
   margin-top: ${({ theme }) => theme.sizes.header};
   ${({ theme }) => theme.generators.textShadow(0, 0, 5, 'rgba(0,0,0,1)')};
   ${({ customClasses }) => customClasses}
 `
 
-SideNav.displayName = 'SideNavDisplayName'
-
 const Content = styled.div`
   flex: 1 0 auto;
-  padding: 2rem 2rem 0;
+  padding: 2rem 2rem 1rem;
   margin-top: ${({ theme }) => theme.sizes.header};
   margin-left: ${({ theme }) => theme.sizes.sideNav};
   ${({ customClasses }) => customClasses}
 `
-
-Content.displayName = 'ContentDisplayName'
 
 const PivotBarTemplate = ({ className, items = [] }) => (
   <div className={className}>
@@ -67,9 +63,7 @@ const PivotBar = styled(PivotBarTemplate)`
     }
 
     &.active {
-      &:hover {
-        ${({ theme }) => theme.generators.boxShadow(0, 0, 0, 0, theme.colors.primaryLight1)}
-      }
+      &:hover { box-shadow: none; }
       background-color: ${({ theme }) => theme.colors.primaryLight1};
     }
   }
@@ -81,8 +75,6 @@ const PivotBar = styled(PivotBarTemplate)`
     fill: ${({ theme }) => theme.colors.white};
   }
 `
-
-PivotBar.displayName = 'PivotBarDisplayName'
 
 const ContainerTemplate = ({ className, children, header, footer }) => {
   return (
@@ -107,6 +99,7 @@ const Container = styled(ContainerTemplate)`
   flex-direction: column;
   ${({ pivotBar, theme }) => pivotBar && css`
     ${Header}, ${Footer} { margin-left: ${theme.sizes.pivotBar}; }
+    ${Footer} { margin-top: auto; }
   `}
 `
 

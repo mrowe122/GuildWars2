@@ -45,8 +45,7 @@ const Tooltip = styled(TooltipTemplate)`
     border-bottom: 15px solid transparent;
     ${({ position = 'right', theme }) => position === 'right'
     ? `border-right: 15px solid ${theme.colors.gray1}; left: -15px;`
-    : `border-left: 15px solid ${theme.colors.gray1}; right: -15px;`};
-    ;
+    : `border-left: 15px solid ${theme.colors.gray1}; right: -15px;`}
     top: 35px;
   }
 `

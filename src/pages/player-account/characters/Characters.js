@@ -4,65 +4,19 @@ import { css } from 'styled-components'
 import { compose, omit, get } from 'lodash/fp'
 import { withProps, withHandlers, branch, renderComponent, lifecycle, mapProps } from 'recompose'
 import { fetchHoc } from 'utils/cachedFetch'
-import routes from 'utils/routes'
 import { ageFromSeconds, formatDate } from 'utils/utilities'
-import { withModal, ItemSlot } from 'components'
+import { withModal, ItemSlot, FullPageLoader } from 'components'
 import { Layout } from 'providers/MainLayout'
 import { CharacterSelectModal, ErrorCharacterModal } from './CharactersModals'
-import { Bubble } from './StyledComponents'
+import { Bubble, sideNavClasses, contentClasses } from './StyledComponents'
 
-const sideNavClasses = css`
-  margin-left: ${({ theme }) => theme.sizes.pivotBar};
-  & > h2 {
-    color: ${({ theme }) => theme.colors.white};
-    margin-bottom: 1rem;
-  } 
-
-  a {
-    color: ${({ theme }) => theme.colors.gray1};
-    cursor: pointer;
-    max-width: 100%;
-    margin: .5rem 0;
-    padding: 0 .2rem;
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    ${({ theme }) => theme.generators.transition(150, 'linear')};
-    ${({ theme }) => theme.generators.textNoSelect};
-    &[active='1'], &:hover { color: ${({ theme }) => theme.colors.primaryLight1}; }
-  }
-`
-
-const contentClasses = css`
-  color: ${({ theme }) => theme.colors.white};
-  ${({ theme }) => `
-    margin-left: calc(${theme.sizes.sideNav} + ${theme.sizes.pivotBar});
-  `}
-
-  .middle-xs {
-    margin-bottom: 1rem;
-    img {
-      width: 100%;
-      ${({ theme }) => theme.generators.boxShadow(0, 0, 20, -3, '#000')}
-    }
-  }
-
-  .gw-c1 {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-
-    h2 { margin-bottom: .7rem; }
-  }
-`
-
-const Characters = ({ selectChar, allChars, charData, charDataLoading, allCharsLoading }) => {
+const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
   return (
     <Layout>
       {
         ({ Container, SideNav, Content, FullPageLoader }) => (
           <Fragment>
-            {(charDataLoading || allCharsLoading) && <FullPageLoader />}
+            {charDataLoading && <FullPageLoader />}
             <SideNav customClasses={sideNavClasses}>
               <h2>Characters</h2>
               { allChars.map(c => <a key={c} active={get('name')(charData) === c ? '1' : '0'} onClick={selectChar}>{c}</a>) }
@@ -94,8 +48,7 @@ const Characters = ({ selectChar, allChars, charData, charDataLoading, allCharsL
                                   className='emblem'
                                   style={{ backgroundImage: `url(http://data.gw2.fr/guild-emblem/name/${encodeURI(charData.guild.name)}/100.png)` }} />
                               </Fragment>
-                            )
-                            : <p className='p3'>Not in a Guild</p>
+                            ) : <p className='p3'>Not in a Guild</p>
                         }
                       </Bubble>
 
@@ -192,6 +145,7 @@ export default compose(
     props: ({ loading, charData = undefined }) => ({ charDataLoading: loading, charData })
   }),
   branch(p => p.error === 403, renderComponent(ErrorCharacterModal)),
+  branch(p => p.allCharsLoading, renderComponent(FullPageLoader)),
   withHandlers({
     selectChar: ({ fetchData, charData }) => e => {
       if (charData.name !== e.target.innerText) {
@@ -204,5 +158,5 @@ export default compose(
   }),
   branch(p => !p.selectedChar, renderComponent(CharacterSelectModal)),
   lifecycle({ componentDidMount () { this.props.fetchData({ 'char': this.props.selectedChar }) } }),
-  mapProps(omit([ 'error', 'fetchData', 'loading', 'selectedChar', 'showModal', 'closeModal', 'modalSelectChar' ]))
+  mapProps(omit([ 'error', 'fetchData', 'loading', 'selectedChar', 'showModal', 'closeModal', 'modalSelectChar', 'allCharsLoading' ]))
 )(Characters)
