@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import { NavLink } from 'react-router-dom'
 import { Header, Footer, FullPageLoader } from 'components'
+import MenuIcon from 'mdi-react/MenuIcon'
 
 const { Provider, Consumer } = createContext()
 
@@ -27,6 +28,9 @@ const Content = styled.div`
 
 const PivotBarTemplate = ({ className, items = [] }) => (
   <div className={className}>
+    <div>
+      <MenuIcon className='menu' />
+    </div>
     {items.map(i => (
       <NavLink to={i.link} activeClassName='active' key={i.title} title={i.title}>{i.icon}</NavLink>
     ))}
@@ -44,12 +48,34 @@ const PivotBar = styled(PivotBarTemplate)`
   left: 0;
   bottom: 0;
   position: fixed;
-  z-index: ${({ theme }) => theme.zIndexLayers.pivotBar};
-  background-color: ${({ theme }) => theme.colors.primary};
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding-top: ${({ theme }) => theme.sizes.header};
+  z-index: ${({ theme }) => theme.zIndexLayers.pivotBar};
+  background-color: ${({ theme }) => theme.colors.primary};
+
+  .mdi-icon {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+    fill: ${({ theme }) => theme.colors.white};
+  }
+
+  & > div {
+    height: ${({ theme }) => theme.sizes.header};
+    display: flex;
+    align-items: center;
+
+    .mdi-icon {
+      cursor: pointer;
+      padding: 0.9rem;
+
+      &:hover {
+        border-radius: 50%;
+        background-color: ${({ theme }) => theme.colors.primaryDark1};
+      }
+    }
+  }
 
   a {
     padding: 0.9rem;
@@ -66,13 +92,8 @@ const PivotBar = styled(PivotBarTemplate)`
       &:hover { box-shadow: none; }
       background-color: ${({ theme }) => theme.colors.primaryLight1};
     }
-  }
 
-  .mdi-icon {
-    width: 25px;
-    height: 25px;
-    vertical-align: middle;
-    fill: ${({ theme }) => theme.colors.white};
+    &:first-of-type { margin-top: 1.5rem; }
   }
 `
 
