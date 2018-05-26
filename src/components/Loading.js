@@ -3,16 +3,6 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Spinner from 'react-spinkit'
 
-const LoadingTemplate = ({ className }) => (
-  <div className={className} />
-)
-
-LoadingTemplate.propTypes = {
-  className: PropTypes.string
-}
-
-export const Loading = styled(LoadingTemplate)``
-
 const FullPageLoaderTemplate = ({ className }) => (
   <div className={className}>
     <Spinner name='three-bounce' fadeIn='none' />

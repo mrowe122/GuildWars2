@@ -1,7 +1,7 @@
 import config from 'config'
 import { compose, map, keyBy, assign } from 'lodash/fp'
 import { lifecycle, withStateHandlers, branch, renderComponent, withProps } from 'recompose'
-import Loading from 'components/Loading'
+import { FullPageLoader } from 'components/Loading'
 
 const withLoading = (dataProp = 'data') => compose(
   withProps(() => ({ controller: new AbortController() })),
@@ -47,6 +47,6 @@ export const withAchievements = compose(
   }),
   branch(
     ({ loading }) => loading,
-    renderComponent(Loading)
+    renderComponent(FullPageLoader)
   )
 )

@@ -10,7 +10,7 @@ const contentClasses = css`
 const Home = () => (
   <Layout>
     {
-      ({ Container, Header, Footer, Content }) => (
+      ({ Container, Content }) => (
         <Container header>
           <Content customClasses={contentClasses}>
             <h3>Home</h3>

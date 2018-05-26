@@ -4,7 +4,9 @@ import styled, { css } from 'styled-components'
 import { compose, noop } from 'lodash/fp'
 import { withStateHandlers, withProps } from 'recompose'
 import { NavLink } from 'react-router-dom'
-import { Header, Footer, FullPageLoader } from 'components'
+import { FullPageLoader } from 'components'
+import Header from './components/Header'
+import Footer from './components/Footer'
 import MenuIcon from 'mdi-react/MenuIcon'
 
 const { Provider, Consumer } = createContext()

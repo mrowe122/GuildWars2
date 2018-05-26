@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import routes from 'utils/routes'
-import Logo from './Logo'
+import { Logo } from 'components'
 
 const HeaderTemplate = ({ className }) => (
   <div className={className}>
