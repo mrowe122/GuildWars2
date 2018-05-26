@@ -8,26 +8,7 @@ import { ageFromSeconds, formatDate } from 'utils/utilities'
 import { withModal, ItemSlot, FullPageLoader } from 'components'
 import { Layout } from 'providers/MainLayout'
 import { CharacterSelectModal, ErrorCharacterModal } from './CharactersModals'
-import { Bubble, sideNavClasses, contentClasses } from './StyledComponents'
-
-const Gradient = styled.div`
-  width: 45%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  position: absolute;
-  padding-left: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  ${({ theme }) => theme.generators.gradient('#000', 'rgba(0,0,0,0)', 135)}
-
-  h2 {
-    color: ${({ theme }) => theme.colors.primaryLight1};
-    margin-bottom: .5rem;
-    ${({ theme }) => theme.generators.textShadow(0, 0, 15, 'rgba(0,0,0,1)')};
-  }
-`
+import { Bubble, Gradient, Special, sideNavClasses, contentClasses } from './StyledComponents'
 
 const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
   return (
@@ -124,7 +105,9 @@ const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
                     <div className='row center-xs'>
                       {
                         charData.specializations.pve.map(p => p && (
-                          <div key={`pve-${p.id}`} className='special' style={{ backgroundImage: `url(${p.data.background})` }} />
+                          <Special key={`pve-${p.id}`} img={p.data.background}>
+                            {/* <img src={p.data.icon} /> icon is broken in server and not being fetched */}
+                          </Special>
                         ))
                       }
                     </div>

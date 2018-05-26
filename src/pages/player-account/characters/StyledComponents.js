@@ -44,12 +44,11 @@ export const contentClasses = css`
   }
 
   .special {
-    max-width: 43rem;
     width: 100%;
-    height: 13rem;
+    max-width: 645px;
+    height: 135px;
     margin: 2rem 0;
-    background-repeat: no-repeat;
-    background-position: 0px -50px;
+    background: no-repeat left bottom;
   }
 `
 
@@ -90,4 +89,31 @@ export const Bubble = styled.div`
     background-repeat: no-repeat;
     ${({ guild }) => guild && `background-image: url(http://data.gw2.fr/guild-emblem/name/${encodeURI(guild)}/100.png)`}
   }  
+`
+
+export const Gradient = styled.div`
+  width: 45%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  padding-left: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  ${({ theme }) => theme.generators.gradient('#000', 'rgba(0,0,0,0)', 135)}
+
+  h2 {
+    color: ${({ theme }) => theme.colors.primaryLight1};
+    margin-bottom: .5rem;
+    ${({ theme }) => theme.generators.textShadow(0, 0, 15, 'rgba(0,0,0,1)')};
+  }
+`
+
+export const Special = styled.div`
+  width: 100%;
+  max-width: 645px;
+  height: 135px;
+  margin: 2rem 0;
+  background: url(${({img}) => img}) no-repeat left bottom;
 `
