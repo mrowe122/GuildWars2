@@ -71,14 +71,6 @@ h6 {
 }
 
 p {
-  word-break: break-all;
-  word-break: break-word;
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
-  hyphens: auto;
-  
-
   &.p1 {
     line-height: 1.6rem;
   }

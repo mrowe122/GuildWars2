@@ -42,6 +42,15 @@ export const contentClasses = css`
 
     h2 { margin-bottom: .7rem; }
   }
+
+  .special {
+    max-width: 43rem;
+    width: 100%;
+    height: 13rem;
+    margin: 2rem 0;
+    background-repeat: no-repeat;
+    background-position: 0px -50px;
+  }
 `
 
 export const Bubble = styled.div`
@@ -67,10 +76,13 @@ export const Bubble = styled.div`
     ${({ theme }) => theme.generators.textShadow(0, 0, 5, 'rgba(0,0,0,1)')};
   }
 
+  .p3 { align-self: stretch; }
+
   .emblem {
     width: 100%;
     height: 100%;
     top: 0;
+    left: 0;
     z-index: 0;
     opacity: 0.5;
     position: absolute;

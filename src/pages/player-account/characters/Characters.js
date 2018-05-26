@@ -13,11 +13,13 @@ import { Bubble, sideNavClasses, contentClasses } from './StyledComponents'
 const Gradient = styled.div`
   width: 45%;
   height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
   padding-left: 2.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  position: absolute;
   ${({ theme }) => theme.generators.gradient('#000', 'rgba(0,0,0,0)', 135)}
 
   h2 {
@@ -117,6 +119,14 @@ const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
                         <ItemSlot item={charData.equipment.Axe} />
                         <ItemSlot item={charData.equipment.Pick} />
                       </div>
+                    </div>
+
+                    <div className='row center-xs'>
+                      {
+                        charData.specializations.pve.map(p => p && (
+                          <div key={`pve-${p.id}`} className='special' style={{ backgroundImage: `url(${p.data.background})` }} />
+                        ))
+                      }
                     </div>
                   </Fragment>
                 )
