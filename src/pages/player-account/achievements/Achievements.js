@@ -3,7 +3,6 @@ import { css } from 'styled-components'
 import { Layout } from 'providers/MainLayout'
 
 const contentClasses = css`
-  margin-left: ${({ theme }) => theme.sizes.pivotBar};
   color: ${({ theme }) => theme.colors.white};
 `
 

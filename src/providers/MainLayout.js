@@ -1,6 +1,8 @@
 import React, { createContext } from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
+import { compose, noop } from 'lodash/fp'
+import { withStateHandlers, withProps } from 'recompose'
 import { NavLink } from 'react-router-dom'
 import { Header, Footer, FullPageLoader } from 'components'
 import MenuIcon from 'mdi-react/MenuIcon'
@@ -10,15 +12,18 @@ const { Provider, Consumer } = createContext()
 const SideNav = styled.div`
   height: 100%;
   width: ${({ theme }) => theme.sizes.sideNav};
-  padding: 1rem;
+  padding: 2rem;
   position: fixed;
   box-sizing: border-box;
   margin-top: ${({ theme }) => theme.sizes.header};
+  background-color: ${({ theme }) => theme.colors.loadingOverlay};
+  ${({ theme }) => theme.generators.boxShadow(0, 0, 10, 3, theme.colors.primary)}
   ${({ theme }) => theme.generators.textShadow(0, 0, 5, 'rgba(0,0,0,1)')};
   ${({ customClasses }) => customClasses}
 `
 
 const Content = styled.div`
+  max-width: 1070px;
   flex: 1 0 auto;
   padding: 2rem 2rem 1rem;
   margin-top: ${({ theme }) => theme.sizes.header};
@@ -26,13 +31,17 @@ const Content = styled.div`
   ${({ customClasses }) => customClasses}
 `
 
-const PivotBarTemplate = ({ className, items = [] }) => (
+const PivotBarTemplate = ({ className, items = [], expanded, handleMenu, closeMenu, onClick }) => (
   <div className={className}>
     <div>
-      <MenuIcon className='menu' />
+      <MenuIcon onClick={handleMenu} /> {expanded && 'Guild Wars 2'}
     </div>
     {items.map(i => (
-      <NavLink to={i.link} activeClassName='active' key={i.title} title={i.title}>{i.icon}</NavLink>
+      <NavLink
+        key={i.title}
+        to={i.link}
+        activeClassName='active'
+        onClick={onClick}>{i.icon} {expanded && i.title}</NavLink>
     ))}
   </div>
 )
@@ -42,23 +51,49 @@ PivotBarTemplate.propTypes = {
   items: PropTypes.array
 }
 
-const PivotBar = styled(PivotBarTemplate)`
-  width: ${({ theme }) => theme.sizes.pivotBar};
+const PivotBar = compose(
+  withStateHandlers(
+    () => ({ expanded: false }),
+    { handleMenu: ({ expanded }) => () => ({ expanded: !expanded }) }
+  ),
+  withProps(({ handleMenu, expanded }) => ({
+    onClick: expanded ? handleMenu : noop
+  }))
+)(styled(PivotBarTemplate)`
+  width: ${({ theme, expanded }) => expanded ? '15rem' : theme.sizes.pivotBar};
   top: 0;
   left: 0;
   bottom: 0;
   position: fixed;
+  padding: 0 13px;
+  box-sizing: border-box;
+  overflow: hidden;
   display: flex;
-  align-items: center;
+  align-items: start;
   flex-direction: column;
   z-index: ${({ theme }) => theme.zIndexLayers.pivotBar};
   background-color: ${({ theme }) => theme.colors.primary};
+  ${({ theme }) => theme.generators.transition(200, 'ease-out')};
 
   .mdi-icon {
-    width: 25px;
-    height: 25px;
+    width: 22px;
+    height: 22px;
     vertical-align: middle;
     fill: ${({ theme }) => theme.colors.white};
+    ${({ theme }) => theme.generators.transition(200, 'ease-out')};
+  }
+
+  & > div, a {
+    color: ${({ theme }) => theme.colors.white};
+    white-space: nowrap;
+    text-decoration: none;
+
+    .mdi-icon {
+      cursor: pointer;
+      padding: 0.5rem;
+      margin-right: 1rem;
+      border-radius: 50%;
+    }
   }
 
   & > div {
@@ -67,35 +102,30 @@ const PivotBar = styled(PivotBarTemplate)`
     align-items: center;
 
     .mdi-icon {
-      cursor: pointer;
-      padding: 0.9rem;
-
       &:hover {
-        border-radius: 50%;
         background-color: ${({ theme }) => theme.colors.primaryDark1};
       }
     }
   }
 
   a {
-    padding: 0.9rem;
     margin-bottom: 1.5rem;
-    border-radius: 50%;
-    background-color: ${({ theme }) => theme.colors.primaryDark1};
-    ${({ theme }) => theme.generators.transition(200, 'ease-out')};
+
+    &:first-of-type { margin-top: 1.5rem; }
+    .mdi-icon { background-color: ${({ theme }) => theme.colors.primaryDark1}; }
 
     &:hover {
-      ${({ theme }) => theme.generators.boxShadow(0, 0, 10, 3, theme.colors.primaryLight1)}
+      .mdi-icon { ${({ theme }) => theme.generators.boxShadow(0, 0, 10, 3, theme.colors.primaryLight1)} }
     }
 
     &.active {
-      &:hover { box-shadow: none; }
-      background-color: ${({ theme }) => theme.colors.primaryLight1};
+      &:hover {
+        .mdi-icon { box-shadow: none; }
+      }
+      .mdi-icon { background-color: ${({ theme }) => theme.colors.primaryLight1}; }
     }
-
-    &:first-of-type { margin-top: 1.5rem; }
   }
-`
+`)
 
 const ContainerTemplate = ({ className, children, header, footer }) => {
   return (
@@ -118,6 +148,7 @@ const Container = styled(ContainerTemplate)`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
   ${({ pivotBar, theme }) => pivotBar && css`
     ${Header}, ${Footer} { margin-left: ${theme.sizes.pivotBar}; }
     ${Footer} { margin-top: auto; }

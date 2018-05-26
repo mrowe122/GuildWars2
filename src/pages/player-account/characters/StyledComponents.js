@@ -1,19 +1,19 @@
 import styled, { css } from 'styled-components'
 
 export const sideNavClasses = css`
-  margin-left: ${({ theme }) => theme.sizes.pivotBar};
+  left: ${({ theme }) => theme.sizes.pivotBar};
   & > h2 {
     color: ${({ theme }) => theme.colors.white};
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   } 
 
   a {
     color: ${({ theme }) => theme.colors.gray1};
     cursor: pointer;
     max-width: 100%;
-    margin: .5rem 0;
+    margin: 1rem 0;
     padding: 0 .2rem;
-    display: inline-block;
+    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     ${({ theme }) => theme.generators.transition(150, 'linear')};
@@ -24,11 +24,10 @@ export const sideNavClasses = css`
 
 export const contentClasses = css`
   color: ${({ theme }) => theme.colors.white};
-  ${({ theme }) => `
-    margin-left: calc(${theme.sizes.sideNav} + ${theme.sizes.pivotBar});
-  `}
+  margin-left: ${({ theme }) => `calc(${theme.sizes.sideNav} + ${theme.sizes.pivotBar})`};
 
   .middle-xs {
+    position: relative;
     margin-bottom: 1rem;
     img {
       width: 100%;
@@ -77,5 +76,6 @@ export const Bubble = styled.div`
     position: absolute;
     background-position: center;
     background-repeat: no-repeat;
+    ${({ guild }) => guild && `background-image: url(http://data.gw2.fr/guild-emblem/name/${encodeURI(guild)}/100.png)`}
   }  
 `

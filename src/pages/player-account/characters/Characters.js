@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { css } from 'styled-components'
+import styled, { css } from 'styled-components'
 import { compose, omit, get } from 'lodash/fp'
 import { withProps, withHandlers, branch, renderComponent, lifecycle, mapProps } from 'recompose'
 import { fetchHoc } from 'utils/cachedFetch'
@@ -9,6 +9,23 @@ import { withModal, ItemSlot, FullPageLoader } from 'components'
 import { Layout } from 'providers/MainLayout'
 import { CharacterSelectModal, ErrorCharacterModal } from './CharactersModals'
 import { Bubble, sideNavClasses, contentClasses } from './StyledComponents'
+
+const Gradient = styled.div`
+  width: 45%;
+  height: 100%;
+  padding-left: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  ${({ theme }) => theme.generators.gradient('#000', 'rgba(0,0,0,0)', 135)}
+
+  h2 {
+    color: ${({ theme }) => theme.colors.primaryLight1};
+    margin-bottom: .5rem;
+    ${({ theme }) => theme.generators.textShadow(0, 0, 15, 'rgba(0,0,0,1)')};
+  }
+`
 
 const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
   return (
@@ -26,30 +43,19 @@ const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
                 charData && (
                   <Fragment>
                     <div className='row middle-xs'>
+                      <Gradient>
+                        <h2>{charData.name}</h2>
+                        <p className='p3'>
+                          Lv: {charData.level}
+                        </p>
+                      </Gradient>
                       <img src={`/media/banners/${charData.profession}.jpg`} />
                     </div>
                     <div className='row around-xs'>
-                      <Bubble>
-                        <h3>Character</h3>
-                        <p className='p3'>
-                          {charData.name}<br />
-                          Level: {charData.level}
-                        </p>
-                      </Bubble>
-
-                      <Bubble>
-                        {
-                          charData.guild.name
-                            ? (
-                              <Fragment>
-                                <h3>Guild</h3>
-                                <p className='p3'>{charData.guild.name}</p>
-                                <div
-                                  className='emblem'
-                                  style={{ backgroundImage: `url(http://data.gw2.fr/guild-emblem/name/${encodeURI(charData.guild.name)}/100.png)` }} />
-                              </Fragment>
-                            ) : <p className='p3'>Not in a Guild</p>
-                        }
+                      <Bubble guild={charData.guild.name}>
+                        <h3>Guild</h3>
+                        <p className='p3'>{charData.guild.name || 'Not in a Guild'}</p>
+                        { charData.guild.name && (<div className='emblem' />) }
                       </Bubble>
 
                       <Bubble>
