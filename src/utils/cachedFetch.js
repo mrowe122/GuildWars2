@@ -40,7 +40,7 @@ export const fetchHoc = (url, { dataProp = 'data', skip = false, props, method =
     }
   ),
   withHandlers({
-    fetchData: ({ startLoading, finishedLoading, controller, handleError }) => variables => {
+    getFetch: ({ startLoading, finishedLoading, controller, handleError }) => variables => {
       if (!skip) {
         startLoading()
         cachedFetch(parseUrl(url, variables), merge(fetchOptions, { signal: controller.signal }))
@@ -59,7 +59,7 @@ export const fetchHoc = (url, { dataProp = 'data', skip = false, props, method =
   ),
   branch(
     () => method === 'onLoad',
-    lifecycle({ componentDidMount () { this.props.fetchData() } })
+    lifecycle({ componentDidMount () { this.props.getFetch() } })
   ),
   mapProps(omit([
     'startLoading',

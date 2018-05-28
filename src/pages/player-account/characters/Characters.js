@@ -7,7 +7,7 @@ import { fetchHoc } from 'utils/cachedFetch'
 import { ageFromSeconds, formatDate } from 'utils/utilities'
 import { withModal, ItemSlot, FullPageLoader } from 'components'
 import { Layout } from 'providers/MainLayout'
-import { CharacterSelectModal, ErrorCharacterModal } from './CharactersModals'
+import { CharacterSelectModal, ErrorCharacterModal, UnauthorizedKey } from './CharactersModals'
 import { Bubble, Gradient, Special, sideNavClasses, contentClasses } from './StyledComponents'
 
 const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
@@ -143,19 +143,20 @@ export default compose(
     dataProp: 'charData',
     props: ({ loading, charData = undefined }) => ({ charDataLoading: loading, charData })
   }),
+  branch(p => p.error === 401, renderComponent(UnauthorizedKey)),
   branch(p => p.error === 403, renderComponent(ErrorCharacterModal)),
   branch(p => p.allCharsLoading, renderComponent(FullPageLoader)),
   withHandlers({
-    selectChar: ({ fetchData, charData }) => e => {
+    selectChar: ({ getFetch, charData }) => e => {
       if (charData.name !== e.target.innerText) {
         localStorage.setItem('defaultChar', e.target.innerText)
-        fetchData({ 'char': e.target.innerText })
+        getFetch({ 'char': e.target.innerText })
       }
     },
     // will be removed once caching is implemented
     modalSelectChar: () => e => localStorage.setItem('defaultChar', e.target.innerText)
   }),
   branch(p => !p.selectedChar, renderComponent(CharacterSelectModal)),
-  lifecycle({ componentDidMount () { this.props.fetchData({ 'char': this.props.selectedChar }) } }),
-  mapProps(omit([ 'error', 'fetchData', 'loading', 'selectedChar', 'showModal', 'closeModal', 'modalSelectChar', 'allCharsLoading' ]))
+  lifecycle({ componentDidMount () { this.props.getFetch({ 'char': this.props.selectedChar }) } }),
+  mapProps(omit([ 'error', 'getFetch', 'loading', 'selectedChar', 'showModal', 'closeModal', 'modalSelectChar', 'allCharsLoading' ]))
 )(Characters)
