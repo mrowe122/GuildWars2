@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
 import { compose, omit, get } from 'lodash/fp'
 import { withProps, withHandlers, branch, renderComponent, lifecycle, mapProps } from 'recompose'
 import { fetchHoc } from 'utils/cachedFetch'
@@ -106,7 +105,7 @@ const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
                       {
                         charData.specializations.pve.map(p => p && (
                           <Special key={`pve-${p.id}`} img={p.data.background}>
-                            {/* <img src={p.data.icon} /> icon is broken in server and not being fetched */}
+                            <img src={p.data.icon} />
                           </Special>
                         ))
                       }
@@ -126,8 +125,7 @@ Characters.propTypes = {
   selectChar: PropTypes.func,
   allChars: PropTypes.array,
   charData: PropTypes.object,
-  charDataLoading: PropTypes.bool,
-  allCharsLoading: PropTypes.bool
+  charDataLoading: PropTypes.bool
 }
 
 export default compose(
@@ -143,19 +141,19 @@ export default compose(
     dataProp: 'charData',
     props: ({ loading, charData = undefined }) => ({ charDataLoading: loading, charData })
   }),
-  branch(p => p.error === 403, renderComponent(ErrorCharacterModal)),
+  branch(p => p.errorStatus, renderComponent(ErrorCharacterModal)),
   branch(p => p.allCharsLoading, renderComponent(FullPageLoader)),
   withHandlers({
-    selectChar: ({ fetchData, charData }) => e => {
+    selectChar: ({ getFetch, charData }) => e => {
       if (charData.name !== e.target.innerText) {
         localStorage.setItem('defaultChar', e.target.innerText)
-        fetchData({ 'char': e.target.innerText })
+        getFetch({ 'char': e.target.innerText })
       }
     },
     // will be removed once caching is implemented
     modalSelectChar: () => e => localStorage.setItem('defaultChar', e.target.innerText)
   }),
   branch(p => !p.selectedChar, renderComponent(CharacterSelectModal)),
-  lifecycle({ componentDidMount () { this.props.fetchData({ 'char': this.props.selectedChar }) } }),
-  mapProps(omit([ 'error', 'fetchData', 'loading', 'selectedChar', 'showModal', 'closeModal', 'modalSelectChar', 'allCharsLoading' ]))
+  lifecycle({ componentDidMount () { this.props.getFetch({ 'char': this.props.selectedChar }) } }),
+  mapProps(omit([ 'error', 'getFetch', 'loading', 'selectedChar', 'showModal', 'closeModal', 'modalSelectChar', 'allCharsLoading' ]))
 )(Characters)

@@ -78,6 +78,6 @@ export const withModal = compose(
 export default compose(
   setPropTypes({
     showModal: PropTypes.bool.isRequired,
-    closeModal: PropTypes.func.isRequired
+    closeModal: PropTypes.func
   })
 )(Modal)
