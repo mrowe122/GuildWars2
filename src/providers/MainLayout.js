@@ -9,8 +9,6 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import MenuIcon from 'mdi-react/MenuIcon'
 
-const { Provider, Consumer } = createContext()
-
 const SideNav = styled.div`
   height: 100%;
   width: ${({ theme }) => theme.sizes.sideNav};
@@ -29,7 +27,6 @@ const Content = styled.div`
   flex: 1 0 auto;
   padding: 2rem 2rem 1rem;
   margin-top: ${({ theme }) => theme.sizes.header};
-  margin-left: ${({ theme }) => theme.sizes.sideNav};
   ${({ customClasses }) => customClasses}
 `
 
@@ -129,15 +126,13 @@ const PivotBar = compose(
   }
 `)
 
-const ContainerTemplate = ({ className, children, header, footer }) => {
-  return (
-    <div className={className}>
-      {header && <Header />}
-      {children}
-      {footer && <Footer />}
-    </div>
-  )
-}
+const ContainerTemplate = ({ className, children, header, footer }) => (
+  <div className={className}>
+    {header && <Header />}
+    {children}
+    {footer && <Footer />}
+  </div>
+)
 
 ContainerTemplate.propTypes = {
   className: PropTypes.string,
@@ -157,8 +152,9 @@ const Container = styled(ContainerTemplate)`
   `}
 `
 
-export const Layout = Consumer
+const { Provider, Consumer: Layout } = createContext()
 
+export { Layout }
 export const LayoutProvider = ({ children }) => (
   <Provider value={{ Container, PivotBar, SideNav, Content, FullPageLoader }}>
     {children}

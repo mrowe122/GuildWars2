@@ -4,7 +4,6 @@ import { Layout } from 'providers/MainLayout'
 
 const contentClasses = css`
   color: ${({ theme }) => theme.colors.white};
-  margin-left: 0;
 `
 
 const Home = () => (
