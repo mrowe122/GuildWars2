@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import { compose } from 'lodash/fp'
@@ -60,14 +60,23 @@ CharacterSelectModalTemplate.propTypes = {
 
 const CharacterSelectModal = styled(CharacterSelectModalTemplate)`${ModalStyling}`
 
-const ErrorCharacterModalTemplate = ({ className, closeModal, setKey, submit, errorMessage, apiKey, keyLoading }) => (
+const ErrorCharacterModalTemplate = ({ className, closeModal, apiKey, setKey, submit, errorStatus, errorMessage, keyLoading }) => (
   <Modal size='sm' contentClass={className} showModal hideClose closeModal={closeModal}>
-    <h3>Error</h3>
-    <p className='p1'>
-      The key you provided does not allow us to access your character informtation.<br />
-      Use a different key with character access in order to use this functionality.
-    </p>
-    <input onChange={setKey} placeholder='API key'/>
+    {
+      errorStatus === 403 ? (
+        <Fragment>
+          <h3>Error</h3>
+          <p className='p1'>
+            The key you provided does not allow us to access your character informtation.<br />
+            Use a different key with character access in order to use this functionality.
+          </p>
+        </Fragment>
+      ) : (
+        <h3>Add your API key</h3>
+      )
+    }
+
+    <input onChange={setKey} placeholder='API key' />
     { keyLoading ? <Spinner fadeIn='none' name='three-bounce' /> : <button type='submit' onClick={submit} disabled={!apiKey}>Submit</button> }
     { errorMessage && (<p>{errorMessage}</p>)}
   </Modal>
@@ -76,9 +85,12 @@ const ErrorCharacterModalTemplate = ({ className, closeModal, setKey, submit, er
 ErrorCharacterModalTemplate.propTypes = {
   className: PropTypes.string,
   closeModal: PropTypes.func,
+  apiKey: PropTypes.string,
   setKey: PropTypes.func,
   submit: PropTypes.func,
-  errorMessage: PropTypes.string
+  errorStatus: PropTypes.number,
+  errorMessage: PropTypes.string,
+  keyLoading: PropTypes.bool
 }
 
 const ErrorCharacterModal = compose(
@@ -98,21 +110,16 @@ const ErrorCharacterModal = compose(
       setStates({ errorMessage: null, keyLoading: true })
       fetch('api/authenticate', {
         method: 'POST',
-        body: JSON.stringify({apiKey: apiKey}),
+        body: JSON.stringify({ apiKey: apiKey }),
         headers: { 'content-type': 'application/json' }
       }).then(res => {
-        if (res.ok) {
-          return Promise.resolve()
-        } else {
-          if (res.status === 403) {
-            throw 'API Key is invalid'
-          }
+        if (!res.ok) {
+          if (res.status === 403) throw Error('API Key is invalid')
         }
+        return Promise.resolve()
       }).then(() => {
         location.reload()
-      }).catch(err => {
-        setStates({ errorMessage: err, keyLoading: false })
-      })
+      }).catch(err => setStates({ errorMessage: err.message, keyLoading: false }))
     }
   })
 )(styled(ErrorCharacterModalTemplate)`
@@ -122,95 +129,13 @@ const ErrorCharacterModal = compose(
   justify-content: center;
   flex-direction: column;
 
-  p.p1 {
-    margin-bottom: 1rem;
-  }
-
-  input {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-  button {
-    display: block;
-    margin-bottom: 1rem;
-  }
-
-  .sk-spinner { color: ${({ theme }) => theme.colors.white}; }
-`)
-
-const UnauthorizedKeyTemplate = ({ className, closeModal, setKey, submit, errorMessage, apiKey, keyLoading }) => (
-  <Modal size='sm' contentClass={className} showModal hideClose closeModal={closeModal}>
-    <h3>Add your API key</h3>
-    <input onChange={setKey} placeholder='API key'/>
-    { keyLoading ? <Spinner fadeIn='none' name='three-bounce' /> : <button type='submit' onClick={submit} disabled={!apiKey}>Submit</button> }
-    { errorMessage && (<p>{errorMessage}</p>)}
-  </Modal>
-)
-
-UnauthorizedKeyTemplate.propTypes = {
-  className: PropTypes.string,
-  closeModal: PropTypes.func,
-  setKey: PropTypes.func,
-  submit: PropTypes.func,
-  errorMessage: PropTypes.string
-}
-
-const UnauthorizedKey = compose(
-  withStateHandlers(
-    () => ({
-      apiKey: null,
-      errorMessage: null,
-      keyLoading: null
-    }),
-    {
-      setKey: () => e => ({ apiKey: e.target.value }),
-      setStates: () => states => states
-    }
-  ),
-  withHandlers({
-    submit: ({ apiKey, setStates }) => () => {
-      setStates({ errorMessage: null, keyLoading: true })
-      fetch('api/authenticate', {
-        method: 'POST',
-        body: JSON.stringify({apiKey: apiKey}),
-        headers: { 'content-type': 'application/json' }
-      }).then(res => {
-        if (res.ok) {
-          return Promise.resolve()
-        } else {
-          if (res.status === 403) {
-            throw 'API Key is invalid'
-          }
-        }
-      }).then(() => {
-        location.reload()
-      }).catch(err => {
-        setStates({ errorMessage: err, keyLoading: false })
-      })
-    }
-  })
-)(styled(UnauthorizedKeyTemplate)`
-  ${ModalStyling}
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-
-  input {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-  button {
-    display: block;
-    margin-bottom: 1rem;
-  }
+  p.p1, input, button { margin-bottom: 1rem; }
+  input { width: 100%; }
 
   .sk-spinner { color: ${({ theme }) => theme.colors.white}; }
 `)
 
 export {
   CharacterSelectModal,
-  ErrorCharacterModal,
-  UnauthorizedKey
+  ErrorCharacterModal
 }

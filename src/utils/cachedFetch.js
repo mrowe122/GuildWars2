@@ -13,9 +13,7 @@ const cachedFetch = (url, options) => {
   const _data = cachedData.get(url)
   return _data
     ? Promise.resolve(_data)
-    : fetch(url, options)
-        .then(handleErrors)
-        .then(cachedData.add(url))
+    : fetch(url, options).then(handleErrors).then(cachedData.add(url))
 }
 
 const parseUrl = (url, variables) => {
@@ -36,7 +34,7 @@ export const fetchHoc = (url, { dataProp = 'data', skip = false, props, method =
     {
       startLoading: () => () => ({ loading: true }),
       finishedLoading: () => data => ({ loading: false, [dataProp]: data }),
-      handleError: () => data => ({ loading: false, error: data })
+      handleError: () => data => ({ loading: false, errorStatus: data })
     }
   ),
   withHandlers({

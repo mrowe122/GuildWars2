@@ -1,13 +1,12 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
 import { compose, omit, get } from 'lodash/fp'
 import { withProps, withHandlers, branch, renderComponent, lifecycle, mapProps } from 'recompose'
 import { fetchHoc } from 'utils/cachedFetch'
 import { ageFromSeconds, formatDate } from 'utils/utilities'
 import { withModal, ItemSlot, FullPageLoader } from 'components'
 import { Layout } from 'providers/MainLayout'
-import { CharacterSelectModal, ErrorCharacterModal, UnauthorizedKey } from './CharactersModals'
+import { CharacterSelectModal, ErrorCharacterModal } from './CharactersModals'
 import { Bubble, Gradient, Special, sideNavClasses, contentClasses } from './StyledComponents'
 
 const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
@@ -106,7 +105,7 @@ const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
                       {
                         charData.specializations.pve.map(p => p && (
                           <Special key={`pve-${p.id}`} img={p.data.background}>
-                            {/* <img src={p.data.icon} /> icon is broken in server and not being fetched */}
+                            <img src={p.data.icon} />
                           </Special>
                         ))
                       }
@@ -126,8 +125,7 @@ Characters.propTypes = {
   selectChar: PropTypes.func,
   allChars: PropTypes.array,
   charData: PropTypes.object,
-  charDataLoading: PropTypes.bool,
-  allCharsLoading: PropTypes.bool
+  charDataLoading: PropTypes.bool
 }
 
 export default compose(
@@ -143,8 +141,7 @@ export default compose(
     dataProp: 'charData',
     props: ({ loading, charData = undefined }) => ({ charDataLoading: loading, charData })
   }),
-  branch(p => p.error === 401, renderComponent(UnauthorizedKey)),
-  branch(p => p.error === 403, renderComponent(ErrorCharacterModal)),
+  branch(p => p.errorStatus, renderComponent(ErrorCharacterModal)),
   branch(p => p.allCharsLoading, renderComponent(FullPageLoader)),
   withHandlers({
     selectChar: ({ getFetch, charData }) => e => {

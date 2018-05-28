@@ -3051,8 +3051,8 @@ es-to-primitive@^1.1.1:
     is-symbol "^1.0.1"
 
 es5-ext@^0.10.35, es5-ext@^0.10.9, es5-ext@~0.10.14:
-  version "0.10.42"
-  resolved "https://registry.yarnpkg.com/es5-ext/-/es5-ext-0.10.42.tgz#8c07dd33af04d5dcd1310b5cef13bea63a89ba8d"
+  version "0.10.43"
+  resolved "https://registry.yarnpkg.com/es5-ext/-/es5-ext-0.10.43.tgz#c705e645253210233a270869aa463a2333b7ca64"
   dependencies:
     es6-iterator "~2.0.3"
     es6-symbol "~3.1.1"
@@ -4215,7 +4215,7 @@ grouped-queue@^0.3.3:
 
 "guildwars2-server@https://github.com/mrowe122/GuildWars2-Server.git":
   version "0.0.0"
-  resolved "https://github.com/mrowe122/GuildWars2-Server.git#f444a14644e16eecb097b892ffe4373de14907bf"
+  resolved "https://github.com/mrowe122/GuildWars2-Server.git#5ef1521a26019a34f8fd2c8465fb5ee4b8b90c4e"
   dependencies:
     body-parser "^1.18.3"
     express "^4.16.3"
