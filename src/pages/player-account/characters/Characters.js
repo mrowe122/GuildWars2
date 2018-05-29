@@ -131,13 +131,13 @@ Characters.propTypes = {
 export default compose(
   withModal,
   withProps(() => ({ selectedChar: localStorage.getItem('defaultChar') })),
-  fetchHoc(`api/characters`, {
+  fetchHoc.get(`api/characters`, {
     dataProp: 'allChars',
     // TODO: handle if someone else uses computer and changes API key (defaultChar no longer valid)
-    props: ({ loading, allChars = [], error }) => ({ allCharsLoading: loading, allChars, error })
+    props: ({ loading, allChars = [], errorStatus }) => ({ allCharsLoading: loading, allChars, errorStatus })
   }),
-  fetchHoc(`api/characters/:char`, {
-    method: 'onDemand',
+  fetchHoc.get(`api/characters/:char`, {
+    call: 'onClick',
     dataProp: 'charData',
     props: ({ loading, charData = undefined }) => ({ charDataLoading: loading, charData })
   }),

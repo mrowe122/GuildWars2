@@ -26,47 +26,85 @@ const parseUrl = (url, variables) => {
   return _url
 }
 
-export const fetchHoc = (url, { dataProp = 'data', skip = false, props, method = 'onLoad' }, fetchOptions) => compose(
+const withDefaults = ({ dataProp, call, props }) => compose(
   withProps(() => ({ controller: new AbortController() })),
   lifecycle({ componentWillUnmount () { this.props.controller.abort() } }),
   withStateHandlers(
-    () => ({ loading: (method !== 'onDemand' && !skip), [dataProp]: undefined }),
+    () => ({ loading: (call !== 'onClick'), [dataProp]: undefined }),
     {
-      startLoading: () => () => ({ loading: true }),
-      finishedLoading: () => data => ({ loading: false, [dataProp]: data }),
+      startLoading: () => () => ({ loading: true, errorStatus: null }),
+      finishedLoading: () => data => ({ loading: false, errorStatus: null, [dataProp]: data }),
       handleError: () => data => ({ loading: false, errorStatus: data })
     }
   ),
-  withHandlers({
-    getFetch: ({ startLoading, finishedLoading, controller, handleError }) => variables => {
-      if (!skip) {
-        startLoading()
-        cachedFetch(parseUrl(url, variables), merge(fetchOptions, { signal: controller.signal }))
-          .then(data => defer(() => finishedLoading(JSON.parse(data).body)))
-          .catch(err => {
-            if (err.name !== 'AbortError') {
-              defer(() => handleError(err))
-            }
-          })
-      }
-    }
-  }),
   branch(
     () => typeof props === 'function',
     withProps(props)
-  ),
-  branch(
-    () => method === 'onLoad',
-    lifecycle({ componentDidMount () { this.props.getFetch() } })
-  ),
-  mapProps(omit([
-    'startLoading',
-    'controller',
-    'handleError',
-    'finishedLoading',
-    'history',
-    'location',
-    'match',
-    'staticContext'
-  ]))
+  )
 )
+
+const omitProps = [
+  'startLoading',
+  'controller',
+  'handleError',
+  'finishedLoading',
+  'history',
+  'location',
+  'match',
+  'staticContext'
+]
+
+export const fetchHocGet = (
+  url,
+  { dataProp = 'data', props, call = 'onLoad', name = 'getFetch' },
+  fetchOptions
+) => compose(
+  withDefaults({ dataProp, call, props }),
+  withHandlers({
+    [name]: ({ startLoading, finishedLoading, controller, handleError }) => variables => {
+      startLoading()
+      return cachedFetch(parseUrl(url, variables), merge(fetchOptions, { signal: controller.signal }))
+        .then(data => defer(() => finishedLoading(JSON.parse(data).body)))
+        .catch(err => {
+          if (err.name !== 'AbortError') {
+            defer(() => handleError(err))
+          }
+        })
+    }
+  }),
+  branch(
+    () => call === 'onLoad',
+    lifecycle({ componentDidMount () { this.props[name]() } })
+  ),
+  mapProps(omit(omitProps))
+)
+
+export const fetchHocPost = (
+  url,
+  { dataProp = 'data', props, name = 'postFetch', call = 'onClick' },
+  fetchOptions = {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' }
+  }
+) => compose(
+  withDefaults({ dataProp, props, call }),
+  withHandlers({
+    [name]: ({ startLoading, finishedLoading, controller, handleError }) => body => {
+      startLoading()
+      fetch(url, merge(fetchOptions, { body: JSON.stringify(body), signal: controller.signal }))
+        .then(handleErrors)
+        .then(data => defer(() => finishedLoading(data)))
+        .catch(err => {
+          if (err.name !== 'AbortError') {
+            defer(() => handleError(err))
+          }
+        })
+    }
+  }),
+  mapProps(omit(omitProps))
+)
+
+export const fetchHoc = {
+  get: fetchHocGet,
+  post: fetchHocPost
+}

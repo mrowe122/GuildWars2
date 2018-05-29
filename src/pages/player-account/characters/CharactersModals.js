@@ -2,9 +2,12 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import { compose } from 'lodash/fp'
-import { withStateHandlers, withHandlers } from 'recompose'
+import { withStateHandlers, withHandlers, branch, renderComponent } from 'recompose'
+import { fetchHoc } from 'utils/cachedFetch'
 import { Modal } from 'components'
 import Spinner from 'react-spinkit'
+import { Redirect } from 'react-router-dom'
+import routes from 'utils/routes'
 
 import backgroundModal from 'media/images/small_modal.gif'
 
@@ -37,7 +40,7 @@ const ModalStyling = css`
 `
 
 const CharacterSelectModalTemplate = ({ className, closeModal, allChars, modalSelectChar }) => (
-  <Modal size='sm' contentClass={className} showModal hideClose closeModal={closeModal}>
+  <Modal size='sm' contentClass={className} showModal hideClose>
     <h3>Select Your Character</h3>
     {
       allChars.length ? allChars.map(char => (
@@ -60,25 +63,31 @@ CharacterSelectModalTemplate.propTypes = {
 
 const CharacterSelectModal = styled(CharacterSelectModalTemplate)`${ModalStyling}`
 
-const ErrorCharacterModalTemplate = ({ className, closeModal, apiKey, setKey, submit, errorStatus, errorMessage, keyLoading }) => (
+const ErrorCharacterModalTemplate = ({ className, closeModal, apiKey, setKey, submit, errorStatus, keyLoading }) => (
   <Modal size='sm' contentClass={className} showModal hideClose closeModal={closeModal}>
     {
-      errorStatus === 403 ? (
+      errorStatus === 403 && (
         <Fragment>
           <h3>Error</h3>
           <p className='p1'>
-            The key you provided does not allow us to access your character informtation.<br />
-            Use a different key with character access in order to use this functionality.
+            The key you provided is either invalid or does not permit character access<br />
+            Use a different key that grants character permissions.
           </p>
         </Fragment>
-      ) : (
-        <h3>Add your API key</h3>
       )
     }
-
+    {
+      errorStatus === 401 && (
+        <h3>Add an API key</h3>
+      )
+    }
+    {
+      !errorStatus && (
+        <h3>Validating your API key</h3>
+      )
+    }
     <input onChange={setKey} placeholder='API key' />
     { keyLoading ? <Spinner fadeIn='none' name='three-bounce' /> : <button type='submit' onClick={submit} disabled={!apiKey}>Submit</button> }
-    { errorMessage && (<p>{errorMessage}</p>)}
   </Modal>
 )
 
@@ -89,39 +98,28 @@ ErrorCharacterModalTemplate.propTypes = {
   setKey: PropTypes.func,
   submit: PropTypes.func,
   errorStatus: PropTypes.number,
-  errorMessage: PropTypes.string,
   keyLoading: PropTypes.bool
 }
 
+// TODO: not final implementation. Going to move API key logic to /account route
+const AccountRedirect = () => <Redirect to={routes.account.index} />
+
 const ErrorCharacterModal = compose(
   withStateHandlers(
-    () => ({
-      apiKey: null,
-      errorMessage: null,
-      keyLoading: null
-    }),
-    {
-      setKey: () => e => ({ apiKey: e.target.value }),
-      setStates: () => states => states
-    }
+    () => ({ apiKey: null }),
+    { setKey: () => e => ({ apiKey: e.target.value }) }
   ),
+  fetchHoc.post(`api/authenticate`, {
+    name: 'authenticate',
+    props: ({ loading }) => ({ keyLoading: loading })
+  }),
   withHandlers({
-    submit: ({ apiKey, setStates }) => () => {
-      setStates({ errorMessage: null, keyLoading: true })
-      fetch('api/authenticate', {
-        method: 'POST',
-        body: JSON.stringify({ apiKey: apiKey }),
-        headers: { 'content-type': 'application/json' }
-      }).then(res => {
-        if (!res.ok) {
-          if (res.status === 403) throw Error('API Key is invalid')
-        }
-        return Promise.resolve()
-      }).then(() => {
-        location.reload()
-      }).catch(err => setStates({ errorMessage: err.message, keyLoading: false }))
-    }
-  })
+    submit: ({ apiKey, authenticate, ...rest }) => () => authenticate({ apiKey })
+  }),
+  branch(
+    ({ errorStatus, keyLoading }) => !errorStatus && !keyLoading,
+    renderComponent(AccountRedirect)
+  )
 )(styled(ErrorCharacterModalTemplate)`
   ${ModalStyling}
   display: flex;
