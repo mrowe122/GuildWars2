@@ -12,7 +12,7 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.dev.js",
     "server": "node_modules/.bin/gw2_server",
     "mockServer": "node_modules/.bin/gw2_mock_server",
-    "test": "jest"
+    "test": "jest --config ./config/jest.config.js"
   },
   "repository": {
     "type": "git",
