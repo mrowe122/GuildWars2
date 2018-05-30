@@ -115,5 +115,5 @@ export const Special = styled.div`
   max-width: 645px;
   height: 135px;
   margin: 2rem 0;
-  background: url(${({img}) => img}) no-repeat left bottom;
+  background: url(${({ img }) => img}) no-repeat left bottom;
 `

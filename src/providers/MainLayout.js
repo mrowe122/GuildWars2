@@ -30,7 +30,7 @@ const Content = styled.div`
   ${({ customClasses }) => customClasses}
 `
 
-const PivotBarTemplate = ({ className, items = [], expanded, handleMenu, closeMenu, onClick }) => (
+const PivotBarTemplate = ({ className, items = [], expanded, handleMenu, onClick }) => (
   <div className={className}>
     <div>
       <MenuIcon onClick={handleMenu} /> {expanded && 'Guild Wars 2'}
@@ -47,7 +47,10 @@ const PivotBarTemplate = ({ className, items = [], expanded, handleMenu, closeMe
 
 PivotBarTemplate.propTypes = {
   className: PropTypes.string,
-  items: PropTypes.array
+  items: PropTypes.array,
+  expanded: PropTypes.bool,
+  handleMenu: PropTypes.func,
+  onClick: PropTypes.func
 }
 
 const PivotBar = compose(

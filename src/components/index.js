@@ -2,7 +2,7 @@ import DailyAchievements from './DailyAchievements'
 import ItemSlot from './ItemSlot'
 import Logo from './Logo'
 import Modal, { withModal } from './Modal'
-import { Loading, FullPageLoader } from './Loading'
+import FullPageLoader from './Loading'
 
 export {
   DailyAchievements,
@@ -10,6 +10,5 @@ export {
   Logo,
   Modal,
   withModal,
-  Loading,
   FullPageLoader
 }

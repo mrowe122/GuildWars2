@@ -14,6 +14,9 @@
     "browser" : true,
     "es6"     : true
   },
+  "globals": {
+    "__DEV__": false
+  },
   "rules": {
     "jsx-quotes"            : [2, "prefer-single"],
     "object-curly-spacing"  : [2, "always"],

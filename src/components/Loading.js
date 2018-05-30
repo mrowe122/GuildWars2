@@ -13,7 +13,7 @@ FullPageLoaderTemplate.propTypes = {
   className: PropTypes.string
 }
 
-export const FullPageLoader = styled(FullPageLoaderTemplate)`
+const FullPageLoader = styled(FullPageLoaderTemplate)`
   top: 0;
   left: 0;
   right: 0;
@@ -27,3 +27,5 @@ export const FullPageLoader = styled(FullPageLoaderTemplate)`
 
   .sk-spinner { color: ${({ theme }) => theme.colors.primaryLight1}; }
 `
+
+export default FullPageLoader

@@ -56,7 +56,7 @@ const omitProps = [
 
 export const fetchHocGet = (
   url,
-  { dataProp = 'data', props, call = 'onLoad', name = 'getFetch' },
+  { dataProp = 'data', props, call = 'onLoad', name = 'getFetch' } = { dataProp: 'data', call: 'onLoad', name: 'getFetch' },
   fetchOptions
 ) => compose(
   withDefaults({ dataProp, call, props }),
@@ -81,7 +81,7 @@ export const fetchHocGet = (
 
 export const fetchHocPost = (
   url,
-  { dataProp = 'data', props, name = 'postFetch', call = 'onClick' },
+  { dataProp = 'data', props, name = 'postFetch', call = 'onClick' } = { dataProp: 'data', call: 'onLoad', name: 'postFetch' },
   fetchOptions = {
     method: 'POST',
     headers: { 'content-type': 'application/json' }
