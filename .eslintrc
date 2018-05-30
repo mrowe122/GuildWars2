@@ -15,7 +15,10 @@
     "es6"     : true
   },
   "globals": {
-    "__DEV__": false
+    "__DEV__": false,
+    "describe": false,
+    "it": false,
+    "expect": false
   },
   "rules": {
     "jsx-quotes"            : [2, "prefer-single"],
