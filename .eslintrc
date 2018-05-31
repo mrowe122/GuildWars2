@@ -18,7 +18,11 @@
     "__DEV__": false,
     "describe": false,
     "it": false,
-    "expect": false
+    "expect": false,
+    "beforeEach": false,
+    "shallow": false,
+    "mount": false,
+    "globalProps": false
   },
   "rules": {
     "jsx-quotes"            : [2, "prefer-single"],
