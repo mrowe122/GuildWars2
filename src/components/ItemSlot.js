@@ -69,18 +69,6 @@ GatheringTooltip.propTypes = {
   item: PropTypes.object
 }
 
-const ItemSlotTemplate = ({ className, item, showTooltip, handleHover }) => (
-  <div className={className}>
-    {item
-      ? (
-        <Fragment>
-          <img src={get('skin.icon')(item) || item.data.icon} onMouseOver={handleHover} onMouseLeave={handleHover} />
-          { showTooltip && renderTooltip(item)}
-        </Fragment>
-      ) : <img src={emptySlot} />}
-  </div>
-)
-
 const renderTooltip = item => {
   switch (item.slot) {
     case 'Helm':
@@ -112,6 +100,18 @@ const renderTooltip = item => {
   }
 }
 
+const ItemSlotTemplate = ({ className, item, showTooltip, handleHover }) => (
+  <div className={className}>
+    {item
+      ? (
+        <Fragment>
+          <img alt='item slot' src={get('skin.icon')(item) || get('data.icon')(item)} onMouseOver={handleHover} onMouseLeave={handleHover} />
+          { showTooltip && renderTooltip(item)}
+        </Fragment>
+      ) : <img alt='empty slot' src={emptySlot} />}
+  </div>
+)
+
 ItemSlotTemplate.propTypes = {
   className: PropTypes.string,
   item: PropTypes.object,
@@ -119,7 +119,7 @@ ItemSlotTemplate.propTypes = {
   handleHover: PropTypes.func
 }
 
-const ItemSlot = styled(ItemSlotTemplate)`
+export const ItemSlot = styled(ItemSlotTemplate)`
   width: 50px;
   height: 50px;
   margin: 0.35rem;
@@ -149,9 +149,11 @@ const ItemSlot = styled(ItemSlotTemplate)`
   }
 `
 
-export default compose(
+export const enhancer = compose(
   withStateHandlers(
     () => ({ showTooltip: false }),
     { handleHover: ({ showTooltip }) => () => ({ showTooltip: !showTooltip }) }
   )
-)(ItemSlot)
+)
+
+export default enhancer(ItemSlot)
