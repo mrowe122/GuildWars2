@@ -2,8 +2,8 @@ import React from 'react'
 import { enhancer, ItemSlot } from '../ItemSlot'
 
 describe('ItemSlot', () => {
-  let _component
   describe('Enhancer', () => {
+    let _component
     beforeEach(() => {
       const Empty = enhancer(EmptyDiv)
       _component = mount(<Empty />)
@@ -19,14 +19,16 @@ describe('ItemSlot', () => {
     })
 
     it('should handleHover to show tooltip', () => {
-      let emptyDive = _component.find(EmptyDiv)
-      emptyDive.props().handleHover()
+      let emptyDiv = _component.find(EmptyDiv)
+      emptyDiv.props().handleHover()
       _component.update()
-      emptyDive = _component.find(EmptyDiv)
-      expect(emptyDive.props().showTooltip).toBe(true)
+      emptyDiv = _component.find(EmptyDiv)
+      expect(emptyDiv.props().showTooltip).toBe(true)
     })
   })
+
   describe('Component', () => {
+    let _component
     beforeEach(() => {
       _component = props => shallow(<ItemSlot {...globalProps} {...props} />).dive()
     })

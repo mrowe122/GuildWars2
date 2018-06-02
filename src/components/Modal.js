@@ -70,7 +70,7 @@ Modal.propTypes = { size: PropTypes.oneOf(['sm', 'md', 'lg']) }
 
 export const withModal = compose(
   withStateHandlers(
-    () => ({ showModal: false }),
+    ({ initial = false }) => ({ showModal: initial }),
     { closeModal: ({ showModal }) => () => (({ showModal: !showModal })) }
   )
 )
