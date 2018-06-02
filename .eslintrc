@@ -22,7 +22,8 @@
     "beforeEach": false,
     "shallow": false,
     "mount": false,
-    "globalProps": false
+    "globalProps": false,
+    "EmptyDiv": false
   },
   "rules": {
     "jsx-quotes"            : [2, "prefer-single"],
