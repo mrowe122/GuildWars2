@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import config from 'config'
 import { compose, map, keyBy, assign } from 'lodash/fp'
 import { lifecycle, withStateHandlers, branch, renderComponent, withProps } from 'recompose'
