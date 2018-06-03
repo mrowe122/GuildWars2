@@ -2,7 +2,6 @@ let ignoreFiles = [
   '!<rootDir>/src/**/index.js',
   '!<rootDir>/src/styles/variables.js',
   '!<rootDir>/src/utils/constants.js',
-  '!<rootDir>/src/utils/routes.js',
   '!<rootDir>/src/normalize.js'
 ]
 

@@ -1,4 +1,4 @@
-import Home from './home/component/Home'
+import Home from './home/Home'
 import PlayerAccount from './player-account'
 
 export {

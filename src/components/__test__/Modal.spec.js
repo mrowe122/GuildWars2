@@ -1,7 +1,7 @@
 import React from 'react'
 import Modal, { withModal } from '../Modal'
 
-describe.only('Modal', () => {
+describe('Modal', () => {
   describe('Enhancer', () => {
     let _component, Empty, _props
 

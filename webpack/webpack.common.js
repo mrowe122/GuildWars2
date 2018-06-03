@@ -30,7 +30,7 @@ module.exports = {
       path.src,
       'node_modules'
     ],
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx', '.json']
   },
   module: {
     rules: [

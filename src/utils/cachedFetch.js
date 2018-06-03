@@ -26,8 +26,8 @@ const parseUrl = (url, variables) => {
   return _url
 }
 
-const withDefaults = ({ dataProp, call, props }) => compose(
-  withProps(() => ({ controller: new AbortController() })),
+const withDefaults = ({ dataProp, call, props = {} }) => compose(
+  withProps(({ controller: props.controller || new AbortController() })),
   lifecycle({ componentWillUnmount () { this.props.controller.abort() } }),
   withStateHandlers(
     () => ({ loading: (call !== 'onClick'), [dataProp]: undefined }),
@@ -87,11 +87,11 @@ export const fetchHocPost = (
     headers: { 'content-type': 'application/json' }
   }
 ) => compose(
-  withDefaults({ dataProp, props }),
+  withDefaults({ dataProp, props, call: 'onClick' }),
   withHandlers({
     [name]: ({ startLoading, finishedLoading, controller, handleError }) => body => {
       startLoading()
-      fetch(url, merge(fetchOptions, { body: JSON.stringify(body), signal: controller.signal }))
+      return fetch(url, merge(fetchOptions, { body: JSON.stringify(body), signal: controller.signal }))
         .then(handleErrors)
         .then(data => finishedLoading(data))
         .catch(err => {
