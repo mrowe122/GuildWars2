@@ -7,18 +7,20 @@
   ],
   "plugins": [
     "babel",
-		"react",
-		"promise"
+    "react",
+    "promise"
   ],
   "env": {
-    "browser" : true,
-    "es6"     : true
+    "browser": true,
+    "es6": true,
+    "jest": true
   },
   "globals": {
     "__DEV__": false,
-    "describe": false,
-    "it": false,
-    "expect": false
+    "shallow": false,
+    "mount": false,
+    "globalProps": false,
+    "EmptyDiv": false
   },
   "rules": {
     "jsx-quotes"            : [2, "prefer-single"],

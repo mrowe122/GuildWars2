@@ -1,4 +1,4 @@
-import { compose, defer, omit, merge } from 'lodash/fp'
+import { compose, omit, merge } from 'lodash/fp'
 import { withStateHandlers, withHandlers, withProps, lifecycle, branch, mapProps } from 'recompose'
 import { cachedData } from './cachedData'
 
@@ -26,8 +26,8 @@ const parseUrl = (url, variables) => {
   return _url
 }
 
-const withDefaults = ({ dataProp, call, props }) => compose(
-  withProps(() => ({ controller: new AbortController() })),
+const withDefaults = ({ dataProp, call, props = {} }) => compose(
+  withProps(({ controller: props.controller || new AbortController() })),
   lifecycle({ componentWillUnmount () { this.props.controller.abort() } }),
   withStateHandlers(
     () => ({ loading: (call !== 'onClick'), [dataProp]: undefined }),
@@ -64,10 +64,10 @@ export const fetchHocGet = (
     [name]: ({ startLoading, finishedLoading, controller, handleError }) => variables => {
       startLoading()
       return cachedFetch(parseUrl(url, variables), merge(fetchOptions, { signal: controller.signal }))
-        .then(data => defer(() => finishedLoading(JSON.parse(data).body)))
+        .then(data => finishedLoading(JSON.parse(data).body))
         .catch(err => {
           if (err.name !== 'AbortError') {
-            defer(() => handleError(err))
+            handleError(err)
           }
         })
     }
@@ -81,22 +81,22 @@ export const fetchHocGet = (
 
 export const fetchHocPost = (
   url,
-  { dataProp = 'data', props, name = 'postFetch', call = 'onClick' } = { dataProp: 'data', call: 'onLoad', name: 'postFetch' },
+  { dataProp = 'data', props, name = 'postFetch' } = { dataProp: 'data', name: 'postFetch' },
   fetchOptions = {
     method: 'POST',
     headers: { 'content-type': 'application/json' }
   }
 ) => compose(
-  withDefaults({ dataProp, props, call }),
+  withDefaults({ dataProp, props, call: 'onClick' }),
   withHandlers({
     [name]: ({ startLoading, finishedLoading, controller, handleError }) => body => {
       startLoading()
-      fetch(url, merge(fetchOptions, { body: JSON.stringify(body), signal: controller.signal }))
+      return fetch(url, merge(fetchOptions, { body: JSON.stringify(body), signal: controller.signal }))
         .then(handleErrors)
-        .then(data => defer(() => finishedLoading(data)))
+        .then(data => finishedLoading(data))
         .catch(err => {
           if (err.name !== 'AbortError') {
-            defer(() => handleError(err))
+            handleError(err)
           }
         })
     }

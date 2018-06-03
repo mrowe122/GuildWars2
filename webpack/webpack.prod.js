@@ -19,6 +19,6 @@ module.exports = merge(common, {
     new CopyWebpackPlugin([
       { from: 'media', to: 'media' }
     ]),
-    new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i }),
+    new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i })
   ]
 })

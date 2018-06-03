@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React from 'react'
 import { css } from 'styled-components'
 import { Layout } from 'providers/MainLayout'

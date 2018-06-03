@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { compose, omit, get } from 'lodash/fp'

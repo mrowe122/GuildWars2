@@ -82,7 +82,7 @@ const ErrorCharacterModalTemplate = ({ className, closeModal, apiKey, setKey, su
       )
     }
     {
-      !errorStatus && (
+      !errorStatus && keyLoading && (
         <h3>Validating your API key</h3>
       )
     }
@@ -101,26 +101,7 @@ ErrorCharacterModalTemplate.propTypes = {
   keyLoading: PropTypes.bool
 }
 
-// TODO: not final implementation. Going to move API key logic to /account route
-const AccountRedirect = () => <Redirect to={routes.account.index} />
-
-const ErrorCharacterModal = compose(
-  withStateHandlers(
-    () => ({ apiKey: null }),
-    { setKey: () => e => ({ apiKey: e.target.value }) }
-  ),
-  fetchHoc.post(`api/authenticate`, {
-    name: 'authenticate',
-    props: ({ loading }) => ({ keyLoading: loading })
-  }),
-  withHandlers({
-    submit: ({ apiKey, authenticate, ...rest }) => () => authenticate({ apiKey })
-  }),
-  branch(
-    ({ errorStatus, keyLoading }) => !errorStatus && !keyLoading,
-    renderComponent(AccountRedirect)
-  )
-)(styled(ErrorCharacterModalTemplate)`
+const ErrorCharacterModal = styled(ErrorCharacterModalTemplate)`
   ${ModalStyling}
   display: flex;
   align-items: center;
@@ -131,7 +112,28 @@ const ErrorCharacterModal = compose(
   input { width: 100%; }
 
   .sk-spinner { color: ${({ theme }) => theme.colors.white}; }
-`)
+`
+
+// TODO: not final implementation. Going to move API key logic to /account route
+// const AccountRedirect = () => <Redirect to={routes.account.index} />
+
+// const enhance = compose(
+//   withStateHandlers(
+//     () => ({ apiKey: null }),
+//     { setKey: () => e => ({ apiKey: e.target.value }) }
+//   ),
+//   fetchHoc.post(`api/authenticate`, {
+//     name: 'authenticate',
+//     props: ({ loading }) => ({ keyLoading: loading })
+//   }),
+//   withHandlers({
+//     submit: ({ apiKey, authenticate, ...rest }) => () => authenticate({ apiKey })
+//   }),
+//   branch(
+//     ({ errorStatus, keyLoading }) => !errorStatus && !keyLoading,
+//     renderComponent(AccountRedirect)
+//   )
+// )
 
 export {
   CharacterSelectModal,

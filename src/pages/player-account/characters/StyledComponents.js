@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import styled, { css } from 'styled-components'
 
 export const sideNavClasses = css`

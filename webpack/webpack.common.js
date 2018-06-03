@@ -1,7 +1,5 @@
 const webpack = require('webpack')
-const HtmlWebPackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const CircularDependencyPlugin = require('circular-dependency-plugin')
 const path = require('../paths')
 
 const __DEV__ = process.env.NODE_ENV === 'development'
@@ -32,7 +30,7 @@ module.exports = {
       path.src,
       'node_modules'
     ],
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx', '.json']
   },
   module: {
     rules: [

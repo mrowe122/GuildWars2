@@ -1,4 +1,4 @@
-const Slot = {
+export const Slot = {
   Helm: 'Head Armor',
   Shoulders: 'Shoulder Armor',
   Coat: 'Chest Armor',
@@ -20,8 +20,4 @@ const Slot = {
 
   Account: 'Account Bound',
   Character: 'Soulbound'
-}
-
-export {
-  Slot
 }
