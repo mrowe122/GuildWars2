@@ -7,7 +7,7 @@ let ignoreFiles = [
 
 module.exports = {
   rootDir: '../',
-  setupFiles: ['<rootDir>/test/jest.setup.js'],
+  setupFiles: ['<rootDir>/test/jest.setup.js', 'jest-localstorage-mock'],
   'moduleDirectories': ['src', 'node_modules'],
   'moduleNameMapper': {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/test/fileMock.js',
