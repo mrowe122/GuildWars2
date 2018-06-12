@@ -41,6 +41,8 @@ const PivotBarTemplate = ({ className, items = [], expanded, handleMenu, onClick
         key={i.title}
         to={i.link}
         activeClassName='active'
+        disabled={!i.access}
+        title={i.title}
         onClick={onClick}>{i.icon} {expanded && i.title}</NavLink>
     ))}
   </div>
@@ -127,6 +129,10 @@ const PivotBar = compose(
       }
       .mdi-icon { background-color: ${({ theme }) => theme.colors.primaryLight1}; }
     }
+
+    &[disabled] {
+      pointer-events: none;
+    }
   }
 `)
 
@@ -158,8 +164,7 @@ const Container = styled(ContainerTemplate)`
 
 const { Provider, Consumer: Layout } = createContext()
 
-export { Layout }
-export const LayoutProvider = ({ children }) => (
+const LayoutProvider = ({ children }) => (
   <Provider value={{ Container, PivotBar, SideNav, Content, FullPageLoader }}>
     {children}
   </Provider>
@@ -168,3 +173,5 @@ export const LayoutProvider = ({ children }) => (
 LayoutProvider.propTypes = {
   children: PropTypes.node
 }
+
+export { Layout, LayoutProvider }

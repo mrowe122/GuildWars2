@@ -47,11 +47,7 @@ const omitProps = [
   'startLoading',
   'controller',
   'handleError',
-  'finishedLoading',
-  'history',
-  'location',
-  'match',
-  'staticContext'
+  'finishedLoading'
 ]
 
 export const fetchHocGet = (
@@ -93,7 +89,10 @@ export const fetchHocPost = (
       startLoading()
       return fetch(url, merge(fetchOptions, { body: JSON.stringify(body), signal: controller.signal }))
         .then(handleErrors)
-        .then(data => finishedLoading(data))
+        .then(data => {
+          finishedLoading(data)
+          return data
+        })
         .catch(err => {
           if (err.name !== 'AbortError') {
             handleError(err)

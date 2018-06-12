@@ -1,0 +1,14 @@
+{
+	"permissions": [
+    "tradingpost",
+    "characters",
+    "pvp",
+    "progression",
+    "wallet",
+    "guilds",
+    "builds",
+    "account",
+    "inventories",
+    "unlocks"
+  ]
+}

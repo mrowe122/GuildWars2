@@ -3,8 +3,11 @@
   "account": {
     "index": "/account",
     "achievements": "/account/achievements",
-    "bank": "/account/bank",
     "characters": "/account/characters",
+    "guilds": "/account/guilds",
+    "inventories": "/account/inventories",
+    "pvp": "/account/pvp",
+    "tradingpost": "/account/trading-post",
     "unlocks": "/account/unlocks",
     "wallet": "/account/wallet"
   }

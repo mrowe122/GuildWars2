@@ -7,7 +7,7 @@ import { fetchHoc } from 'utils/cachedFetch'
 import { ageFromSeconds, formatDate } from 'utils/utilities'
 import { withModal, ItemSlot, FullPageLoader } from 'components'
 import { Layout } from 'providers/MainLayout'
-import { CharacterSelectModal, ErrorCharacterModal } from './CharactersModals'
+import SelectCharacterModal from './SelectCharacterModal'
 import { Bubble, Gradient, Special, sideNavClasses, contentClasses } from './StyledComponents'
 
 const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
@@ -142,7 +142,6 @@ export default compose(
     dataProp: 'charData',
     props: ({ loading, charData = undefined }) => ({ charDataLoading: loading, charData })
   }),
-  branch(p => p.errorStatus, renderComponent(ErrorCharacterModal)),
   branch(p => p.allCharsLoading, renderComponent(FullPageLoader)),
   withHandlers({
     selectChar: ({ getFetch, charData }) => e => {
@@ -154,7 +153,7 @@ export default compose(
     // will be removed once caching is implemented
     modalSelectChar: () => e => localStorage.setItem('defaultChar', e.target.innerText)
   }),
-  branch(p => !p.selectedChar, renderComponent(CharacterSelectModal)),
+  branch(p => !p.selectedChar, renderComponent(SelectCharacterModal)),
   lifecycle({ componentDidMount () { this.props.getFetch({ 'char': this.props.selectedChar }) } }),
   mapProps(omit([ 'error', 'getFetch', 'loading', 'selectedChar', 'showModal', 'closeModal', 'modalSelectChar', 'allCharsLoading' ]))
 )(Characters)

@@ -6,7 +6,7 @@ import routes from 'utils/routes'
 
 // modules
 import { LayoutProvider } from 'providers/MainLayout'
-import { Home, PlayerAccount } from 'pages'
+import { Home, Authorized, PlayerAccount } from 'pages'
 import theme from 'styles/variables'
 
 const App = () => (
@@ -15,7 +15,7 @@ const App = () => (
       <LayoutProvider>
         <Switch>
           <Route exact path={routes.index} component={Home} />
-          <Route path={routes.account.index} component={PlayerAccount} />
+          <Authorized path={routes.account.index} component={PlayerAccount} />
         </Switch>
       </LayoutProvider>
     </ThemeProvider>
