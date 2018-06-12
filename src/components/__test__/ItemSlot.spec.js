@@ -4,6 +4,7 @@ import { enhancer, ItemSlot } from '../ItemSlot'
 describe('ItemSlot', () => {
   describe('Enhancer', () => {
     let _component
+
     beforeEach(() => {
       const Empty = enhancer(EmptyDiv)
       _component = mount(<Empty />)
