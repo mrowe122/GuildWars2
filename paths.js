@@ -1,5 +1,7 @@
+const path = require('path')
+
 module.exports = {
-  src: __dirname + '/src',
-  dev: __dirname + '/dev',
-  dist: __dirname + '/dist'
+  src: path.join(__dirname, 'src'),
+  dev: path.join(__dirname, 'dev'),
+  dist: path.join(__dirname, 'dist')
 }
