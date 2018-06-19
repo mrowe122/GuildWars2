@@ -11,8 +11,8 @@ describe('Header', () => {
     expect(_component.length).toBe(1)
   })
 
-  it('should have Account link', () => {
+  it('should have Sign In link', () => {
     const Link = _component.find('Link')
-    expect(Link.debug()).toContain('Account')
+    expect(Link.debug()).toContain('Sign In')
   })
 })

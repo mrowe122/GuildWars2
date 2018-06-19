@@ -95,6 +95,12 @@ p {
   }
 }
 
+a {
+  &.a1 {
+    font-size: .8rem;
+  }
+}
+
 em {
   font-style: italic;
   line-height: 1.5;
@@ -142,6 +148,6 @@ em {
 
 // spinkit overwrite
 .sk-three-bounce > div {
-  margin-right: .5rem;
+  margin-right: .4rem;
   &:last-child { margin-right: 0; }
 }

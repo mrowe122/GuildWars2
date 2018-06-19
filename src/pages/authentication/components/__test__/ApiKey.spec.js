@@ -1,7 +1,7 @@
 import React from 'react'
-import { ApiKeyModal, enhancer } from '../ApiKeyModal'
+import { ApiKeyModal, enhancer } from '../ApiKey'
 
-describe('ApiKeyModal', () => {
+describe('ApiKey', () => {
   describe('Enhancer', () => {
     let _component, Empty
 
@@ -55,18 +55,18 @@ describe('ApiKeyModal', () => {
     beforeEach(() => {
       _component = props => shallow(<ApiKeyModal {...globalProps} {...props} />).dive()
     })
-  
+
     it('should render invalid key error for 403', () => {
       const _props = {
         errorStatus: 403
       }
       expect(_component(_props).debug()).toContain('The key you provided is invalid')
     })
-  
+
     it('should render default state to add a api key', () => {
       expect(_component().debug()).toContain('Add an API key')
     })
-  
+
     it('should render loading state when validating key', () => {
       const _props = {
         keyLoading: true

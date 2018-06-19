@@ -5,19 +5,23 @@ import { compose } from 'lodash/fp'
 import { setPropTypes, withStateHandlers } from 'recompose'
 import CloseIcon from 'mdi-react/CloseIcon'
 
+import backgroundModal from 'media/images/small_modal.gif'
+
 const sizeMap = {
   auto: 'auto',
-  sm: '20rem',
+  sm: '25rem',
   md: '30rem',
   lg: '40rem'
 }
 
 const Content = styled.div`
-  padding: 1rem;
+  padding: 2rem;
   position: relative;
   margin-bottom: 5rem;
   border-radius: 5px;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(${backgroundModal});
 
   .closeIcon {
     cursor: pointer;
@@ -58,11 +62,16 @@ const Modal = styled(ModalTemplate)`
   align-items: center;
   justify-content: center;
   background-color: ${({ theme }) => theme.colors.modalOverlay};
-  animation: ${({ theme }) => theme.animations.fadeIn} 500ms ease;
+  ${({ hideTransition }) => hideTransition && `
+    animation: ${({ theme }) => theme.animations.fadeIn} 500ms ease;
+  `}
 
   ${Content} {
     width: ${({ size = 'md' }) => sizeMap[size]};
-    animation: ${({ theme }) => theme.animations.scaleUp} 500ms ease;
+    ${({ hideTransition }) => hideTransition && `
+      animation: ${({ theme }) => theme.animations.scaleUp} 500ms ease;
+    `}
+    ${({ theme }) => theme.generators.boxShadow(0, 0, 40, -5, 'rgba(0, 0, 0, 1)')}
   }
 `
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Authorized, enhancer } from '../Authorized'
 
-describe('ApiKeyModal', () => {
+describe('Authorized', () => {
   describe('Enhancer', () => {
     let _component, Empty
 
