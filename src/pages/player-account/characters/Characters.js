@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { compose, omit, get } from 'lodash/fp'
+import { compose, omit, get, toLower } from 'lodash/fp'
 import { withProps, withHandlers, branch, renderComponent, lifecycle, mapProps } from 'recompose'
 import { fetchHoc } from 'utils/cachedFetch'
 import { ageFromSeconds, formatDate } from 'utils/utilities'
@@ -32,7 +32,7 @@ const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
                           Lv: {charData.level}
                         </p>
                       </Gradient>
-                      <img src={`/media/banners/${charData.profession}.jpg`} />
+                      <img src={`/media/banners/${toLower(charData.profession)}.jpg`} />
                     </div>
                     <div className='row around-xs'>
                       <Bubble guild={charData.guild.name}>
