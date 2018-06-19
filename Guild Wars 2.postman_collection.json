@@ -1,0 +1,2476 @@
+{
+	"info": {
+		"_postman_id": "4fd67c3c-537f-46dc-8a19-b98a7b7df7ff",
+		"name": "Guild Wars 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Update Mocks",
+			"description": "",
+			"item": [
+				{
+					"name": "Corrupted Creed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/characters/Corrupted Creed",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"characters",
+								"Corrupted Creed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Corrupted Fear",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/characters/Corrupted Fear",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"characters",
+								"Corrupted Fear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Corrupted Matrix",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/characters/Corrupted Matrix",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"characters",
+								"Corrupted Matrix"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Corrupted Nova",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/characters/Corrupted Nova",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"characters",
+								"Corrupted Nova"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Nova Crowe",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/characters/Nova Crowe",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"characters",
+								"Nova Crowe"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Account",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "user1",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/authenticate/create",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"authenticate",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign In",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "user1",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/authenticate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Apikey",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "apiKey",
+									"value": "{{apiKey}}",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/tokeninfo",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tokeninfo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Achievements",
+			"description": "",
+			"item": [
+				{
+					"name": "achievements",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/achievements",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"achievements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dailies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/achievements/daily",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"achievements",
+								"daily"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dailies/tomorrow",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/achievements/groups",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"achievements",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/achievements/daily",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"achievements",
+								"daily"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/achievements/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"achievements",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authenticated",
+			"description": "",
+			"item": [
+				{
+					"name": "account",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/account",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "achievements",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/account",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bank",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/account/bank",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account",
+								"bank"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dungeons",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/account/dungeons",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account",
+								"dungeons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dyes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/account/dyes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account",
+								"dyes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "finishers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/account/finishers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account",
+								"finishers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "home/cats",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/account/home/cats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account",
+								"home",
+								"cats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "home/nodes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/account/home/nodes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account",
+								"home",
+								"nodes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "inventory",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/account/inventory",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account",
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "masteries",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/account/masteries",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account",
+								"masteries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "materials",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/account/materials",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account",
+								"materials"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "minis",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/account/minis",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account",
+								"minis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "outfits",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/account/outfits",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account",
+								"outfits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "raids",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/account/raids",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account",
+								"raids"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "recipes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/account/recipes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account",
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "skins",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/account/skins",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account",
+								"skins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titles",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/account/titles",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account",
+								"titles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "wallet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/account/wallet",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"account",
+								"wallet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "characters",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/characters",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"characters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "characters/char",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/characters/Corrupted Fear",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"characters",
+								"Corrupted Fear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "commerce/transactions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/commerce/transactions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"commerce",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pvp/stats",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/pvp/stats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pvp",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pvp/games",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/pvp/games",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pvp",
+								"games"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pvp/standings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/pvp/standings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pvp",
+								"standings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tokeninfo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/tokeninfo",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tokeninfo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Game Mechanics",
+			"description": "",
+			"item": [
+				{
+					"name": "masteries",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/masteries?ids=all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"masteries"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "all"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "outfits",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/outfits?ids=all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"outfits"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "all"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pets",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/pets?ids=all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pets"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "all"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "professions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/professions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"professions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "races",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/races",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"races"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "specializations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/specializations?ids=all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"specializations"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "all"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "skills",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/skills",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"skills"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "traits",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/traits",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"traits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "legends",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/legends?ids=all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"legends"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "all"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Guild",
+			"description": "",
+			"item": [
+				{
+					"name": "guild",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/guild/F5AFEEF2-F280-4E2C-B291-AB012B307045",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"guild",
+								"F5AFEEF2-F280-4E2C-B291-AB012B307045"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "emblem",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/emblem",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"emblem"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "permissions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/guild/permissions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"guild",
+								"permissions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/guild/search?name=Defenders Of The Black Citadel",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"guild",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Defenders Of The Black Citadel"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upgrades",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/guild/upgrades",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"guild",
+								"upgrades"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Guild Authenticated",
+			"description": "",
+			"item": [
+				{
+					"name": "log",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/guild/{{guildId}}/log",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"guild",
+								"{{guildId}}",
+								"log"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "members",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/guild/{{guildId}}/members",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"guild",
+								"{{guildId}}",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ranks",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/guild/{{guildId}}/ranks",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"guild",
+								"{{guildId}}",
+								"ranks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stash",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/guild/{{guildId}}/stash",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"guild",
+								"{{guildId}}",
+								"stash"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "treasury",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/guild/{{guildId}}/treasury",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"guild",
+								"{{guildId}}",
+								"treasury"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "teams",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/guild/{{guildId}}/teams",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"guild",
+								"{{guildId}}",
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upgrades",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/guild/{{guildId}}/upgrades",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"guild",
+								"{{guildId}}",
+								"upgrades"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Items",
+			"description": "",
+			"item": [
+				{
+					"name": "finishers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/finishers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"finishers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/items",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "itemstats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/itemstats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"itemstats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "materials",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/materials",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"materials"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pvp/amulets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/pvp/amulets",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pvp",
+								"amulets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "recipes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/recipes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "recipes/search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/recipes/search",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"recipes",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "skins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/skins",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"skins"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Map Information",
+			"description": "",
+			"item": [
+				{
+					"name": "continents",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/continents",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"continents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "maps",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/maps",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"maps"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Miscellaneous",
+			"description": "",
+			"item": [
+				{
+					"name": "build",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/build",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"build"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "colors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/colors",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"colors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "currencies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/currencies",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"currencies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dungeons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/dungeons",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"dungeons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "files",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/files",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"files"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "quaggans",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/quaggans",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"quaggans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "minis",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/minis",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"minis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "raids",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/raids",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"raids"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "titles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/titles",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"titles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "worlds",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/worlds",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"worlds"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Story",
+			"description": "",
+			"item": [
+				{
+					"name": "backstory/questions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/backstory/questions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backstory",
+								"questions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "backstory/answers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/backstory/answers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"backstory",
+								"answers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/stories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stories/seasons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/stories/seasons",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stories",
+								"seasons"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Structured PvP",
+			"description": "",
+			"item": [
+				{
+					"name": "pvp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/pvp",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pvp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ranks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/pvp/ranks",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pvp",
+								"ranks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "seasons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/pvp/seasons",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pvp",
+								"seasons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "seasons/leaderboards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/pvp/seasons/44B85826-B5ED-4890-8C77-82DDF9F2CF2B/leaderboards/legendary/na",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pvp",
+								"seasons",
+								"44B85826-B5ED-4890-8C77-82DDF9F2CF2B",
+								"leaderboards",
+								"legendary",
+								"na"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trading Post",
+			"description": "",
+			"item": [
+				{
+					"name": "commerce/listings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/commerce/listings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"commerce",
+								"listings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "commerce/exchange",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/commerce/exchange",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"commerce",
+								"exchange"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "commerce/exchange/coins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/commerce/exchange/coins",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"commerce",
+								"exchange",
+								"coins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "commerce/exchange/gems",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/commerce/exchange/gems?quantity=100",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"commerce",
+								"exchange",
+								"gems"
+							],
+							"query": [
+								{
+									"key": "quantity",
+									"value": "100"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "commerce/prices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/commerce/prices",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"commerce",
+								"prices"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "World vs World",
+			"description": "",
+			"item": [
+				{
+					"name": "wvw",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/wvw",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"wvw"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "abilities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/wvw/abilities",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"wvw",
+								"abilities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "matches",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/wvw/matches",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"wvw",
+								"matches"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "objectives",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/wvw/objectives",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"wvw",
+								"objectives"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ranks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/wvw/ranks",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"wvw",
+								"ranks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upgrades",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/wvw/upgrades",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"wvw",
+								"upgrades"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
