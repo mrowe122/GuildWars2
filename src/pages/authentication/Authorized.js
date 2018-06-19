@@ -2,9 +2,8 @@ import React, { createElement } from 'react'
 import PropTypes from 'prop-types'
 import { Route, Redirect } from 'react-router-dom'
 import { compose, map, includes, assign, orderBy } from 'lodash/fp'
-import { withProps, branch, renderComponent, withState } from 'recompose'
+import { withProps } from 'recompose'
 import routes from 'utils/routes'
-import ApikeyModal from './ApikeyModal'
 
 import AccountMultipleIcon from 'mdi-react/AccountMultipleIcon'
 import SwordCrossIcon from 'mdi-react/SwordCrossIcon'
@@ -14,9 +13,6 @@ import LockOpenIcon from 'mdi-react/LockOpenIcon'
 import WalletIcon from 'mdi-react/WalletIcon'
 import ShieldHalfFullIcon from 'mdi-react/ShieldHalfFullIcon'
 import CompareIcon from 'mdi-react/CompareIcon'
-
-// Local db for developing
-import db from 'db'
 
 const mapWithArgs = map.convert({ 'cap': false })
 
@@ -79,17 +75,14 @@ Authorized.propTypes = {
 }
 
 export const enhancer = compose(
-  withState('apiKey', 'setKey', db.permissions),
-  // TODO: get permissions from DB
-  branch(
-    ({ apiKey }) => !apiKey,
-    renderComponent(ApikeyModal)
-  ),
-  withProps(({ apiKey }) => ({
-    items: orderBy('access')('desc')(mapWithArgs(
-      (v, k) => assign(v, { access: includes(k)(apiKey) })
-    )(Permisions))
-  }))
+  withProps(({ apiKey }) => {
+    const permissions = JSON.parse(localStorage.getItem('permissions'))
+    return {
+      items: orderBy('access')('desc')(mapWithArgs(
+        (v, k) => assign(v, { access: includes(k)(permissions) })
+      )(Permisions))
+    }
+  })
 )
 
 export default enhancer(Authorized)

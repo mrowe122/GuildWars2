@@ -1,4 +1,4 @@
-import { compose, omit, merge } from 'lodash/fp'
+import { compose, omit, mergeAll } from 'lodash/fp'
 import { withStateHandlers, withHandlers, withProps, lifecycle, branch, mapProps } from 'recompose'
 import { cachedData } from './cachedData'
 
@@ -53,13 +53,19 @@ const omitProps = [
 export const fetchHocGet = (
   url,
   { dataProp = 'data', props, call = 'onLoad', name = 'getFetch' } = { dataProp: 'data', call: 'onLoad', name: 'getFetch' },
-  fetchOptions
+  options
 ) => compose(
   withDefaults({ dataProp, call, props }),
   withHandlers({
     [name]: ({ startLoading, finishedLoading, controller, handleError }) => variables => {
       startLoading()
-      return cachedFetch(parseUrl(url, variables), merge(fetchOptions, { signal: controller.signal }))
+      const _opts = {
+        headers: {
+          'x-session-token': localStorage.getItem('session')
+        },
+        signal: controller.signal
+      }
+      return cachedFetch(parseUrl(url, variables), mergeAll([options, _opts]))
         .then(data => finishedLoading(JSON.parse(data).body))
         .catch(err => {
           if (err.name !== 'AbortError') {
@@ -78,16 +84,22 @@ export const fetchHocGet = (
 export const fetchHocPost = (
   url,
   { dataProp = 'data', props, name = 'postFetch' } = { dataProp: 'data', name: 'postFetch' },
-  fetchOptions = {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' }
-  }
+  options
 ) => compose(
   withDefaults({ dataProp, props, call: 'onClick' }),
   withHandlers({
     [name]: ({ startLoading, finishedLoading, controller, handleError }) => body => {
       startLoading()
-      return fetch(url, merge(fetchOptions, { body: JSON.stringify(body), signal: controller.signal }))
+      const _opts = {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          'x-session-token': localStorage.getItem('session')
+        },
+        body: JSON.stringify(body),
+        signal: controller.signal
+      }
+      return fetch(url, mergeAll([options, _opts]))
         .then(handleErrors)
         .then(data => {
           finishedLoading(data)
