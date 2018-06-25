@@ -19,20 +19,21 @@ const Input = styled(InputTemplate)`
   display: flex;
   align-items: center;
   background: rgba(0, 0, 0, 0.4);
+  color: ${({ theme }) => theme.colors.white};
   
   input {
     border: none;
     outline: none;
     width: 100%;
     height: 100%;
-    padding: .8rem .7rem;
+    padding: .8rem 0;
+    margin-left: .7rem;
     background: transparent;
     color: ${({ theme }) => theme.colors.white};
   }
 
   .mdi-icon {
     margin-left: .7rem;
-    fill: ${({ theme }) => theme.colors.white};
   }
 `
 

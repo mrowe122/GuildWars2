@@ -2,15 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { compose } from 'lodash/fp'
+import { withHandlers } from 'recompose'
 import { Modal } from 'components'
 
-const CharacterSelectModal = ({ className, closeModal, allChars, modalSelectChar }) => (
-  <Modal size='sm' contentClass={className} showModal hideClose>
+const CharacterSelectModalTemplate = ({ className, allChars, handleClick }) => (
+  <Modal size='xs' contentClass={className} showModal hideClose>
     <h3>Select Your Character</h3>
     {
       allChars.length ? allChars.map(char => (
         <div key={char}>
-          <a onClick={compose(closeModal, modalSelectChar)}>{char}</a>
+          <a onClick={handleClick}>{char}</a>
         </div>
       )) : (
         <a>You have not created any characters yet</a>
@@ -19,14 +20,13 @@ const CharacterSelectModal = ({ className, closeModal, allChars, modalSelectChar
   </Modal>
 )
 
-CharacterSelectModal.propTypes = {
+CharacterSelectModalTemplate.propTypes = {
   className: PropTypes.string,
-  closeModal: PropTypes.func,
   allChars: PropTypes.array,
-  modalSelectChar: PropTypes.func
+  handleClick: PropTypes.func
 }
 
-export default styled(CharacterSelectModal)`
+const CharacterSelectModal = styled(CharacterSelectModalTemplate)`
   text-align: center;
   color: ${({ theme }) => theme.colors.white};
   font-weight: 700;
@@ -49,3 +49,11 @@ export default styled(CharacterSelectModal)`
     }
   }
 `
+
+const enhance = compose(
+  withHandlers({
+    handleClick: ({ setChar }) => e => setChar(e.target.innerText)
+  })
+)
+
+export default enhance(CharacterSelectModal)

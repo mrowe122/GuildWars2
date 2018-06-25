@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { withStateHandlers, withHandlers, withProps } from 'recompose'
 import { compose } from 'lodash/fp'
-import { fetchHocPost } from 'utils/cachedFetch'
-import { withModal, Modal } from 'components'
+import { withAuthentication } from 'providers/Authenticated'
+import { Modal } from 'components'
 import { Button, Input } from 'elements'
 import modalStyle from './Style'
 
@@ -12,12 +12,15 @@ import AccountOutlineIcon from 'mdi-react/AccountOutlineIcon'
 import LockOutlineIcon from 'mdi-react/LockOutlineIcon'
 import LockIcon from 'mdi-react/LockIcon'
 
-const CreateAccountTemplate = ({ className, closeModal, handleChange, handleCreate, valid, createLoading, showLogin }) => (
-  <Modal size='sm' contentClass={className} showModal hideTransition hideClose closeModal={closeModal}>
+const CreateAccountTemplate = ({
+  className, handleChange, handleCreate, valid, loading, showLogin, error
+}) => (
+  <Modal size='sm' contentClass={className} showModal hideTransition hideClose>
     <LockIcon size={36} className='lockIcon' />
+    {error && <p className='error'>{error}</p>}
     <Input
-      name='username'
-      placeholder='Username'
+      name='email'
+      placeholder='Email'
       onChange={handleChange}
       icon={<AccountOutlineIcon />} />
     <Input
@@ -33,18 +36,18 @@ const CreateAccountTemplate = ({ className, closeModal, handleChange, handleCrea
       onChange={handleChange}
       icon={<LockOutlineIcon />} />
     <a onClick={showLogin} className='a1'>Already have an account?</a>
-    <Button type='submit' onClick={handleCreate} loading={createLoading} disabled={!valid}>Create</Button>
+    <Button type='submit' onClick={handleCreate} loading={loading} disabled={!valid}>Create Account</Button>
   </Modal>
 )
 
 CreateAccountTemplate.propTypes = {
   className: PropTypes.string,
-  closeModal: PropTypes.func,
   handleChange: PropTypes.func,
   handleCreate: PropTypes.func,
   valid: PropTypes.bool,
-  createLoading: PropTypes.bool,
-  showLogin: PropTypes.func
+  loading: PropTypes.bool,
+  showLogin: PropTypes.func,
+  error: PropTypes.string
 }
 
 export const CreateAccount = styled(CreateAccountTemplate)`
@@ -52,31 +55,31 @@ export const CreateAccount = styled(CreateAccountTemplate)`
 `
 
 export const enhancer = compose(
-  withModal,
+  withAuthentication,
   withStateHandlers(
     () => ({
-      username: '',
+      email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      error: null,
+      loading: false
     }),
     {
-      handleChange: () => e => ({ [e.target.name]: e.target.value })
+      handleChange: () => e => ({ [e.target.name]: e.target.value }),
+      handleError: () => error => ({ error, loading: false }),
+      initCreate: () => () => ({ error: null, loading: true })
     }
   ),
-  fetchHocPost(`api/authenticate/create`, {
-    name: 'createAccount',
-    props: ({ loading }) => ({ createLoading: loading })
-  }),
   withHandlers({
-    handleCreate: ({ username, password, createAccount, showApikey }) => () => {
-      createAccount({ username, password }).then(res => {
-        localStorage.setItem('session', res)
-        showApikey()
-      })
+    handleCreate: ({ email, password, initCreate, handleError, showApikey, authUser }) => () => {
+      initCreate()
+      authUser.firebase.createUserWithEmailAndPassword(email, password)
+        .then(() => showApikey())
+        .catch(error => handleError(error.message))
     }
   }),
-  withProps(({ username, password, confirmPassword, loggingIn }) => ({
-    valid: !!(username && password) && (password === confirmPassword)
+  withProps(({ email, password, confirmPassword }) => ({
+    valid: !!(email && password) && (password === confirmPassword)
   }))
 )
 

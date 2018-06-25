@@ -84,7 +84,6 @@ const PivotBar = compose(
     width: 22px;
     height: 22px;
     vertical-align: middle;
-    fill: ${({ theme }) => theme.colors.white};
     ${({ theme }) => theme.generators.transition(200, 'ease-out')};
   }
 
@@ -117,17 +116,23 @@ const PivotBar = compose(
     margin-bottom: 1.5rem;
 
     &:first-of-type { margin-top: 1.5rem; }
-    .mdi-icon { background-color: ${({ theme }) => theme.colors.primaryDark1}; }
+    .mdi-icon {
+      background-color: ${({ theme }) => theme.colors.primaryDark1};
+    }
 
     &:hover {
-      .mdi-icon { ${({ theme }) => theme.generators.boxShadow(0, 0, 10, 3, theme.colors.primaryLight1)} }
+      .mdi-icon {
+        ${({ theme }) => theme.generators.boxShadow(0, 0, 10, 3, theme.colors.primaryLight1)}
+      }
     }
 
     &.active {
       &:hover {
         .mdi-icon { box-shadow: none; }
       }
-      .mdi-icon { background-color: ${({ theme }) => theme.colors.primaryLight1}; }
+      .mdi-icon {
+        background-color: ${({ theme }) => theme.colors.primaryLight1};
+      }
     }
 
     &[disabled] {

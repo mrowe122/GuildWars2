@@ -9,6 +9,7 @@ import backgroundModal from 'media/images/small_modal.gif'
 
 const sizeMap = {
   auto: 'auto',
+  xs: '20rem',
   sm: '25rem',
   md: '30rem',
   lg: '40rem'
@@ -75,12 +76,14 @@ const Modal = styled(ModalTemplate)`
   }
 `
 
-Modal.propTypes = { size: PropTypes.oneOf(['sm', 'md', 'lg']) }
+Modal.propTypes = {
+  size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg'])
+}
 
 export const withModal = compose(
   withStateHandlers(
     ({ initial = false }) => ({ showModal: initial }),
-    { closeModal: ({ showModal }) => () => (({ showModal: !showModal })) }
+    { closeModal: ({ showModal }) => () => ({ showModal: !showModal }) }
   )
 )
 

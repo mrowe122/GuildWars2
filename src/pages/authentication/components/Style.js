@@ -21,6 +21,11 @@ export default css`
     cursor: pointer;
   }
 
+  .error {
+    color: ${({ theme }) => theme.colors.error};
+    margin-bottom: 1rem;
+  }
+
   .lockIcon {
     padding: 1rem;
     box-sizing: initial;

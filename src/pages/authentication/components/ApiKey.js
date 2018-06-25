@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { compose } from 'lodash/fp'
 import { withStateHandlers, withHandlers } from 'recompose'
+import { withAuthentication } from 'providers/Authenticated'
 import { fetchHocPost } from 'utils/cachedFetch'
 import { Modal } from 'components'
 import { Button, Input } from 'elements'
@@ -15,7 +16,7 @@ const ApiKeyModalTemplate = ({ className, closeModal, api, handleChange, submit,
       errorStatus === 403 && (
         <Fragment>
           <h3>Error</h3>
-          <p className='p1'>
+          <p className='error'>
             The key you provided is invalid
           </p>
         </Fragment>
@@ -61,9 +62,15 @@ export const ApiKeyModal = styled(ApiKeyModalTemplate)`
   p.p1, ${Input} {
     margin-bottom: 2rem;
   }
+
+  .error {
+    color: ${({ theme }) => theme.colors.error};
+    margin-bottom: 1rem;
+  }
 `
 
 export const enhancer = compose(
+  withAuthentication,
   withStateHandlers(
     () => ({ api: null }),
     { handleChange: () => e => ({ api: e.target.value }) }
@@ -73,13 +80,12 @@ export const enhancer = compose(
     props: ({ loading }) => ({ keyLoading: loading })
   }),
   withHandlers({
-    submit: ({ api, authenticate, setKey, userLoggedIn }) => () => authenticate({ apiKey: api }).then(res => {
-      if (res) {
-        const { permissions } = JSON.parse(res)
-        localStorage.setItem('permissions', JSON.stringify(permissions))
-        userLoggedIn()
-      }
-    })
+    submit: ({ api, authenticate, authUser, authComplete }) => () =>
+      authenticate({ apiKey: api, token: authUser.token }).then(res => {
+        if (res) {
+          authComplete()
+        }
+      })
   })
 )
 

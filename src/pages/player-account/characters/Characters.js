@@ -1,13 +1,13 @@
 /* istanbul ignore file */
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { compose, omit, get, toLower } from 'lodash/fp'
-import { withProps, withHandlers, branch, renderComponent, lifecycle, mapProps } from 'recompose'
-import { fetchHoc } from 'utils/cachedFetch'
+import { compose, get, toLower } from 'lodash/fp'
+import { withState, withHandlers, branch, renderComponent, lifecycle, onlyUpdateForKeys } from 'recompose'
+import { fetchHocGet } from 'utils/cachedFetch'
 import { ageFromSeconds, formatDate } from 'utils/utilities'
-import { withModal, ItemSlot, FullPageLoader } from 'components'
+import { ItemSlot, FullPageLoader } from 'components'
 import { Layout } from 'providers/MainLayout'
-import SelectCharacterModal from './SelectCharacterModal'
+import { withAuthentication } from 'providers/Authenticated'
 import { Bubble, Gradient, Special, sideNavClasses, contentClasses } from './StyledComponents'
 
 const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
@@ -15,7 +15,7 @@ const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
     <Layout>
       {
         ({ Container, SideNav, Content, FullPageLoader }) => (
-          <Fragment>
+          <Container>
             {charDataLoading && <FullPageLoader />}
             <SideNav customClasses={sideNavClasses}>
               <h2>Characters</h2>
@@ -115,7 +115,7 @@ const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
                 )
               }
             </Content>
-          </Fragment>
+          </Container>
         )
       }
     </Layout>
@@ -130,30 +130,32 @@ Characters.propTypes = {
 }
 
 export default compose(
-  withModal,
-  withProps(() => ({ selectedChar: localStorage.getItem('defaultChar') })),
-  fetchHoc.get(`api/characters`, {
+  withAuthentication,
+  withState('selectedChar', 'setChar'),
+  fetchHocGet(`api/characters?token=:token`, {
     dataProp: 'allChars',
-    // TODO: handle if someone else uses computer and changes API key (defaultChar no longer valid)
-    props: ({ loading, allChars = [], errorStatus }) => ({ allCharsLoading: loading, allChars, errorStatus })
+    props: ({ loading, allChars = [], errorStatus }) => ({ allCharsLoading: loading, allChars, errorStatus }),
+    variables: ({ authUser }) => ({ token: authUser.token })
   }),
-  fetchHoc.get(`api/characters/:char`, {
+  fetchHocGet(`api/characters/:char?token=:token`, {
+    name: 'fetchChar',
     call: 'onClick',
     dataProp: 'charData',
-    props: ({ loading, charData = undefined }) => ({ charDataLoading: loading, charData })
+    props: ({ loading, charData = undefined }) => ({ charDataLoading: loading, charData }),
+    variables: ({ authUser, allChars, selectedChar }) => ({ token: authUser.token, char: selectedChar || allChars[0] })
   }),
   branch(p => p.allCharsLoading, renderComponent(FullPageLoader)),
   withHandlers({
-    selectChar: ({ getFetch, charData }) => e => {
+    selectChar: ({ fetchChar, charData, setChar }) => e => {
       if (charData.name !== e.target.innerText) {
-        localStorage.setItem('defaultChar', e.target.innerText)
-        getFetch({ 'char': e.target.innerText })
+        setChar(e.target.innerText, () => fetchChar())
       }
-    },
-    // will be removed once caching is implemented
-    modalSelectChar: () => e => localStorage.setItem('defaultChar', e.target.innerText)
+    }
   }),
-  branch(p => !p.selectedChar, renderComponent(SelectCharacterModal)),
-  lifecycle({ componentDidMount () { this.props.getFetch({ 'char': this.props.selectedChar }) } }),
-  mapProps(omit([ 'error', 'getFetch', 'loading', 'selectedChar', 'showModal', 'closeModal', 'modalSelectChar', 'allCharsLoading' ]))
+  lifecycle({
+    componentDidMount () {
+      this.props.fetchChar()
+    }
+  }),
+  onlyUpdateForKeys(['allChars', 'charData', 'charDataLoading'])
 )(Characters)
