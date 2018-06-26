@@ -11,6 +11,7 @@ const colors = {
   gray3: '#5E5E5E',
   gray4: '#474747',
   gray5: '#323232',
+  error: '#fC3838',
   loadingOverlay: 'rgba(0, 0, 0, 0.6)',
   modalOverlay: 'rgba(100, 100, 100, 0.5)',
   tooltip: 'rgba(50, 50, 50, 0.8)'

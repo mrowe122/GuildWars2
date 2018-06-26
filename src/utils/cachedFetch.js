@@ -1,4 +1,4 @@
-import { compose, omit, mergeAll } from 'lodash/fp'
+import { compose, omit, mergeAll, noop } from 'lodash/fp'
 import { withStateHandlers, withHandlers, withProps, lifecycle, branch, mapProps } from 'recompose'
 import { cachedData } from './cachedData'
 
@@ -20,23 +20,27 @@ const parseUrl = (url, variables) => {
   let _url = url.slice()
   if (variables) {
     for (const prop in variables) {
-      _url = url.replace(`:${prop}`, variables[prop])
+      _url = _url.replace(`:${prop}`, variables[prop])
     }
   }
   return _url
 }
 
-const withDefaults = ({ dataProp, call, props = {} }) => compose(
-  withProps(({ controller: props.controller || new AbortController() })),
-  lifecycle({ componentWillUnmount () { this.props.controller.abort() } }),
+let controller
+
+const withDefaults = ({ dataProp, call, props }) => compose(
   withStateHandlers(
-    () => ({ loading: (call !== 'onClick'), [dataProp]: undefined }),
+    () => ({
+      loading: (call !== 'onClick'),
+      [dataProp]: undefined
+    }),
     {
       startLoading: () => () => ({ loading: true, errorStatus: null }),
       finishedLoading: () => data => ({ loading: false, errorStatus: null, [dataProp]: data }),
       handleError: () => data => ({ loading: false, errorStatus: data })
     }
   ),
+  lifecycle({ componentWillUnmount () { controller.abort() } }),
   branch(
     () => typeof props === 'function',
     withProps(props)
@@ -45,27 +49,33 @@ const withDefaults = ({ dataProp, call, props = {} }) => compose(
 
 const omitProps = [
   'startLoading',
-  'controller',
   'handleError',
   'finishedLoading'
 ]
 
 export const fetchHocGet = (
   url,
-  { dataProp = 'data', props, call = 'onLoad', name = 'getFetch' } = { dataProp: 'data', call: 'onLoad', name: 'getFetch' },
+  {
+    dataProp = 'data',
+    call = 'onLoad',
+    name = 'getFetch',
+    variables = noop,
+    props
+  } = { dataProp: 'data', call: 'onLoad', name: 'getFetch', variables: noop },
   options
 ) => compose(
   withDefaults({ dataProp, call, props }),
   withHandlers({
-    [name]: ({ startLoading, finishedLoading, controller, handleError }) => variables => {
+    [name]: ({ startLoading, finishedLoading, handleError, ...rest }) => () => {
       startLoading()
+      controller = new AbortController()
       const _opts = {
+        signal: controller.signal,
         headers: {
-          'x-session-token': localStorage.getItem('session')
-        },
-        signal: controller.signal
+          'content-type': 'application/json'
+        }
       }
-      return cachedFetch(parseUrl(url, variables), mergeAll([options, _opts]))
+      return cachedFetch(parseUrl(url, variables(rest)), mergeAll([options, _opts]))
         .then(data => finishedLoading(JSON.parse(data).body))
         .catch(err => {
           if (err.name !== 'AbortError') {
@@ -76,7 +86,11 @@ export const fetchHocGet = (
   }),
   branch(
     () => call === 'onLoad',
-    lifecycle({ componentDidMount () { this.props[name]() } })
+    lifecycle({
+      componentDidMount () {
+        this.props[name]()
+      }
+    })
   ),
   mapProps(omit(omitProps))
 )
@@ -88,13 +102,13 @@ export const fetchHocPost = (
 ) => compose(
   withDefaults({ dataProp, props, call: 'onClick' }),
   withHandlers({
-    [name]: ({ startLoading, finishedLoading, controller, handleError }) => body => {
+    [name]: ({ startLoading, finishedLoading, handleError }) => body => {
       startLoading()
+      controller = new AbortController()
       const _opts = {
         method: 'POST',
         headers: {
-          'content-type': 'application/json',
-          'x-session-token': localStorage.getItem('session')
+          'content-type': 'application/json'
         },
         body: JSON.stringify(body),
         signal: controller.signal

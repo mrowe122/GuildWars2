@@ -1,17 +1,30 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import routes from 'utils/routes'
+import { AuthenticationConsumer } from 'providers/Authenticated'
+import routes from 'routes'
 import { Logo } from 'components'
 
 const HeaderTemplate = ({ className }) => (
   <div className={className}>
     <Logo />
-    <div>
-      {/* <Link to={routes.account.characters}>Account</Link> */}
-      <Link to={routes.authorize}>Sign In</Link>
-    </div>
+    <AuthenticationConsumer>
+      {
+        ({ token, firebase }) => (
+          <div>
+            {token
+              ? (
+                <Fragment>
+                  <Link to={routes.authorize}>Account</Link>
+                  <a onClick={() => firebase.signOut()}>Sign Out</a>
+                </Fragment>
+              )
+              : <Link to={routes.authorize}>Sign In</Link>}
+          </div>
+        )
+      }
+    </AuthenticationConsumer>
   </div>
 )
 
@@ -42,20 +55,13 @@ const Header = styled(HeaderTemplate)`
     margin: 0 .5rem;
     padding: 0.7rem;
     border: 2px solid transparent;
+    cursor: pointer;
     ${({ theme }) => theme.generators.transition(200, 'ease-out')};
     &:hover { border-color: ${({ theme }) => theme.colors.primaryLight1}; }
   }
 
   & > div:nth-child(2) {
     display: flex;
-  }
-
-  .mdi-icon {
-    height: 26px;
-    width: 26px;
-    cursor: pointer;
-    padding: .4rem;
-    fill: ${({ theme }) => theme.colors.white};
   }
 `
 

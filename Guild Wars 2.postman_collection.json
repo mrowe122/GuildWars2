@@ -169,7 +169,7 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "username",
+									"key": "email",
 									"value": "user1",
 									"description": "",
 									"type": "text"
@@ -204,7 +204,7 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "username",
+									"key": "email",
 									"value": "user1",
 									"description": "",
 									"type": "text"
