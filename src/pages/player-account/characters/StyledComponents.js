@@ -88,7 +88,7 @@ export const Bubble = styled.div`
     position: absolute;
     background-position: center;
     background-repeat: no-repeat;
-    ${({ guild }) => guild && `background-image: url(http://data.gw2.fr/guild-emblem/name/${encodeURI(guild)}/100.png)`}
+    ${({ guild }) => guild && `background-image: url(https://guilds.gw2w2w.com/guilds/${guild.replace(/\s+/g, '-')}/100.svg)`}
   }  
 `
 
