@@ -4728,7 +4728,7 @@ gtoken@^2.3.0:
 
 "guildwars2-server@https://github.com/mrowe122/GuildWars2-Server.git":
   version "0.0.0"
-  resolved "https://github.com/mrowe122/GuildWars2-Server.git#a57e0d2724d68c26f6d226b578b4dd80c9b87c75"
+  resolved "https://github.com/mrowe122/GuildWars2-Server.git#9db4926c1411de1e89b5bf9bdad5a7b5e02688ac"
   dependencies:
     body-parser "^1.18.3"
     express "^4.16.3"
