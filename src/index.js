@@ -22,9 +22,9 @@ if (__MOCK__) {
   ReactDOM.render(<App authUser={authUser} />, document.getElementById('root'))
 } else {
   firebase.initializeApp({
-    apiKey: 'AIzaSyDozSUfSBae_FH_rNsznfDjzSOFgvnUDYY',
-    authDomain: 'gw2tracker-d615c.firebaseapp.com',
-    projectId: 'gw2tracker-d615c'
+    apiKey: process.env.API_KEY,
+    authDomain: process.env.AUTH_DOMAIN,
+    projectId: process.env.PROJECT_ID
   })
 
   firebase.auth().onAuthStateChanged(user => {

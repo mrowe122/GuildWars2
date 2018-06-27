@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const Dotenv = require('dotenv-webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const path = require('../paths')
 
@@ -79,6 +80,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new Dotenv(),
     new CopyWebpackPlugin([
       { from: 'media', to: 'media' }
     ]),
