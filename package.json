@@ -8,7 +8,7 @@
     "clean": "rimraf dist",
     "dist": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.prod.js",
     "start": "node_modules/.bin/npm-run-all --parallel server dev",
-    "mock": "node_modules/.bin/npm-run-all --parallel mockServer dev",
+    "mock": "cross-env NODE_ENV=mock node_modules/.bin/npm-run-all --parallel mockServer dev",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./webpack/webpack.dev.js",
     "server": "node_modules/.bin/gw2_server",
     "mockServer": "node_modules/.bin/gw2_mock_server",

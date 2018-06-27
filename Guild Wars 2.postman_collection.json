@@ -22,17 +22,23 @@
 								}
 							]
 						},
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "{{base_url}}/characters/Corrupted Creed",
+							"raw": "{{base_url}}/characters/Corrupted Creed?token={{token}}",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"characters",
 								"Corrupted Creed"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
 							]
 						}
 					},
@@ -51,17 +57,23 @@
 								}
 							]
 						},
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "{{base_url}}/characters/Corrupted Fear",
+							"raw": "{{base_url}}/characters/Corrupted Fear?token={{token}}",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"characters",
 								"Corrupted Fear"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
 							]
 						}
 					},
@@ -80,17 +92,23 @@
 								}
 							]
 						},
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "{{base_url}}/characters/Corrupted Matrix",
+							"raw": "{{base_url}}/characters/Corrupted Matrix?token={{token}}",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"characters",
 								"Corrupted Matrix"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
 							]
 						}
 					},
@@ -109,17 +127,23 @@
 								}
 							]
 						},
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "{{base_url}}/characters/Corrupted Nova",
+							"raw": "{{base_url}}/characters/Corrupted Nova?token={{token}}",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"characters",
 								"Corrupted Nova"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
 							]
 						}
 					},
@@ -138,17 +162,23 @@
 								}
 							]
 						},
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "{{base_url}}/characters/Nova Crowe",
+							"raw": "{{base_url}}/characters/Nova Crowe?token={{token}}",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"characters",
 								"Nova Crowe"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
 							]
 						}
 					},
@@ -169,7 +199,7 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "email",
+									"key": "username",
 									"value": "user1",
 									"description": "",
 									"type": "text"
@@ -204,7 +234,7 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "email",
+									"key": "username",
 									"value": "user1",
 									"description": "",
 									"type": "text"

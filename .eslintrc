@@ -17,6 +17,7 @@
   },
   "globals": {
     "__DEV__": false,
+    "__MOCK__": false,
     "shallow": false,
     "mount": false,
     "globalProps": false,
