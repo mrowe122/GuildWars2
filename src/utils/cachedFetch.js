@@ -9,11 +9,11 @@ const handleErrors = response => {
   return response.text()
 }
 
-const cachedFetch = (url, options) => {
-  const _data = cachedData.get(url)
+const cachedFetch = (url, options, forever) => {
+  const _data = cachedData.get(url.split('?')[0], forever)
   return _data
     ? Promise.resolve(_data)
-    : fetch(url, options).then(handleErrors).then(cachedData.add(url))
+    : fetch(url, options).then(handleErrors).then(cachedData.add(url.split('?')[0]))
 }
 
 const parseUrl = (url, variables) => {
@@ -60,9 +60,10 @@ export const fetchHocGet = (
     call = 'onLoad',
     name = 'getFetch',
     variables = noop,
+    options = { forever: false },
     props
-  } = { dataProp: 'data', call: 'onLoad', name: 'getFetch', variables: noop },
-  options
+  } = { dataProp: 'data', call: 'onLoad', name: 'getFetch', variables: noop, options: { forever: false } },
+  fetchOptions
 ) => compose(
   withDefaults({ dataProp, call, props }),
   withHandlers({
@@ -75,7 +76,7 @@ export const fetchHocGet = (
           'content-type': 'application/json'
         }
       }
-      return cachedFetch(parseUrl(url, variables(rest)), mergeAll([options, _opts]))
+      return cachedFetch(parseUrl(url, variables(rest)), mergeAll([fetchOptions, _opts]), options.forever)
         .then(data => finishedLoading(JSON.parse(data).body))
         .catch(err => {
           if (err.name !== 'AbortError') {
