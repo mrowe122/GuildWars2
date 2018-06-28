@@ -63,15 +63,11 @@ const Modal = styled(ModalTemplate)`
   align-items: center;
   justify-content: center;
   background-color: ${({ theme }) => theme.colors.modalOverlay};
-  ${({ hideTransition }) => hideTransition && `
-    animation: ${({ theme }) => theme.animations.fadeIn} 500ms ease;
-  `}
+  animation: ${({ theme }) => theme.animations.fadeIn} 500ms ease;
 
   ${Content} {
     width: ${({ size = 'md' }) => sizeMap[size]};
-    ${({ hideTransition }) => hideTransition && `
-      animation: ${({ theme }) => theme.animations.scaleUp} 500ms ease;
-    `}
+    animation: ${({ theme }) => theme.animations.scaleUp} 500ms ease;
     ${({ theme }) => theme.generators.boxShadow(0, 0, 40, -5, 'rgba(0, 0, 0, 1)')}
   }
 `

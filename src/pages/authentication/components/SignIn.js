@@ -16,7 +16,7 @@ import LockIcon from 'mdi-react/LockIcon'
 const SignInTemplate = ({
   className, closeModal, handleChange, handleSignIn, valid, loading, showCreate, error
 }) => (
-  <Modal size='sm' contentClass={className} showModal hideTransition hideClose closeModal={closeModal}>
+  <Modal size='sm' contentClass={className} showModal hideClose closeModal={closeModal}>
     <LockIcon size={36} className='lockIcon' />
     {error && <p className='error'>{error}</p>}
     <Input

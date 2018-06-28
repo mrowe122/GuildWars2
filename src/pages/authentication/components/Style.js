@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { css } from 'react-emotion'
 import { Input } from 'elements'
 

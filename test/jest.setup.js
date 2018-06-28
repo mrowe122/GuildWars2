@@ -5,7 +5,7 @@ import Adapter from 'enzyme-adapter-react-16'
 // Provider Modules for mounting
 import { BrowserRouter } from 'react-router-dom'
 // import { LayoutProvider } from 'providers/MainLayout'
-import { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'emotion-theming'
 import theme from '../src/styles/variables'
 
 Enzyme.configure({ adapter: new Adapter() })
