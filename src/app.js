@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 import React from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'emotion-theming'
 import routes from 'routes'
 
 // modules

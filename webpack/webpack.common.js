@@ -44,6 +44,7 @@ module.exports = {
           query: {
             cacheDirectory: true,
             plugins: [
+              'emotion',
               'babel-plugin-transform-class-properties',
               [ 'transform-object-rest-spread', { 'useBuiltIns': true } ]
             ],

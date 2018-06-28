@@ -1,15 +1,15 @@
 /* istanbul ignore file */
-import styled, { css } from 'styled-components'
+import styled, { css } from 'react-emotion'
 
-export const sideNavClasses = css`
-  left: ${({ theme }) => theme.sizes.pivotBar};
+export const sideNavClasses = ({ theme }) => css`
+  left: ${theme.sizes.pivotBar};
   & > h2 {
-    color: ${({ theme }) => theme.colors.white};
+    color: ${theme.colors.white};
     margin-bottom: 2rem;
   } 
 
   a {
-    color: ${({ theme }) => theme.colors.gray1};
+    color: ${theme.colors.gray1};
     cursor: pointer;
     max-width: 100%;
     margin: 1rem 0;
@@ -17,22 +17,22 @@ export const sideNavClasses = css`
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
-    ${({ theme }) => theme.generators.transition(150, 'linear')};
-    ${({ theme }) => theme.generators.textNoSelect};
-    &[active='1'], &:hover { color: ${({ theme }) => theme.colors.primaryLight1}; }
+    ${theme.generators.transition(150, 'linear')};
+    ${theme.generators.textNoSelect};
+    &[active='1'], &:hover { color: ${theme.colors.primaryLight1}; }
   }
 `
 
-export const contentClasses = css`
-  color: ${({ theme }) => theme.colors.white};
-  margin-left: ${({ theme }) => `calc(${theme.sizes.sideNav} + ${theme.sizes.pivotBar})`};
+export const contentClasses = ({ theme }) => css`
+  color: ${theme.colors.white};
+  margin-left: ${`calc(${theme.sizes.sideNav} + ${theme.sizes.pivotBar})`};
 
   .middle-xs {
     position: relative;
     margin-bottom: 1rem;
     img {
       width: 100%;
-      ${({ theme }) => theme.generators.boxShadow(0, 0, 20, -3, '#000')}
+      ${theme.generators.boxShadow(0, 0, 20, -3, '#000')}
     }
   }
 

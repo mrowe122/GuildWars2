@@ -1,11 +1,12 @@
-import { css } from 'styled-components'
+/* istanbul ignore file */
+import { css } from 'react-emotion'
 import { Input } from 'elements'
 
-export default css`
+export default ({ theme }) => css`
   text-align: center;
 
   h2 {
-    color: ${({ theme }) => theme.colors.white};
+    color: ${theme.colors.white};
     margin-bottom: 1.5rem;
   }
 
@@ -14,7 +15,7 @@ export default css`
   }
 
   a {
-    color: ${({ theme }) => theme.colors.primaryLight1};
+    color: ${theme.colors.primaryLight1};
     display: block;
     text-align: right;
     margin-bottom: 2rem;
@@ -22,7 +23,7 @@ export default css`
   }
 
   .error {
-    color: ${({ theme }) => theme.colors.error};
+    color: ${theme.colors.error};
     margin-bottom: 1rem;
   }
 
@@ -31,7 +32,7 @@ export default css`
     box-sizing: initial;
     border-radius: 50%;
     margin-bottom: 2rem;
-    fill: ${({ theme }) => theme.colors.primary};
-    background-color: ${({ theme }) => theme.colors.white};
+    fill: ${theme.colors.primary};
+    background-color: ${theme.colors.white};
   }
 `

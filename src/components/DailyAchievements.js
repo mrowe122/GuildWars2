@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled from 'react-emotion'
 import { withAchievements } from 'utils/compositions'
 import { compose, uniqueId, map } from 'lodash/fp'
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs'

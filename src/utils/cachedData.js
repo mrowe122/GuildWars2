@@ -9,9 +9,9 @@ class CachedDataClass {
     return data
   }
 
-  get = url => {
+  get = (url, forever) => {
     const _cache = this.cache[url]
-    if (_cache && (Date.now() - _cache.time) < this.cacheLimit) {
+    if (_cache && (forever || (Date.now() - _cache.time) < this.cacheLimit)) {
       return _cache.data
     }
     return null

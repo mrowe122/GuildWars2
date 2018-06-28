@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled from 'react-emotion'
 import { compose, get } from 'lodash/fp'
 import { withStateHandlers } from 'recompose'
 import { Slot } from 'utils/constants'

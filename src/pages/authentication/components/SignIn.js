@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled from 'react-emotion'
 import { withStateHandlers, withHandlers, withProps, branch, renderComponent } from 'recompose'
 import { compose } from 'lodash/fp'
 import routes from 'routes'
@@ -16,7 +16,7 @@ import LockIcon from 'mdi-react/LockIcon'
 const SignInTemplate = ({
   className, closeModal, handleChange, handleSignIn, valid, loading, showCreate, error
 }) => (
-  <Modal size='sm' contentClass={className} showModal hideTransition hideClose closeModal={closeModal}>
+  <Modal size='sm' contentClass={className} showModal hideClose closeModal={closeModal}>
     <LockIcon size={36} className='lockIcon' />
     {error && <p className='error'>{error}</p>}
     <Input
@@ -47,7 +47,10 @@ SignInTemplate.propTypes = {
 }
 
 export const SignIn = styled(SignInTemplate)`
-  ${modalStyle}
+  ${modalStyle};
+  ${Input} {
+    margin-bottom: 1rem;
+  }
 `
 
 export const enhancer = compose(

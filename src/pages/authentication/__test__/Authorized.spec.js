@@ -42,18 +42,5 @@ describe('Authorized', () => {
 
       expect(_component(_props).find('Route').length).toBe(1)
     })
-
-    it('should run routes render', () => {
-      const _props = {
-        location: {
-          pathname: '/test'
-        },
-        path: '/',
-        component: EmptyDiv
-      }
-
-      const render = _component(_props).find('Route').props().render
-      expect(shallow(render()).find('div').length).toBe(1)
-    })
   })
 })

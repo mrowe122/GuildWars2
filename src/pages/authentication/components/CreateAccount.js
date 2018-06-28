@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled from 'react-emotion'
 import { withStateHandlers, withHandlers, withProps } from 'recompose'
 import { compose } from 'lodash/fp'
 import { withAuthentication } from 'providers/Authenticated'
@@ -15,7 +15,7 @@ import LockIcon from 'mdi-react/LockIcon'
 const CreateAccountTemplate = ({
   className, handleChange, handleCreate, valid, loading, showLogin, error
 }) => (
-  <Modal size='sm' contentClass={className} showModal hideTransition hideClose>
+  <Modal size='sm' contentClass={className} showModal hideClose>
     <LockIcon size={36} className='lockIcon' />
     {error && <p className='error'>{error}</p>}
     <Input
@@ -51,7 +51,7 @@ CreateAccountTemplate.propTypes = {
 }
 
 export const CreateAccount = styled(CreateAccountTemplate)`
-  ${modalStyle}
+  ${modalStyle};
 `
 
 export const enhancer = compose(

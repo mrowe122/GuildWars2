@@ -15,7 +15,7 @@ const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
     <Layout>
       {
         ({ Container, SideNav, Content, FullPageLoader }) => (
-          <Container>
+          <Fragment>
             {charDataLoading && <FullPageLoader />}
             <SideNav customClasses={sideNavClasses}>
               <h2>Characters</h2>
@@ -115,7 +115,7 @@ const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
                 )
               }
             </Content>
-          </Container>
+          </Fragment>
         )
       }
     </Layout>
@@ -134,6 +134,7 @@ export default compose(
   withState('selectedChar', 'setChar'),
   fetchHocGet(`api/characters?token=:token`, {
     dataProp: 'allChars',
+    options: { forever: true },
     props: ({ loading, allChars = [], errorStatus }) => ({ allCharsLoading: loading, allChars, errorStatus }),
     variables: ({ authUser }) => ({ token: authUser.token })
   }),

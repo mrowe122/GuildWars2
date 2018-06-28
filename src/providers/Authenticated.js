@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React, { createContext } from 'react'
 import PropTypes from 'prop-types'
 import { withContext } from 'with-context'

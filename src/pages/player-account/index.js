@@ -102,6 +102,7 @@ export default compose(
   withAuthentication,
   fetchHocGet('api/permissions?token=:token', {
     variables: ({ authUser }) => ({ token: authUser.token }),
+    options: { forever: true },
     props: ({ data }) => ({
       // TODO: check if can be simplified to not compute every render
       items: orderBy('access')('desc')(mapWithArgs(
