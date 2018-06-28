@@ -1,10 +1,10 @@
 /* istanbul ignore file */
 import React, { Fragment } from 'react'
-import { css } from 'styled-components'
+import { css } from 'react-emotion'
 import { Layout } from 'providers/MainLayout'
 
-const contentClasses = css`
-  color: ${({ theme }) => theme.colors.white};
+const contentClasses = ({ theme }) => css`
+  color: ${theme.colors.white};
 `
 
 const Inventories = () => (

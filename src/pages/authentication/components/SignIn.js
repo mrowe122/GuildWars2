@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled from 'react-emotion'
 import { withStateHandlers, withHandlers, withProps, branch, renderComponent } from 'recompose'
 import { compose } from 'lodash/fp'
 import routes from 'routes'
@@ -47,7 +47,10 @@ SignInTemplate.propTypes = {
 }
 
 export const SignIn = styled(SignInTemplate)`
-  ${modalStyle}
+  ${modalStyle};
+  ${Input} {
+    margin-bottom: 1rem;
+  }
 `
 
 export const enhancer = compose(

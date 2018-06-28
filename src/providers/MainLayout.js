@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 import React, { createContext } from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
+import styled, { css } from 'react-emotion'
 import { compose, noop } from 'lodash/fp'
 import { withStateHandlers, withProps } from 'recompose'
 import { NavLink } from 'react-router-dom'
@@ -16,11 +16,11 @@ const SideNav = styled.div`
   padding: 2rem;
   position: fixed;
   box-sizing: border-box;
-  margin-top: ${({ theme }) => theme.sizes.header};
+  top: ${({ theme }) => theme.sizes.header};
   background-color: ${({ theme }) => theme.colors.loadingOverlay};
-  ${({ theme }) => theme.generators.boxShadow(0, 0, 10, 3, theme.colors.primary)}
+  ${({ theme }) => theme.generators.boxShadow(0, 0, 10, 3, theme.colors.primary)};
   ${({ theme }) => theme.generators.textShadow(0, 0, 5, 'rgba(0,0,0,1)')};
-  ${({ customClasses }) => customClasses}
+  ${({ customClasses }) => customClasses};
 `
 
 const Content = styled.div`
@@ -28,7 +28,7 @@ const Content = styled.div`
   flex: 1 0 auto;
   padding: 2rem 2rem 1rem;
   margin-top: ${({ theme }) => theme.sizes.header};
-  ${({ customClasses }) => customClasses}
+  ${({ customClasses }) => customClasses};
 `
 
 const PivotBarTemplate = ({ className, items = [], expanded, handleMenu, onClick }) => (

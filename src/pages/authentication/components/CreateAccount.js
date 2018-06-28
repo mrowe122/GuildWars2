@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled from 'react-emotion'
 import { withStateHandlers, withHandlers, withProps } from 'recompose'
 import { compose } from 'lodash/fp'
 import { withAuthentication } from 'providers/Authenticated'
@@ -51,7 +51,7 @@ CreateAccountTemplate.propTypes = {
 }
 
 export const CreateAccount = styled(CreateAccountTemplate)`
-  ${modalStyle}
+  ${modalStyle};
 `
 
 export const enhancer = compose(

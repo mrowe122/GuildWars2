@@ -15,7 +15,7 @@ const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
     <Layout>
       {
         ({ Container, SideNav, Content, FullPageLoader }) => (
-          <Container>
+          <Fragment>
             {charDataLoading && <FullPageLoader />}
             <SideNav customClasses={sideNavClasses}>
               <h2>Characters</h2>
@@ -115,7 +115,7 @@ const Characters = ({ selectChar, allChars, charData, charDataLoading }) => {
                 )
               }
             </Content>
-          </Container>
+          </Fragment>
         )
       }
     </Layout>
