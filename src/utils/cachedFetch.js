@@ -1,10 +1,11 @@
 import { compose, omit, mergeAll, noop } from 'lodash/fp'
-import { withStateHandlers, withHandlers, withProps, lifecycle, branch, mapProps } from 'recompose'
+import { withStateHandlers, withHandlers, withProps, lifecycle, branch, mapProps, renderComponent } from 'recompose'
+import routes from 'routes'
 import { cachedData } from './cachedData'
 
 let controller = new AbortController()
 
-const handleErrors = response => {
+const checkErrors = response => {
   if (!response.ok) {
     throw response.status
   }
@@ -15,7 +16,7 @@ const cachedFetch = (url, options, forever) => {
   const _data = cachedData.get(url.split('?')[0], forever)
   return _data
     ? Promise.resolve(_data)
-    : fetch(url, options).then(handleErrors).then(cachedData.add(url.split('?')[0]))
+    : fetch(url, options).then(checkErrors).then(cachedData.add(url.split('?')[0]))
 }
 
 const parseUrl = (url, variables) => {
@@ -27,6 +28,13 @@ const parseUrl = (url, variables) => {
   }
   return _url
 }
+
+const withHandleErrors = compose(
+  branch(
+    ({ errorStatus }) => errorStatus === 403,
+    renderComponent(routes.redirect({ pathname: routes.authorize, state: { authState: 'apiKey' } }))
+  )
+)
 
 const withDefaults = ({ dataProp, call, props }) => compose(
   withStateHandlers(
@@ -85,6 +93,7 @@ export const fetchHocGet = (
         })
     }
   }),
+  withHandleErrors,
   branch(
     () => call === 'onLoad',
     lifecycle({
@@ -115,7 +124,7 @@ export const fetchHocPost = (
         signal: controller.signal
       }
       return fetch(url, mergeAll([options, _opts]))
-        .then(handleErrors)
+        .then(checkErrors)
         .then(data => {
           finishedLoading(data)
           return data
@@ -128,6 +137,7 @@ export const fetchHocPost = (
         })
     }
   }),
+  withHandleErrors,
   mapProps(omit(omitProps))
 )
 

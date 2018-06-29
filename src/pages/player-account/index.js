@@ -113,10 +113,6 @@ const PlayerAccountEnhancer = compose(
   branch(
     ({ loading }) => loading,
     renderComponent(FullPageLoader)
-  ),
-  branch(
-    ({ errorStatus }) => errorStatus === 403,
-    renderComponent(routes.redirect({ pathname: routes.authorize, state: { authState: 'apiKey' } }))
   )
 )(PlayerAccount)
 
