@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
 import { compose } from 'lodash/fp'
-import { setPropTypes, withStateHandlers } from 'recompose'
+import { withStateHandlers } from 'recompose'
 import CloseIcon from 'mdi-react/CloseIcon'
 
 import backgroundModal from 'media/images/small_modal.gif'
@@ -32,27 +32,33 @@ const Content = styled.div`
   }
 `
 
-const ModalTemplate = ({ className, contentClass, children, showModal, closeModal, hideClose }) => (
-  showModal ? (
+export const Modal = ({ className, contentClass, children, showModal, closeModal }) => (
+  showModal && (
     <div className={className}>
       <Content className={contentClass}>
-        { !hideClose && <CloseIcon onClick={closeModal} className='closeIcon' /> }
+        { closeModal && <CloseIcon onClick={closeModal} className='closeIcon' /> }
         {children}
       </Content>
     </div>
-  ) : ''
+  )
 )
 
-ModalTemplate.propTypes = {
+Modal.propTypes = {
   className: PropTypes.string,
   contentClass: PropTypes.string,
   children: PropTypes.node,
   showModal: PropTypes.bool,
-  closeModal: PropTypes.func,
-  hideClose: PropTypes.bool
+  closeModal: PropTypes.func
 }
 
-const Modal = styled(ModalTemplate)`
+export const withModal = compose(
+  withStateHandlers(
+    ({ initial = false }) => ({ showModal: initial }),
+    { closeModal: ({ showModal }) => () => ({ showModal: !showModal }) }
+  )
+)
+
+export default styled(Modal)`
   top: 0;
   left: 0;
   right: 0;
@@ -71,21 +77,3 @@ const Modal = styled(ModalTemplate)`
     ${({ theme }) => theme.generators.boxShadow(0, 0, 40, -5, 'rgba(0, 0, 0, 1)')}
   }
 `
-
-Modal.propTypes = {
-  size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg'])
-}
-
-export const withModal = compose(
-  withStateHandlers(
-    ({ initial = false }) => ({ showModal: initial }),
-    { closeModal: ({ showModal }) => () => ({ showModal: !showModal }) }
-  )
-)
-
-export default compose(
-  setPropTypes({
-    showModal: PropTypes.bool.isRequired,
-    closeModal: PropTypes.func
-  })
-)(Modal)

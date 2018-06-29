@@ -20,12 +20,12 @@ Authorized.propTypes = {
   location: PropTypes.object
 }
 
-export const enhancer = compose(
+const AuthorizedEnhancer = compose(
   withAuthentication,
   branch(
     ({ authUser }) => !authUser.token,
     renderComponent(routes.redirect(routes.authorize))
   )
-)
+)(Authorized)
 
-export default enhancer(Authorized)
+export default AuthorizedEnhancer

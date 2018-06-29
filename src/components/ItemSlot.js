@@ -100,7 +100,7 @@ const renderTooltip = item => {
   }
 }
 
-const ItemSlotTemplate = ({ className, item, showTooltip, handleHover }) => (
+export const ItemSlot = ({ className, item, showTooltip, handleHover }) => (
   <div className={className}>
     {item
       ? (
@@ -112,14 +112,21 @@ const ItemSlotTemplate = ({ className, item, showTooltip, handleHover }) => (
   </div>
 )
 
-ItemSlotTemplate.propTypes = {
+ItemSlot.propTypes = {
   className: PropTypes.string,
   item: PropTypes.object,
   showTooltip: PropTypes.bool,
   handleHover: PropTypes.func
 }
 
-export const ItemSlot = styled(ItemSlotTemplate)`
+const ItemSlotEnhancer = compose(
+  withStateHandlers(
+    () => ({ showTooltip: false }),
+    { handleHover: ({ showTooltip }) => () => ({ showTooltip: !showTooltip }) }
+  )
+)(ItemSlot)
+
+export default styled(ItemSlotEnhancer)`
   width: 50px;
   height: 50px;
   margin: 0.35rem;
@@ -148,12 +155,3 @@ export const ItemSlot = styled(ItemSlotTemplate)`
     }
   }
 `
-
-export const enhancer = compose(
-  withStateHandlers(
-    () => ({ showTooltip: false }),
-    { handleHover: ({ showTooltip }) => () => ({ showTooltip: !showTooltip }) }
-  )
-)
-
-export default enhancer(ItemSlot)

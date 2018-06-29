@@ -98,7 +98,7 @@ PlayerAccount.propTypes = {
   items: PropTypes.array
 }
 
-export default compose(
+const PlayerAccountEnhancer = compose(
   withAuthentication,
   fetchHocGet('api/permissions?token=:token', {
     variables: ({ authUser }) => ({ token: authUser.token }),
@@ -113,5 +113,11 @@ export default compose(
   branch(
     ({ loading }) => loading,
     renderComponent(FullPageLoader)
+  ),
+  branch(
+    ({ errorStatus }) => errorStatus === 403,
+    renderComponent(routes.redirect({ pathname: routes.authorize, state: { authState: 'apiKey' } }))
   )
 )(PlayerAccount)
+
+export default PlayerAccountEnhancer
