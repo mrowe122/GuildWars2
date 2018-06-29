@@ -2,37 +2,45 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
 import { Link } from 'react-router-dom'
-import { AuthenticationConsumer } from 'providers/Authenticated'
+import { withRouter } from 'react-router'
+import { compose } from 'lodash/fp'
+import { withHandlers } from 'recompose'
+import { withAuthentication } from 'providers/Authenticated'
 import routes from 'routes'
 import { Logo } from 'components'
 
-const HeaderTemplate = ({ className }) => (
+export const Header = ({ className, authUser, handleSignOut }) => (
   <div className={className}>
     <Logo />
-    <AuthenticationConsumer>
-      {
-        ({ token, firebase }) => (
-          <div>
-            {token
-              ? (
-                <Fragment>
-                  <Link to={routes.authorize}>Account</Link>
-                  <a onClick={() => firebase.signOut()}>Sign Out</a>
-                </Fragment>
-              )
-              : <Link to={routes.authorize}>Sign In</Link>}
-          </div>
+    <div>
+      {authUser.token
+        ? (
+          <Fragment>
+            <Link to={routes.account.index}>Account</Link>
+            <a onClick={handleSignOut}>Sign Out</a>
+          </Fragment>
         )
-      }
-    </AuthenticationConsumer>
+        : <Link to={routes.authorize}>Sign In</Link>}
+    </div>
   </div>
 )
 
-HeaderTemplate.propTypes = {
-  className: PropTypes.string
+Header.propTypes = {
+  className: PropTypes.string,
+  authUser: PropTypes.object,
+  handleSignOut: PropTypes.func
 }
 
-const Header = styled(HeaderTemplate)`
+const EnhancedHeader = compose(
+  withAuthentication,
+  withRouter,
+  withHandlers({
+    handleSignOut: ({ authUser, history }) => () =>
+      authUser.firebase.signOut().then(() => history.push(routes.index))
+  })
+)(Header)
+
+export default styled(EnhancedHeader)`
   top: 0;
   left: 0;
   right: 0;
@@ -64,5 +72,3 @@ const Header = styled(HeaderTemplate)`
     display: flex;
   }
 `
-
-export default Header
