@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStateHandlers } from 'recompose'
-import { compose } from 'lodash/fp'
+import { compose, getOr } from 'lodash/fp'
 import { Redirect } from 'react-router-dom'
 import routes from 'routes'
 import { Layout } from 'providers/MainLayout'
@@ -17,7 +17,7 @@ export const Authentication = ({ authenticationState, showLogin, showCreate, sho
       ({ Container, Content }) => (
         <Container header>
           <Content>
-            { authenticationState === 'login' && <SignIn showCreate={showCreate} />}
+            { authenticationState === 'login' && <SignIn authComplete={authComplete} showCreate={showCreate} />}
             { authenticationState === 'create' && <CreateAccount showLogin={showLogin} showApikey={showApikey} />}
             { authenticationState === 'apiKey' && <ApiKey authComplete={authComplete} />}
             { authenticationState === 'loggedIn' && <Redirect to={routes.account.characters} />}
@@ -36,10 +36,10 @@ Authentication.propTypes = {
   authComplete: PropTypes.func
 }
 
-export default compose(
+const AuthenticationEnhancer = compose(
   withStateHandlers(
-    () => ({
-      authenticationState: 'login'
+    ({ location }) => ({
+      authenticationState: getOr('login', 'state.authState')(location)
     }),
     {
       showLogin: () => () => ({ authenticationState: 'login' }),
@@ -49,3 +49,5 @@ export default compose(
     }
   )
 )(Authentication)
+
+export default AuthenticationEnhancer
