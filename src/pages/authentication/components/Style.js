@@ -1,25 +1,26 @@
 /* istanbul ignore file */
 import { css } from 'react-emotion'
-import { Input } from 'elements'
 
 export default ({ theme }) => css`
   text-align: center;
 
-  h2 {
+  h3 {
     color: ${theme.colors.white};
     margin-bottom: 1.5rem;
   }
 
-  ${Input} {
-    margin-bottom: 1rem;
+  a {
+    cursor: pointer;
+    color: ${theme.colors.primaryLight1};
+    margin-bottom: 1.5rem;
+    float: right;
+    display: inline-block;
   }
 
-  a {
-    color: ${theme.colors.primaryLight1};
+  button {
+    clear: both;
     display: block;
-    text-align: right;
-    margin-bottom: 2rem;
-    cursor: pointer;
+    margin: 0 auto;
   }
 
   .error {
@@ -27,7 +28,7 @@ export default ({ theme }) => css`
     margin-bottom: 1rem;
   }
 
-  .lockIcon {
+  .lockIcon, .accountKeyIcon {
     padding: 1rem;
     box-sizing: initial;
     border-radius: 50%;

@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
-import { withStateHandlers, withHandlers, withProps, branch, renderComponent } from 'recompose'
+import { branch, renderComponent } from 'recompose'
 import { compose } from 'lodash/fp'
+import { withFormik } from 'formik'
 import routes from 'routes'
 import { withAuthentication } from 'providers/Authenticated'
-import { withModal, Modal } from 'components'
+import { Modal } from 'components'
+import { validateEmail, validatePassword } from 'utils/validation'
 import { Button, Input } from 'elements'
 import modalStyle from './Style'
 
@@ -13,76 +15,85 @@ import AccountOutlineIcon from 'mdi-react/AccountOutlineIcon'
 import LockOutlineIcon from 'mdi-react/LockOutlineIcon'
 import LockIcon from 'mdi-react/LockIcon'
 
-const SignInTemplate = ({
-  className, closeModal, handleChange, handleSignIn, valid, loading, showCreate, error
+const SignIn = ({
+  className, values, handleChange, handleBlur, touched, isValid, handleSubmit, isSubmitting, errors, status, showCreate
 }) => (
-  <Modal size='sm' contentClass={className} showModal hideClose closeModal={closeModal}>
+  <Modal size='sm' contentClass={className} showModal>
     <LockIcon size={36} className='lockIcon' />
-    {error && <p className='error'>{error}</p>}
-    <Input
-      name='email'
-      placeholder='Email'
-      onChange={handleChange}
-      icon={<AccountOutlineIcon />} />
-    <Input
-      name='password'
-      type='password'
-      placeholder='Password'
-      onChange={handleChange}
-      icon={<LockOutlineIcon />} />
-    <a onClick={showCreate} className='a1'>Create account</a>
-    <Button type='submit' onClick={handleSignIn} loading={loading} disabled={!valid}>Sign In</Button>
+    {status && <p className='error'>{status}</p>}
+    <form onSubmit={handleSubmit}>
+      <Input
+        type='email'
+        name='email'
+        placeholder='Email'
+        value={values.email}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        error={touched.email && errors.email}
+        icon={<AccountOutlineIcon />} />
+      <Input
+        type='password'
+        name='password'
+        placeholder='Password'
+        value={values.password}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        error={touched.password && errors.password}
+        icon={<LockOutlineIcon />} />
+      <a onClick={showCreate} className='a1'>Create account</a>
+      <Button type='submit' onClick={handleSubmit} loading={isSubmitting} disabled={!isValid}>Sign In</Button>
+    </form>
   </Modal>
 )
 
-SignInTemplate.propTypes = {
+SignIn.propTypes = {
   className: PropTypes.string,
-  closeModal: PropTypes.func,
+  values: PropTypes.object,
   handleChange: PropTypes.func,
-  handleSignIn: PropTypes.func,
-  loading: PropTypes.bool,
-  valid: PropTypes.bool,
-  showCreate: PropTypes.func,
-  error: PropTypes.string
+  handleBlur: PropTypes.func,
+  touched: PropTypes.object,
+  isValid: PropTypes.bool,
+  handleSubmit: PropTypes.func,
+  isSubmitting: PropTypes.bool,
+  errors: PropTypes.object,
+  status: PropTypes.string,
+  showCreate: PropTypes.func
 }
 
-export const SignIn = styled(SignInTemplate)`
-  ${modalStyle};
-  ${Input} {
-    margin-bottom: 1rem;
-  }
-`
-
-export const enhancer = compose(
-  withModal,
+const SignInEnhancer = compose(
   withAuthentication,
   branch(
     ({ authUser }) => authUser.token,
     renderComponent(routes.redirect(routes.account.characters))
   ),
-  withStateHandlers(
-    () => ({
-      email: '',
-      password: '',
-      error: null,
-      loading: false
-    }),
-    {
-      handleChange: () => e => ({ [e.target.name]: e.target.value }),
-      handleError: () => error => ({ error, loading: false }),
-      initSignIn: () => () => ({ error: null, loading: true })
+  withFormik({
+    mapPropsToValues: () => ({ email: '', password: '' }),
+    validate: values => {
+      const email = validateEmail(values.email)
+      const password = validatePassword(values.password)
+      return {
+        ...(email && { email }),
+        ...(password && { password })
+      }
+    },
+    handleSubmit: ({ email, password }, { props, setSubmitting, setStatus }) => {
+      setStatus(null)
+      props.authUser.firebase.signInWithEmailAndPassword(email, password)
+        .then(props.authComplete)
+        .catch(error => {
+          if (error.code === 'auth/too-many-requests') {
+            setStatus('Too many attempts to sign in, please try again later.')
+          } else if (error.code === 'auth/web-storage-unsupported') {
+            setStatus('Please enable web storage in order to sign into the website')
+          } else {
+            setStatus('Either email or password is incorrect')
+          }
+          setSubmitting(false)
+        })
     }
-  ),
-  withHandlers({
-    handleSignIn: ({ email, password, initSignIn, handleError, authUser }) => () => {
-      initSignIn()
-      authUser.firebase.signInWithEmailAndPassword(email, password)
-        .catch(error => handleError(error.message))
-    }
-  }),
-  withProps(({ email, password }) => ({
-    valid: !!(email && password)
-  }))
-)
+  })
+)(SignIn)
 
-export default enhancer(SignIn)
+export default styled(SignInEnhancer)`
+  ${modalStyle};
+`

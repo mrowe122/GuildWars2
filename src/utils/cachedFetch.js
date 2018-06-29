@@ -2,6 +2,8 @@ import { compose, omit, mergeAll, noop } from 'lodash/fp'
 import { withStateHandlers, withHandlers, withProps, lifecycle, branch, mapProps } from 'recompose'
 import { cachedData } from './cachedData'
 
+let controller = new AbortController()
+
 const handleErrors = response => {
   if (!response.ok) {
     throw response.status
@@ -25,8 +27,6 @@ const parseUrl = (url, variables) => {
   }
   return _url
 }
-
-let controller
 
 const withDefaults = ({ dataProp, call, props }) => compose(
   withStateHandlers(
@@ -124,6 +124,7 @@ export const fetchHocPost = (
           if (err.name !== 'AbortError') {
             handleError(err)
           }
+          return err
         })
     }
   }),

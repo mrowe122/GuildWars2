@@ -75,7 +75,7 @@ h6 {
   letter-spacing: 1px;
 }
 
-p {
+p, span {
   &.p1 {
     line-height: 1.6rem;
   }
@@ -101,8 +101,9 @@ p {
 }
 
 a {
+  text-decoration: none;
   &.a1 {
-    font-size: .8rem;
+    font-size: .85rem;
   }
 }
 

@@ -1,86 +1,100 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
-import { withStateHandlers, withHandlers, withProps } from 'recompose'
 import { compose } from 'lodash/fp'
+import { withFormik } from 'formik'
 import { withAuthentication } from 'providers/Authenticated'
 import { Modal } from 'components'
 import { Button, Input } from 'elements'
+import { validateEmail, validatePassword, validateConfirmPassword } from 'utils/validation'
 import modalStyle from './Style'
 
 import AccountOutlineIcon from 'mdi-react/AccountOutlineIcon'
 import LockOutlineIcon from 'mdi-react/LockOutlineIcon'
 import LockIcon from 'mdi-react/LockIcon'
 
-const CreateAccountTemplate = ({
-  className, handleChange, handleCreate, valid, loading, showLogin, error
+const CreateAccount = ({
+  className, values, handleChange, handleBlur, touched, isValid, handleSubmit, isSubmitting, errors, status, showLogin
 }) => (
-  <Modal size='sm' contentClass={className} showModal hideClose>
+  <Modal size='sm' contentClass={className} showModal>
     <LockIcon size={36} className='lockIcon' />
-    {error && <p className='error'>{error}</p>}
+    {status && <p className='error'>{status}</p>}
     <Input
+      type='email'
       name='email'
       placeholder='Email'
+      value={values.email}
       onChange={handleChange}
+      onBlur={handleBlur}
+      error={touched.email && errors.email}
       icon={<AccountOutlineIcon />} />
     <Input
-      name='password'
       type='password'
+      name='password'
       placeholder='Password'
+      value={values.password}
       onChange={handleChange}
+      onBlur={handleBlur}
+      error={touched.password && errors.password}
       icon={<LockOutlineIcon />} />
     <Input
-      name='confirmPassword'
       type='password'
+      name='confirmPassword'
       placeholder='Confirm Password'
+      value={values.confirmPassword}
       onChange={handleChange}
+      onBlur={handleBlur}
+      error={touched.confirmPassword && errors.confirmPassword}
       icon={<LockOutlineIcon />} />
     <a onClick={showLogin} className='a1'>Already have an account?</a>
-    <Button type='submit' onClick={handleCreate} loading={loading} disabled={!valid}>Create Account</Button>
+    <Button type='submit' onClick={handleSubmit} loading={isSubmitting} disabled={!isValid}>Create Account</Button>
   </Modal>
 )
 
-CreateAccountTemplate.propTypes = {
+CreateAccount.propTypes = {
   className: PropTypes.string,
+  values: PropTypes.object,
   handleChange: PropTypes.func,
-  handleCreate: PropTypes.func,
-  valid: PropTypes.bool,
-  loading: PropTypes.bool,
-  showLogin: PropTypes.func,
-  error: PropTypes.string
+  handleBlur: PropTypes.func,
+  touched: PropTypes.object,
+  isValid: PropTypes.bool,
+  handleSubmit: PropTypes.func,
+  isSubmitting: PropTypes.bool,
+  errors: PropTypes.object,
+  status: PropTypes.string,
+  showLogin: PropTypes.func
 }
 
-export const CreateAccount = styled(CreateAccountTemplate)`
+const CreateAccountEnhancer = compose(
+  withAuthentication,
+  withFormik({
+    mapPropsToValues: () => ({ email: '', password: '', confirmPassword: '' }),
+    validate: values => {
+      const email = validateEmail(values.email)
+      const password = validatePassword(values.password)
+      const confirmPassword = validateConfirmPassword(values.password, values.confirmPassword)
+      return {
+        ...(email && { email }),
+        ...(password && { password }),
+        ...(confirmPassword && { confirmPassword })
+      }
+    },
+    handleSubmit: ({ email, password }, { props, setSubmitting, setStatus }) => {
+      setStatus(null)
+      props.authUser.firebase.createUserWithEmailAndPassword(email, password)
+        .then(props.showApikey)
+        .catch(error => {
+          if (error.code === 'auth/too-many-requests') {
+            setStatus('Too many attempts to create an account, please try again later.')
+          } else if (error.code === 'auth/web-storage-unsupported') {
+            setStatus('Please enable web storage in order to sign into the website')
+          }
+          setSubmitting(false)
+        })
+    }
+  })
+)(CreateAccount)
+
+export default styled(CreateAccountEnhancer)`
   ${modalStyle};
 `
-
-export const enhancer = compose(
-  withAuthentication,
-  withStateHandlers(
-    () => ({
-      email: '',
-      password: '',
-      confirmPassword: '',
-      error: null,
-      loading: false
-    }),
-    {
-      handleChange: () => e => ({ [e.target.name]: e.target.value }),
-      handleError: () => error => ({ error, loading: false }),
-      initCreate: () => () => ({ error: null, loading: true })
-    }
-  ),
-  withHandlers({
-    handleCreate: ({ email, password, initCreate, handleError, showApikey, authUser }) => () => {
-      initCreate()
-      authUser.firebase.createUserWithEmailAndPassword(email, password)
-        .then(() => showApikey())
-        .catch(error => handleError(error.message))
-    }
-  }),
-  withProps(({ email, password, confirmPassword }) => ({
-    valid: !!(email && password) && (password === confirmPassword)
-  }))
-)
-
-export default enhancer(CreateAccount)
