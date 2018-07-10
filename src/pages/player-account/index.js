@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Switch, Route } from 'react-router-dom'
-import { compose, map, includes, assign, orderBy } from 'lodash/fp'
+import { compose, map, includes, assign, orderBy, find, get } from 'lodash/fp'
 import { branch, renderComponent } from 'recompose'
 import routes from 'routes'
 import { FullPageLoader } from 'components'
@@ -17,6 +17,7 @@ import Unlocks from './unlocks/Unlocks'
 import Wallet from './wallet/Wallet'
 import Guilds from './guilds/Guilds'
 import TradingPost from './tradingpost/TradingPost'
+import PermissionRedirect from './PermissionRedirect'
 
 import AccountMultipleIcon from 'mdi-react/AccountMultipleIcon'
 import SwordCrossIcon from 'mdi-react/SwordCrossIcon'
@@ -113,6 +114,11 @@ const PlayerAccountEnhancer = compose(
   branch(
     ({ loading }) => loading,
     renderComponent(FullPageLoader)
+  ),
+  // TODO: check if can be simplified to not compute every render
+  branch(
+    ({ location, items }) => !get('access')(find(['link', location.pathname])(items)),
+    PermissionRedirect
   )
 )(PlayerAccount)
 
