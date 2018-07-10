@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
 import { Link } from 'react-router-dom'
@@ -7,31 +7,34 @@ import { compose } from 'lodash/fp'
 import { withHandlers } from 'recompose'
 import { withAuthentication } from 'providers/Authenticated'
 import routes from 'routes'
-import { Logo } from 'components'
+import { Dropdown, withDropdown, Logo } from 'components'
 
-export const Header = ({ className, authUser, handleSignOut }) => (
+export const Header = ({ className, authUser, handleDropdown, handleSignOut }) => (
   <div className={className}>
     <Logo />
-    <div>
-      {authUser.token
-        ? (
-          <Fragment>
+    {authUser.token
+      ? (
+        <div className='wrapper'>
+          <img src='/media/logos/path_of_fire.png' onClick={handleDropdown} />
+          <Dropdown arrow='70%' dropdown='20%'>
             <Link to={routes.account.index}>Account</Link>
             <a onClick={handleSignOut}>Sign Out</a>
-          </Fragment>
-        )
-        : <Link to={routes.authorize}>Sign In</Link>}
-    </div>
+          </Dropdown>
+        </div>
+      )
+      : <Link to={routes.authorize}>Sign In</Link>}
   </div>
 )
 
 Header.propTypes = {
   className: PropTypes.string,
   authUser: PropTypes.object,
+  handleDropdown: PropTypes.func,
   handleSignOut: PropTypes.func
 }
 
 const EnhancedHeader = compose(
+  withDropdown,
   withAuthentication,
   withRouter,
   withHandlers({
@@ -59,16 +62,27 @@ export default styled(EnhancedHeader)`
     color: ${({ theme }) => theme.colors.white};
     text-decoration: none;
     text-transform: uppercase;
-    border-radius: 5px;
-    margin: 0 .5rem;
     padding: 0.7rem;
     border: 2px solid transparent;
     cursor: pointer;
     ${({ theme }) => theme.generators.transition(200, 'ease-out')};
-    &:hover { border-color: ${({ theme }) => theme.colors.primaryLight1}; }
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.primaryLight1};
+    }
   }
 
-  & > div:nth-child(2) {
-    display: flex;
+  .wrapper {
+    position: relative;
+  }
+
+  img {
+    cursor: pointer;
+    height: calc(${({ theme }) => theme.sizes.header} - 1rem);
+    width: calc(${({ theme }) => theme.sizes.header} - 1rem);
+    padding: 0.3rem;
+    margin: 0 .5rem;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background-color: mediumslateblue;
   }
 `
