@@ -6,7 +6,7 @@ import routes from 'routes'
 
 const LogoTemplate = ({ className }) => (
   <div className={className}>
-    <Link to={routes.index}>GuildWars2.io</Link>
+    <Link to={routes.index}>Gw2Tracker.io</Link>
   </div>
 )
 

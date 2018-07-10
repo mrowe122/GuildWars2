@@ -11,7 +11,7 @@ describe('Logo', () => {
     expect(_component.length).toBe(1)
   })
 
-  it('should contain GuildWars2.io text', () => {
-    expect(_component.debug()).toContain('GuildWars2.io')
+  it('should contain Gw2Tracker.io text', () => {
+    expect(_component.debug()).toContain('Gw2Tracker.io')
   })
 })
