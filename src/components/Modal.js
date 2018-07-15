@@ -1,8 +1,7 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
-import { compose } from 'lodash/fp'
-import { withStateHandlers } from 'recompose'
 import CloseIcon from 'mdi-react/CloseIcon'
 
 import backgroundModal from 'media/images/small_modal.gif'
@@ -32,14 +31,15 @@ const Content = styled.div`
   }
 `
 
-export const Modal = ({ className, contentClass, children, showModal, closeModal }) => (
-  showModal && (
+const Modal = ({ className, contentClass, children, showModal, closeModal }) => (
+  showModal && ReactDOM.createPortal(
     <div className={className}>
       <Content className={contentClass}>
         { closeModal && <CloseIcon onClick={closeModal} className='closeIcon' /> }
         {children}
       </Content>
-    </div>
+    </div>,
+    document.getElementById('modal')
   )
 )
 
@@ -50,13 +50,6 @@ Modal.propTypes = {
   showModal: PropTypes.bool,
   closeModal: PropTypes.func
 }
-
-export const withModal = compose(
-  withStateHandlers(
-    ({ initial = false }) => ({ showModal: initial }),
-    { closeModal: ({ showModal }) => () => ({ showModal: !showModal }) }
-  )
-)
 
 export default styled(Modal)`
   top: 0;

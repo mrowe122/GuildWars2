@@ -1,35 +1,7 @@
 import React from 'react'
-import Modal, { withModal } from '../Modal'
+import Modal from '../Modal'
 
 describe('Modal', () => {
-  describe('Enhancer', () => {
-    let _component, Empty, _props
-
-    beforeEach(() => {
-      _props = { initial: true }
-      Empty = withModal(EmptyDiv)
-      _component = mount(<Empty {..._props} />)
-    })
-
-    it('should default showModal to false', () => {
-      const component = mount(<Empty />).find(EmptyDiv)
-      expect(component.props().showModal).toBe(false)
-    })
-
-    it('should default showModal to true', () => {
-      const component = _component.find(EmptyDiv)
-      expect(component.props().showModal).toBe(true)
-    })
-
-    it('should handle modal close', () => {
-      let emptyDiv = _component.find(EmptyDiv)
-      emptyDiv.props().closeModal()
-      _component.update()
-      emptyDiv = _component.find(EmptyDiv)
-      expect(emptyDiv.props().showModal).toBe(false)
-    })
-  })
-
   describe('Component', () => {
     let _component, EmptyContent
 
