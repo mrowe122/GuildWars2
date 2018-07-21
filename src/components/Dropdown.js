@@ -2,13 +2,14 @@ import styled from 'react-emotion'
 import { compose } from 'lodash/fp'
 import { withStateHandlers, branch, renderNothing } from 'recompose'
 import { withProvider, withConsumer } from 'utils/withContext'
+import { withOutsideClick } from 'utils/clickOutside'
 
 export const withDropdown = compose(
   withStateHandlers(
     ({ initial = false }) => ({ showDropdown: initial }),
     { handleDropdown: ({ showDropdown }) => () => ({ showDropdown: !showDropdown }) }
   ),
-  withProvider('dropdown', ({ showDropdown }) => ({ showDropdown }))
+  withProvider('dropdown', ({ showDropdown, handleDropdown }) => ({ showDropdown, handleDropdown }))
 )
 
 const DropdownEnhancer = compose(
@@ -16,11 +17,12 @@ const DropdownEnhancer = compose(
   branch(
     ({ showDropdown }) => !showDropdown,
     renderNothing
-  )
+  ),
+  withOutsideClick('handleDropdown')
 )
 
 export default DropdownEnhancer(styled.div`
-  top: calc(100% + 1rem);
+  top: calc(100% + 0.4rem);
   left: ${({ dropdown }) => dropdown || '50%'};
   transform: translateX(-50%);
   position: absolute;
