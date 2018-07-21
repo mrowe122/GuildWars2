@@ -117,4 +117,29 @@ export const Special = styled.div`
   height: 135px;
   margin: 2rem 0;
   background: url(${({ img }) => img}) no-repeat left bottom;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+
+  span {
+    display: flex;
+    flex-direction: column;
+    margin-right: 2.4rem;
+
+    img {
+      width: 38px;
+      height: 38px;
+      margin-bottom: .5rem;
+      ${({ theme }) => theme.generators.boxShadow(0, 0, 8, 0, theme.colors.white)};
+      &[disabled] {
+        box-shadow: none;
+      }
+
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 `
