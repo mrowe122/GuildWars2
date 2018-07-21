@@ -105,7 +105,30 @@ export const Characters = ({ selectChar, allChars, charData, charDataLoading }) 
                     {
                       charData.specializations.pve.map(p => p && (
                         <Special key={`pve-${p.id}`} img={p.data.background}>
-                          <img src={p.data.icon} />
+                          <span>
+                            <img src={p.data.traitData[p.data.minor_traits[0]].icon} />
+                          </span>
+                          <span>
+                            <img disabled={p.traits[0] !== p.data.major_traits[0]} src={p.data.traitData[p.data.major_traits[0]].icon} />
+                            <img disabled={p.traits[0] !== p.data.major_traits[1]} src={p.data.traitData[p.data.major_traits[1]].icon} />
+                            <img disabled={p.traits[0] !== p.data.major_traits[2]} src={p.data.traitData[p.data.major_traits[2]].icon} />
+                          </span>
+                          <span>
+                            <img src={p.data.traitData[p.data.minor_traits[1]].icon} />
+                          </span>
+                          <span>
+                            <img disabled={p.traits[1] !== p.data.major_traits[3]} src={p.data.traitData[p.data.major_traits[3]].icon} />
+                            <img disabled={p.traits[1] !== p.data.major_traits[4]} src={p.data.traitData[p.data.major_traits[4]].icon} />
+                            <img disabled={p.traits[1] !== p.data.major_traits[5]} src={p.data.traitData[p.data.major_traits[5]].icon} />
+                          </span>
+                          <span>
+                            <img src={p.data.traitData[p.data.minor_traits[2]].icon} />
+                          </span>
+                          <span>
+                            <img disabled={p.traits[2] !== p.data.major_traits[6]} src={p.data.traitData[p.data.major_traits[6]].icon} />
+                            <img disabled={p.traits[2] !== p.data.major_traits[7]} src={p.data.traitData[p.data.major_traits[7]].icon} />
+                            <img disabled={p.traits[2] !== p.data.major_traits[8]} src={p.data.traitData[p.data.major_traits[8]].icon} />
+                          </span>
                         </Special>
                       ))
                     }
