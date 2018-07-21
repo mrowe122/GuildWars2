@@ -8,6 +8,7 @@ import { withHandlers } from 'recompose'
 import { withAuthentication } from 'providers/Authenticated'
 import routes from 'routes'
 import { Dropdown, withDropdown, Logo } from 'components'
+import AccountOutlineIcon from 'mdi-react/AccountOutlineIcon'
 
 export const Header = ({ className, authUser, handleDropdown, handleSignOut }) => (
   <div className={className}>
@@ -15,7 +16,7 @@ export const Header = ({ className, authUser, handleDropdown, handleSignOut }) =
     {authUser.token
       ? (
         <div className='wrapper'>
-          <img src='/media/logos/path_of_fire.png' onClick={handleDropdown} />
+          <AccountOutlineIcon onClick={handleDropdown} />
           <Dropdown arrow='70%' dropdown='20%'>
             <Link to={routes.account.index}>Account</Link>
             <a onClick={handleSignOut}>Sign Out</a>
@@ -75,7 +76,8 @@ export default styled(EnhancedHeader)`
     position: relative;
   }
 
-  img {
+  .mdi-icon {
+    color: ${({ theme }) => theme.colors.white};
     cursor: pointer;
     height: calc(${({ theme }) => theme.sizes.header} - 1rem);
     width: calc(${({ theme }) => theme.sizes.header} - 1rem);
@@ -83,6 +85,5 @@ export default styled(EnhancedHeader)`
     margin: 0 .5rem;
     border-radius: 50%;
     box-sizing: border-box;
-    background-color: mediumslateblue;
   }
 `
