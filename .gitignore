@@ -4,3 +4,4 @@ assets
 coverage
 firebase.json
 .env
+db

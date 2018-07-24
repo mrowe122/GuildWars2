@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import styled from 'react-emotion'
+import styled, { css } from 'react-emotion'
 import { compose, get } from 'lodash/fp'
 import { withStateHandlers } from 'recompose'
+import AlertBoxIcon from 'mdi-react/AlertBoxIcon'
 import { Slot } from 'utils/constants'
 import { Tooltip } from './Tooltip'
 import { IconTitle, Attributes, Upgrades, Infusions, ItemInfo, ItemSkin } from './Tooltip/components'
@@ -69,6 +70,17 @@ GatheringTooltip.propTypes = {
   item: PropTypes.object
 }
 
+const custom = () => css`
+  text-align: center;
+  width: 200px;
+`
+
+const ErrorTooltip = () => (
+  <Tooltip position='top' customClass={custom}>
+    <p className='p1'>There was an error getting this item</p>
+  </Tooltip>
+)
+
 const renderTooltip = item => {
   switch (item.slot) {
     case 'Helm':
@@ -97,6 +109,8 @@ const renderTooltip = item => {
     case 'Axe':
     case 'Pick':
       return <GatheringTooltip item={item} />
+    default:
+      return <ErrorTooltip />
   }
 }
 
@@ -104,10 +118,17 @@ export const ItemSlot = ({ className, item, showTooltip, handleHover }) => (
   <div className={className}>
     {item
       ? (
-        <Fragment>
-          <img alt='item slot' src={get('skin.icon')(item) || get('data.icon')(item)} onMouseOver={handleHover} onMouseLeave={handleHover} />
-          { showTooltip && renderTooltip(item)}
-        </Fragment>
+        item.data ? (
+          <Fragment>
+            <img alt='item slot' src={get('skin.icon')(item) || get('data.icon')(item)} onMouseOver={handleHover} onMouseLeave={handleHover} />
+            { showTooltip && renderTooltip(item)}
+          </Fragment>
+        ) : (
+          <Fragment>
+            <AlertBoxIcon onMouseOver={handleHover} onMouseLeave={handleHover} />
+            { showTooltip && renderTooltip({ slot: null })}
+          </Fragment>
+        )
       ) : <img alt='empty slot' src={emptySlot} />}
   </div>
 )
@@ -131,9 +152,19 @@ export default styled(ItemSlotEnhancer)`
   height: 50px;
   margin: 0.35rem;
   position: relative;
-  ${({ theme }) => theme.generators.boxShadow(0, 0, 7, 0, theme.colors.gray1)};
+  ${({ theme, item = {} }) => item.data && theme.generators.boxShadow(0, 0, 7, 0, theme.colors.gray1)};
 
   img { width: 100%; }
+
+  .mdi-icon {
+    width: 50px;
+    height: 50px;
+    color: ${({ theme }) => theme.colors.error};
+
+    path {
+      pointer-events: none;
+    }
+  }
 
   ${Tooltip} {
     .space {

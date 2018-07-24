@@ -14,7 +14,7 @@ const colors = {
   error: '#fC3838',
   loadingOverlay: 'rgba(0, 0, 0, 0.6)',
   modalOverlay: 'rgba(100, 100, 100, 0.5)',
-  tooltip: 'rgba(50, 50, 50, 0.8)'
+  tooltip: 'rgba(30, 30, 30, 0.9)'
 }
 
 const sizes = {
@@ -30,7 +30,7 @@ const generators = {
     -webkit-box-shadow: ${x}px ${y}px ${blur}px ${spread}px ${color};
   `,
   textShadow: (y, x, blur, color) => `
-    text-shadow: ${y}px ${x}px ${blur}px ${color}, ${y}px ${x}px ${blur}px ${color};
+    text-shadow: ${y}px ${x}px ${blur}px ${color}, ${y}px ${x}px ${blur}px ${color}, ${y}px ${x}px ${blur}px ${color};
   `,
   textNoSelect: `
     -webkit-touch-callout: none;

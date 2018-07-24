@@ -8,7 +8,7 @@ import { ageFromSeconds, formatDate } from 'utils/utilities'
 import { ItemSlot, FullPageLoader } from 'components'
 import { Layout } from 'providers/MainLayout'
 import { withAuthentication } from 'providers/Authenticated'
-import { Bubble, Gradient, Special, sideNavClasses, contentClasses } from './StyledComponents'
+import { Bubble, Gradient, Specialization, sideNavClasses, contentClasses } from './StyledComponents'
 
 export const Characters = ({ selectChar, allChars, charData, charDataLoading }) => (
   <Layout>
@@ -36,7 +36,7 @@ export const Characters = ({ selectChar, allChars, charData, charDataLoading }) 
                   <div className='row around-xs'>
                     <Bubble guild={charData.guild.name}>
                       <h3>Guild</h3>
-                      <p className='p3'>{charData.guild.name || 'Not in a Guild'}</p>
+                      <p className='p3'>{charData.guild.name}</p>
                       { charData.guild.name && (<div className='emblem' />) }
                     </Bubble>
 
@@ -104,7 +104,10 @@ export const Characters = ({ selectChar, allChars, charData, charDataLoading }) 
                   <div className='row center-xs'>
                     {
                       charData.specializations.pve.map(p => p && (
-                        <Special key={`pve-${p.id}`} img={p.data.background}>
+                        <Specialization key={`pve-${p.id}`} img={p.data.background}>
+                          <h3>
+                            {p.data.name}
+                          </h3>
                           <span>
                             <img src={p.data.traitData[p.data.minor_traits[0]].icon} />
                           </span>
@@ -129,7 +132,7 @@ export const Characters = ({ selectChar, allChars, charData, charDataLoading }) 
                             <img disabled={p.traits[2] !== p.data.major_traits[7]} src={p.data.traitData[p.data.major_traits[7]].icon} />
                             <img disabled={p.traits[2] !== p.data.major_traits[8]} src={p.data.traitData[p.data.major_traits[8]].icon} />
                           </span>
-                        </Special>
+                        </Specialization>
                       ))
                     }
                   </div>

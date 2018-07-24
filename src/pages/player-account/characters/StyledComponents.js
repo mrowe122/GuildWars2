@@ -111,7 +111,7 @@ export const Gradient = styled.div`
   }
 `
 
-export const Special = styled.div`
+export const Specialization = styled.div`
   width: 100%;
   max-width: 645px;
   height: 135px;
@@ -121,6 +121,11 @@ export const Special = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
+
+  h3 {
+    margin-right: 2rem;
+    ${({ theme }) => theme.generators.textShadow(0, 0, 7, 'rgba(0,0,0,1)')};
+  }
 
   span {
     display: flex;
