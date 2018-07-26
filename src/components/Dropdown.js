@@ -1,7 +1,7 @@
 import styled from 'react-emotion'
 import { compose } from 'lodash/fp'
 import { withStateHandlers, branch, renderNothing } from 'recompose'
-import { withProvider, withConsumer } from 'utils/withContext'
+import { withProvider, withConsumer } from 'context-hoc'
 import { withOutsideClick } from 'utils/clickOutside'
 
 export const withDropdown = compose(

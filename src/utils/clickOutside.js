@@ -3,13 +3,13 @@ import React, { Component } from 'react'
 export const withOutsideClick = handleOutsideClick => ComponentHoc => class extends Component {
   constructor (props) {
     super(props)
-    this.dropdown = React.createRef()
+    this.comp = React.createRef()
   }
 
   handle = e => {
     if (e.type === 'touchend') this.isTouch = true
     if (e.type === 'click' && this.isTouch) return
-    const el = this.dropdown.current
+    const el = this.comp.current
     if (el && !el.contains(e.target)) {
       this.props[handleOutsideClick]()
     }
@@ -26,7 +26,7 @@ export const withOutsideClick = handleOutsideClick => ComponentHoc => class exte
   }
 
   render = () => (
-    <div ref={this.dropdown}>
+    <div ref={this.comp}>
       <ComponentHoc {...this.props} />
     </div>
   )
