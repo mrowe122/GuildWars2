@@ -20,7 +20,8 @@ const colors = {
 const sizes = {
   header: '4rem',
   sideNav: '13rem',
-  pivotBar: '4.2rem'
+  pivotBar: '4.2rem',
+  pivotBarExpanded: '15rem'
 }
 
 const generators = {

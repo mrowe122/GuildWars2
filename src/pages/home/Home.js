@@ -9,15 +9,11 @@ const contentClasses = ({ theme }) => css`
 
 const Home = () => (
   <Layout>
-    {
-      ({ Container, Content }) => (
-        <Container header>
-          <Content customClasses={contentClasses}>
-            <h3>Home</h3>
-          </Content>
-        </Container>
-      )
-    }
+    {({ Content }) => (
+      <Content customClasses={contentClasses}>
+        <h3>Home</h3>
+      </Content>
+    )}
   </Layout>
 )
 

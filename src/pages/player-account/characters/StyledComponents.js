@@ -2,37 +2,39 @@
 import styled, { css } from 'react-emotion'
 
 export const sideNavClasses = ({ theme }) => css`
-  left: ${theme.sizes.pivotBar};
   & > h2 {
     color: ${theme.colors.white};
     margin-bottom: 2rem;
-  } 
+  }
 
   a {
     color: ${theme.colors.gray1};
     cursor: pointer;
     max-width: 100%;
     margin: 1rem 0;
-    padding: 0 .2rem;
+    padding: 0 0.2rem;
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     ${theme.generators.transition(150, 'linear')};
     ${theme.generators.textNoSelect};
-    &[active='1'], &:hover { color: ${theme.colors.primaryLight1}; }
+    &[active='1'],
+    &:hover {
+      color: ${theme.colors.primaryLight1};
+    }
   }
 `
 
 export const contentClasses = ({ theme }) => css`
   color: ${theme.colors.white};
-  margin-left: ${`calc(${theme.sizes.sideNav} + ${theme.sizes.pivotBar})`};
+  margin-left: ${theme.sizes.sideNav};
 
   .middle-xs {
     position: relative;
     margin-bottom: 1rem;
     img {
       width: 100%;
-      ${theme.generators.boxShadow(0, 0, 20, -3, '#000')}
+      ${theme.generators.boxShadow(0, 0, 20, -3, '#000')};
     }
   }
 
@@ -41,7 +43,9 @@ export const contentClasses = ({ theme }) => css`
     align-items: center;
     flex-direction: column;
 
-    h2 { margin-bottom: .7rem; }
+    h2 {
+      margin-bottom: 0.7rem;
+    }
   }
 
   .special {
@@ -66,9 +70,9 @@ export const Bubble = styled.div`
   position: relative;
   box-sizing: border-box;
   background-color: ${({ theme }) => theme.colors.primaryDark1};
-  ${({ theme }) => theme.generators.boxShadow(0, 0, 20, -3, '#000')}
-
-  * { z-index: 5; }
+  ${({ theme }) => theme.generators.boxShadow(0, 0, 20, -3, '#000')} * {
+    z-index: 5;
+  }
 
   h3 {
     margin-bottom: 0.5rem;
@@ -76,7 +80,9 @@ export const Bubble = styled.div`
     ${({ theme }) => theme.generators.textShadow(0, 0, 5, 'rgba(0,0,0,1)')};
   }
 
-  .p3 { align-self: stretch; }
+  .p3 {
+    align-self: stretch;
+  }
 
   .emblem {
     width: 100%;
@@ -88,8 +94,9 @@ export const Bubble = styled.div`
     position: absolute;
     background-position: center;
     background-repeat: no-repeat;
-    ${({ guild }) => guild && `background-image: url(https://guilds.gw2w2w.com/guilds/${guild.replace(/\s+/g, '-')}/100.svg)`}
-  }  
+    ${({ guild }) =>
+      guild && `background-image: url(https://guilds.gw2w2w.com/guilds/${guild.replace(/\s+/g, '-')}/100.svg)`};
+  }
 `
 
 export const Gradient = styled.div`
@@ -102,11 +109,9 @@ export const Gradient = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  ${({ theme }) => theme.generators.gradient('#000', 'rgba(0,0,0,0)', 135)}
-
-  h2 {
+  ${({ theme }) => theme.generators.gradient('#000', 'rgba(0,0,0,0)', 135)} h2 {
     color: ${({ theme }) => theme.colors.primaryLight1};
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
     ${({ theme }) => theme.generators.textShadow(0, 0, 15, 'rgba(0,0,0,1)')};
   }
 `
@@ -135,12 +140,11 @@ export const Specialization = styled.div`
     img {
       width: 38px;
       height: 38px;
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
       ${({ theme }) => theme.generators.boxShadow(0, 0, 8, 0, theme.colors.white)};
       &[disabled] {
         box-shadow: none;
       }
-
 
       &:last-child {
         margin-bottom: 0;

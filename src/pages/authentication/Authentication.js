@@ -13,18 +13,14 @@ import ApiKey from './components/ApiKey'
 
 export const Authentication = ({ authenticationState, showLogin, showCreate, showApikey, authComplete }) => (
   <Layout>
-    {
-      ({ Container, Content }) => (
-        <Container header>
-          <Content>
-            { authenticationState === 'login' && <SignIn authComplete={authComplete} showCreate={showCreate} />}
-            { authenticationState === 'create' && <CreateAccount showLogin={showLogin} showApikey={showApikey} />}
-            { authenticationState === 'apiKey' && <ApiKey authComplete={authComplete} />}
-            { authenticationState === 'loggedIn' && <Redirect to={routes.account.characters} />}
-          </Content>
-        </Container>
-      )
-    }
+    {({ Content }) => (
+      <Content>
+        {authenticationState === 'login' && <SignIn authComplete={authComplete} showCreate={showCreate} />}
+        {authenticationState === 'create' && <CreateAccount showLogin={showLogin} showApikey={showApikey} />}
+        {authenticationState === 'apiKey' && <ApiKey authComplete={authComplete} />}
+        {authenticationState === 'loggedIn' && <Redirect to={routes.account.characters} />}
+      </Content>
+    )}
   </Layout>
 )
 

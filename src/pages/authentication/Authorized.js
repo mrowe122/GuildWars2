@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Route, Redirect } from 'react-router-dom'
 import { compose } from 'lodash/fp'
 import { branch, renderComponent } from 'recompose'
-import { withAuthentication } from 'providers/Authenticated'
+import { withConsumer } from 'context-hoc'
 import routes from 'routes'
 
 export const Authorized = ({ path, component, location }) => {
@@ -21,11 +21,8 @@ Authorized.propTypes = {
 }
 
 const AuthorizedEnhancer = compose(
-  withAuthentication,
-  branch(
-    ({ authUser }) => !authUser.token,
-    renderComponent(routes.redirect(routes.authorize))
-  )
+  withConsumer('app'),
+  branch(({ authUser }) => !authUser.token, renderComponent(routes.redirect(routes.authorize)))
 )(Authorized)
 
 export default AuthorizedEnhancer

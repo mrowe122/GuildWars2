@@ -4,8 +4,8 @@ import styled from 'react-emotion'
 import { branch, renderComponent } from 'recompose'
 import { compose } from 'lodash/fp'
 import { withFormik } from 'formik'
+import { withConsumer } from 'context-hoc'
 import routes from 'routes'
-import { withAuthentication } from 'providers/Authenticated'
 import { Modal } from 'components'
 import { validateEmail, validatePassword } from 'utils/validation'
 import { Button, Input } from 'elements'
@@ -16,32 +16,48 @@ import LockOutlineIcon from 'mdi-react/LockOutlineIcon'
 import LockIcon from 'mdi-react/LockIcon'
 
 const SignIn = ({
-  className, values, handleChange, handleBlur, touched, isValid, handleSubmit, isSubmitting, errors, status, showCreate
+  className,
+  values,
+  handleChange,
+  handleBlur,
+  touched,
+  isValid,
+  handleSubmit,
+  isSubmitting,
+  errors,
+  status,
+  showCreate
 }) => (
-  <Modal size='sm' contentClass={className} showModal>
-    <LockIcon size={36} className='lockIcon' />
-    {status && <p className='error'>{status}</p>}
+  <Modal size="sm" contentClass={className} showModal>
+    <LockIcon size={36} className="lockIcon" />
+    {status && <p className="error">{status}</p>}
     <form onSubmit={handleSubmit}>
       <Input
-        type='email'
-        name='email'
-        placeholder='Email'
+        type="email"
+        name="email"
+        placeholder="Email"
         value={values.email}
         onChange={handleChange}
         onBlur={handleBlur}
         error={touched.email && errors.email}
-        icon={<AccountOutlineIcon />} />
+        icon={<AccountOutlineIcon />}
+      />
       <Input
-        type='password'
-        name='password'
-        placeholder='Password'
+        type="password"
+        name="password"
+        placeholder="Password"
         value={values.password}
         onChange={handleChange}
         onBlur={handleBlur}
         error={touched.password && errors.password}
-        icon={<LockOutlineIcon />} />
-      <a onClick={showCreate} className='a1'>Create account</a>
-      <Button type='submit' onClick={handleSubmit} loading={isSubmitting} disabled={!isValid}>Sign In</Button>
+        icon={<LockOutlineIcon />}
+      />
+      <a onClick={showCreate} className="a1">
+        Create account
+      </a>
+      <Button type="submit" onClick={handleSubmit} loading={isSubmitting} disabled={!isValid}>
+        Sign In
+      </Button>
     </form>
   </Modal>
 )
@@ -61,11 +77,8 @@ SignIn.propTypes = {
 }
 
 const SignInEnhancer = compose(
-  withAuthentication,
-  branch(
-    ({ authUser }) => authUser.token,
-    renderComponent(routes.redirect(routes.account.characters))
-  ),
+  withConsumer('app'),
+  branch(({ authUser }) => authUser.token, renderComponent(routes.redirect(routes.account.characters))),
   withFormik({
     mapPropsToValues: () => ({ email: '', password: '' }),
     validate: values => {
@@ -78,7 +91,8 @@ const SignInEnhancer = compose(
     },
     handleSubmit: ({ email, password }, { props, setSubmitting, setStatus }) => {
       setStatus(null)
-      props.authUser.firebase.signInWithEmailAndPassword(email, password)
+      props.authUser.firebase
+        .signInWithEmailAndPassword(email, password)
         .then(props.authComplete)
         .catch(error => {
           if (error.code === 'auth/too-many-requests') {

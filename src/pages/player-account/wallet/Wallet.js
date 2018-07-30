@@ -1,15 +1,11 @@
 /* istanbul ignore file */
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'react-emotion'
+import styled from 'react-emotion'
 import { compose } from 'recompose'
+import { withConsumer } from 'context-hoc'
 import { Layout } from 'providers/MainLayout'
 import { fetchHocGet } from 'utils/cachedFetch'
-import { withAuthentication } from 'providers/Authenticated'
-
-const contentClasses = ({ theme }) => css`
-  margin-left: ${theme.sizes.pivotBar};
-`
 
 const CurrencySlot = styled.div`
   color: ${({ theme }) => theme.colors.white};
@@ -21,34 +17,27 @@ const CurrencySlot = styled.div`
 
   img {
     max-width: 60px;
-    margin: .5rem 0;
+    margin: 0.5rem 0;
   }
 `
 
 const Wallet = ({ wallet, loading }) => (
   <Layout>
-    {
-      ({ Content, FullPageLoader }) => (
-        <Fragment>
-          {loading && <FullPageLoader />}
-          <Content customClasses={contentClasses}>
-            <div className='row'>
-              {
-                wallet.map(c => (
-                  <div className='col-lg-3 col-md-4 col-sm-6 col-xs-12' key={c.id}>
-                    <CurrencySlot title={c.data.description}>
-                      <p>{c.data.name}</p>
-                      <img src={c.data.icon} />
-                      <p>{c.value.toLocaleString()}</p>
-                    </CurrencySlot>
-                  </div>
-                ))
-              }
+    {({ Content }) => (
+      <Content loading={loading}>
+        <div className="row">
+          {wallet.map(c => (
+            <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" key={c.id}>
+              <CurrencySlot title={c.data.description}>
+                <p>{c.data.name}</p>
+                <img src={c.data.icon} />
+                <p>{c.value.toLocaleString()}</p>
+              </CurrencySlot>
             </div>
-          </Content>
-        </Fragment>
-      )
-    }
+          ))}
+        </div>
+      </Content>
+    )}
   </Layout>
 )
 
@@ -58,7 +47,7 @@ Wallet.propTypes = {
 }
 
 const WalletEnhancer = compose(
-  withAuthentication,
+  withConsumer('app'),
   fetchHocGet(`api/account/wallet?token=:token`, {
     dataProp: 'wallet',
     props: ({ loading, wallet = [] }) => ({ loading, wallet }),
