@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
 import { NavLink } from 'react-router-dom'
-import { compose, map, includes, assign, orderBy } from 'lodash/fp'
+import { compose, map, includes, assign, orderBy, find, get, startsWith } from 'lodash/fp'
+import { branch } from 'recompose'
 import { withRouter } from 'react-router'
 import { withConsumer } from 'context-hoc'
 import { fetchHocGet } from 'utils/cachedFetch'
 import Spinner from 'react-spinkit'
 import routes from 'routes'
+import PermissionRedirect from './PermissionRedirect'
 
 import MenuIcon from 'mdi-react/MenuIcon'
 import AccountMultipleIcon from 'mdi-react/AccountMultipleIcon'
@@ -67,18 +69,20 @@ export const Permisions = {
 const PivotBar = ({ className, items = [], handleMenu, loading }) => (
   <div className={className}>
     {loading ? (
-      <Spinner name="three-bounce" fadeIn="none" />
+      <div className="loading">
+        <Spinner name="three-bounce" fadeIn="none" />
+      </div>
     ) : (
-      <React.Fragment>
-        <div>
-          <MenuIcon onClick={handleMenu} /> {'Guild Wars 2'}
+      <Fragment>
+        <div className="menu">
+          <MenuIcon onClick={handleMenu} />
         </div>
         {items.map(i => (
           <NavLink key={i.title} to={i.link} activeClassName="active" disabled={!i.access} title={i.title}>
             {i.icon} {i.title}
           </NavLink>
         ))}
-      </React.Fragment>
+      </Fragment>
     )}
   </div>
 )
@@ -100,15 +104,19 @@ const PivotBarEnhancer = compose(
       // TODO: check if can be simplified to not compute every render
       items: orderBy('access')('desc')(mapWithArgs((v, k) => assign(v, { access: includes(k)(data) }))(Permisions))
     })
-  })
+  }),
   // TODO: check if can be simplified to not compute every render
-  // branch(
-  //   ({ location, items }) => !get('access')(find(['link', location.pathname])(items)),
-  //   PermissionRedirect
-  // )
+  branch(
+    ({ location, items, loading }) =>
+      !loading &&
+      startsWith(routes.account.index)(location.pathname) &&
+      !get('access')(find(['link', location.pathname])(items)),
+    PermissionRedirect
+  )
 )(PivotBar)
 
 export default styled(PivotBarEnhancer)`
+  color: ${({ theme }) => theme.colors.white};
   width: ${({ theme }) => theme.sizes.pivotBar};
   top: 0;
   left: 0;
@@ -124,31 +132,36 @@ export default styled(PivotBarEnhancer)`
   background-color: ${({ theme }) => theme.colors.primary};
   ${({ theme }) => theme.generators.transition(200, 'ease-out')};
 
+  .loading {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(90deg);
+  }
+
   .mdi-icon {
     width: 22px;
     height: 22px;
     vertical-align: middle;
+    padding: 0.5rem;
+    margin-right: 1rem;
+    border-radius: 50%;
     ${({ theme }) => theme.generators.transition(200, 'ease-out')};
   }
 
-  & > div,
-  a {
+  a,
+  .menu,
+  .sk-spinner {
     color: ${({ theme }) => theme.colors.white};
     white-space: nowrap;
     text-decoration: none;
-
-    .mdi-icon {
-      cursor: pointer;
-      padding: 0.5rem;
-      margin-right: 1rem;
-      border-radius: 50%;
-    }
   }
 
-  & > div {
-    height: ${({ theme }) => theme.sizes.header};
-    display: flex;
-    align-items: center;
+  .menu {
+    cursor: pointer;
+    line-height: ${({ theme }) => theme.sizes.header};
 
     .mdi-icon {
       &:hover {
@@ -158,11 +171,8 @@ export default styled(PivotBarEnhancer)`
   }
 
   a {
-    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
 
-    &:first-of-type {
-      margin-top: 1.5rem;
-    }
     .mdi-icon {
       background-color: ${({ theme }) => theme.colors.primaryDark1};
     }
@@ -174,11 +184,6 @@ export default styled(PivotBarEnhancer)`
     }
 
     &.active {
-      &:hover {
-        .mdi-icon {
-          box-shadow: none;
-        }
-      }
       .mdi-icon {
         background-color: ${({ theme }) => theme.colors.primaryLight1};
       }
