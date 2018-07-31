@@ -2,24 +2,26 @@
 import config from 'config'
 import { compose, map, keyBy, assign } from 'lodash/fp'
 import { lifecycle, withStateHandlers, branch, renderComponent, withProps } from 'recompose'
-import { FullPageLoader } from 'components/Loading'
+import FullPageLoader from 'components/FullPageLoader'
 
-const withLoading = (dataProp = 'data') => compose(
-  withProps(() => ({ controller: new AbortController() })),
-  lifecycle({ componentWillUnmount () { this.props.controller.abort() } }),
-  withStateHandlers(
-    () => ({ loading: true, [dataProp]: null }),
-    {
+const withLoading = (dataProp = 'data') =>
+  compose(
+    withProps(() => ({ controller: new AbortController() })),
+    lifecycle({
+      componentWillUnmount() {
+        this.props.controller.abort()
+      }
+    }),
+    withStateHandlers(() => ({ loading: true, [dataProp]: null }), {
       doneLoading: () => data => ({ loading: false, [dataProp]: data }),
       startLoading: () => () => ({ loading: true })
-    }
+    })
   )
-)
 
 export const withAchievements = compose(
   withLoading(),
   lifecycle({
-    componentDidMount () {
+    componentDidMount() {
       fetch(`${config.gwHost}/achievements/daily`)
         .then(res => res.json())
         .then(({ pvp, pve, wvw, fractals, special }) => {
@@ -46,8 +48,5 @@ export const withAchievements = compose(
         })
     }
   }),
-  branch(
-    ({ loading }) => loading,
-    renderComponent(FullPageLoader)
-  )
+  branch(({ loading }) => loading, renderComponent(FullPageLoader))
 )

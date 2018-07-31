@@ -201,6 +201,7 @@ const CharactersEnhancer = compose(
     selectChar: ({ fetchChar, charData, setChar }) => e => {
       if (charData.name !== e.target.innerText) {
         setChar(e.target.innerText, () => fetchChar())
+        window.scroll(0, 0)
       }
     }
   }),

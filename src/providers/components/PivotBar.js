@@ -95,8 +95,8 @@ PivotBar.propTypes = {
 }
 
 const PivotBarEnhancer = compose(
-  withConsumer('app'),
   withRouter,
+  withConsumer('app'),
   fetchHocGet('api/permissions?token=:token', {
     variables: ({ authUser }) => ({ token: authUser.token }),
     options: { forever: true },
@@ -157,6 +157,10 @@ export default styled(PivotBarEnhancer)`
     color: ${({ theme }) => theme.colors.white};
     white-space: nowrap;
     text-decoration: none;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   .menu {

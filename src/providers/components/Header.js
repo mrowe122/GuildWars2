@@ -35,8 +35,8 @@ Header.propTypes = {
 
 const EnhancedHeader = compose(
   withDropdown,
-  withConsumer('app'),
   withRouter,
+  withConsumer('app'),
   withHandlers({
     handleSignOut: ({ authUser, history }) => () => authUser.firebase.signOut().then(() => history.push(routes.index))
   })
