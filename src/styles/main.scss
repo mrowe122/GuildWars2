@@ -14,6 +14,10 @@ html, body {
   height: auto;
 }
 
+.noScroll {
+  overflow: hidden;
+}
+
 #root {
   min-height: 100vh;
   display: flex;
