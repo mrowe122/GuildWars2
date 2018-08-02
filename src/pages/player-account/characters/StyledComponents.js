@@ -43,7 +43,7 @@ export const contentClasses = ({ theme }) => css`
     align-items: center;
     flex-direction: column;
 
-    h2 {
+    h3 {
       margin-bottom: 0.7rem;
     }
   }
@@ -54,6 +54,16 @@ export const contentClasses = ({ theme }) => css`
     height: 135px;
     margin: 2rem 0;
     background: no-repeat left bottom;
+  }
+
+  .bag {
+    margin-bottom: 1rem;
+    img {
+      width: 50px;
+      height: 50px;
+      padding: 0.1rem;
+      border: 1px solid ${theme.colors.gray3};
+    }
   }
 `
 

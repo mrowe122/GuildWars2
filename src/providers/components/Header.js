@@ -33,7 +33,7 @@ Header.propTypes = {
   handleSignOut: PropTypes.func
 }
 
-const EnhancedHeader = compose(
+const HeaderEnhancer = compose(
   withDropdown,
   withRouter,
   withConsumer('app'),
@@ -42,7 +42,7 @@ const EnhancedHeader = compose(
   })
 )(Header)
 
-export default styled(EnhancedHeader)`
+export default styled(HeaderEnhancer)`
   top: 0;
   left: 0;
   right: 0;

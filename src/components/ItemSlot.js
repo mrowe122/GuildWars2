@@ -13,7 +13,9 @@ import emptySlot from 'media/images/empty_slot.gif'
 const ArmorTooltip = ({ item }) => (
   <Tooltip item={item}>
     <IconTitle />
-    <p>Defense: <span className='Masterwork'>{get('data.details.defense')(item)}</span></p>
+    <p>
+      Defense: <span className="Masterwork">{get('data.details.defense')(item)}</span>
+    </p>
     <Attributes />
     <Upgrades />
     <Infusions />
@@ -29,7 +31,12 @@ ArmorTooltip.propTypes = {
 const WeaponTooltip = ({ item }) => (
   <Tooltip item={item}>
     <IconTitle weapon />
-    <p>Weapon Strength: <span className='Masterwork'>{get('data.details.min_power')(item)} - {get('data.details.max_power')(item)}</span></p>
+    <p>
+      Weapon Strength:{' '}
+      <span className="Masterwork">
+        {get('data.details.min_power')(item)} - {get('data.details.max_power')(item)}
+      </span>
+    </p>
     <Attributes />
     <Upgrades />
     <Infusions />
@@ -43,7 +50,7 @@ WeaponTooltip.propTypes = {
 }
 
 const UtilityTooltip = ({ item }) => (
-  <Tooltip item={item} position='left'>
+  <Tooltip item={item}>
     <IconTitle />
     <Attributes />
     <Upgrades />
@@ -58,11 +65,11 @@ UtilityTooltip.propTypes = {
 }
 
 const GatheringTooltip = ({ item }) => (
-  <Tooltip item={item} position='left'>
+  <Tooltip item={item}>
     <IconTitle />
     <Upgrades />
-    <p className='p2'>{get('data.description')(item)}</p>
-    <p className='p2'>{Slot[item.binding]}</p>
+    <p className="p2">{get('data.description')(item)}</p>
+    <p className="p2">{Slot[item.binding]}</p>
   </Tooltip>
 )
 
@@ -76,8 +83,8 @@ const custom = () => css`
 `
 
 const ErrorTooltip = () => (
-  <Tooltip position='top' customClass={custom}>
-    <p className='p1'>There was an error getting this item</p>
+  <Tooltip position="top" customClass={custom}>
+    <p className="p1">There was an error getting this item</p>
   </Tooltip>
 )
 
@@ -116,20 +123,26 @@ const renderTooltip = item => {
 
 export const ItemSlot = ({ className, item, showTooltip, handleHover }) => (
   <div className={className}>
-    {item
-      ? (
-        item.data ? (
-          <Fragment>
-            <img alt='item slot' src={get('skin.icon')(item) || get('data.icon')(item)} onMouseOver={handleHover} onMouseLeave={handleHover} />
-            { showTooltip && renderTooltip(item)}
-          </Fragment>
-        ) : (
-          <Fragment>
-            <AlertBoxIcon onMouseOver={handleHover} onMouseLeave={handleHover} />
-            { showTooltip && renderTooltip({ slot: null })}
-          </Fragment>
-        )
-      ) : <img alt='empty slot' src={emptySlot} />}
+    {item ? (
+      item.data ? (
+        <Fragment>
+          <img
+            alt="item slot"
+            src={get('skin.icon')(item) || get('data.icon')(item)}
+            onMouseOver={handleHover}
+            onMouseLeave={handleHover}
+          />
+          {showTooltip && renderTooltip(item)}
+        </Fragment>
+      ) : (
+        <Fragment>
+          <AlertBoxIcon onMouseOver={handleHover} onMouseLeave={handleHover} />
+          {showTooltip && renderTooltip({ slot: null })}
+        </Fragment>
+      )
+    ) : (
+      <img alt="empty slot" src={emptySlot} />
+    )}
   </div>
 )
 
@@ -141,10 +154,9 @@ ItemSlot.propTypes = {
 }
 
 const ItemSlotEnhancer = compose(
-  withStateHandlers(
-    () => ({ showTooltip: false }),
-    { handleHover: ({ showTooltip }) => () => ({ showTooltip: !showTooltip }) }
-  )
+  withStateHandlers(() => ({ showTooltip: false }), {
+    handleHover: ({ showTooltip }) => () => ({ showTooltip: !showTooltip })
+  })
 )(ItemSlot)
 
 export default styled(ItemSlotEnhancer)`
@@ -154,7 +166,9 @@ export default styled(ItemSlotEnhancer)`
   position: relative;
   ${({ theme, item = {} }) => item.data && theme.generators.boxShadow(0, 0, 7, 0, theme.colors.gray1)};
 
-  img { width: 100%; }
+  img {
+    width: 100%;
+  }
 
   .mdi-icon {
     width: 50px;
@@ -171,17 +185,19 @@ export default styled(ItemSlotEnhancer)`
       margin: 1.5rem 0;
 
       .img-title {
-        img { width: 30px; }
+        img {
+          width: 30px;
+        }
       }
     }
 
     .img-title {
-      margin-bottom: .6rem;
+      margin-bottom: 0.6rem;
       display: flex;
       align-items: center;
       img {
         width: 40px;
-        margin-right: .6rem;
+        margin-right: 0.6rem;
       }
     }
   }

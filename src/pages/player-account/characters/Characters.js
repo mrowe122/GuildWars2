@@ -9,10 +9,11 @@ import { ageFromSeconds, formatDate } from 'utils/utilities'
 import { ItemSlot, FullPageLoader } from 'components'
 import { Layout } from 'providers/MainLayout'
 import { Bubble, Gradient, Specialization, sideNavClasses, contentClasses } from './StyledComponents'
+import emptySlot from 'media/images/empty_slot.gif'
 
 export const Characters = ({ selectChar, allChars, charData, charDataLoading }) => (
   <Layout>
-    {({ SideNav, Content }) => (
+    {({ Content, SideNav }) => (
       <Fragment>
         <SideNav customClasses={sideNavClasses}>
           <h2>Characters</h2>
@@ -29,6 +30,9 @@ export const Characters = ({ selectChar, allChars, charData, charDataLoading }) 
                 <Gradient>
                   <h2>{charData.name}</h2>
                   <p className="p3">Lv: {charData.level}</p>
+                  <p className="p3">
+                    {charData.race} {charData.gender}
+                  </p>
                 </Gradient>
                 <img src={`/media/banners/${toLower(charData.profession)}.jpg`} />
               </div>
@@ -37,11 +41,6 @@ export const Characters = ({ selectChar, allChars, charData, charDataLoading }) 
                   <h3>Guild</h3>
                   <p className="p3">{charData.guild.name}</p>
                   {charData.guild.name && <div className="emblem" />}
-                </Bubble>
-
-                <Bubble>
-                  <h3>Birthday</h3>
-                  <p className="p3">{formatDate(charData.created)}</p>
                 </Bubble>
 
                 <Bubble>
@@ -63,44 +62,65 @@ export const Characters = ({ selectChar, allChars, charData, charDataLoading }) 
                     )}
                   </div>
                 </Bubble>
+
+                <Bubble>
+                  <h3>Birthday</h3>
+                  <p className="p3">{formatDate(charData.created)}</p>
+                </Bubble>
               </div>
               <div className="row around-xs">
-                <div className="gw-c1">
-                  <h2>Armor</h2>
-                  <ItemSlot item={charData.equipment.Helm} />
-                  <ItemSlot item={charData.equipment.Shoulders} />
-                  <ItemSlot item={charData.equipment.Coat} />
-                  <ItemSlot item={charData.equipment.Gloves} />
-                  <ItemSlot item={charData.equipment.Leggings} />
-                  <ItemSlot item={charData.equipment.Boots} />
-                  <ItemSlot item={charData.equipment.HelmAquatic} />
-                </div>
+                <div className="col-xs-6">
+                  <div className="row">
+                    <div className="col-xs gw-c1">
+                      <h3>Armor</h3>
+                      <ItemSlot item={charData.equipment.Helm} />
+                      <ItemSlot item={charData.equipment.Shoulders} />
+                      <ItemSlot item={charData.equipment.Coat} />
+                      <ItemSlot item={charData.equipment.Gloves} />
+                      <ItemSlot item={charData.equipment.Leggings} />
+                      <ItemSlot item={charData.equipment.Boots} />
+                      <ItemSlot item={charData.equipment.HelmAquatic} />
+                    </div>
 
-                <div className="gw-c1">
-                  <h2>Weapons</h2>
-                  <ItemSlot item={charData.equipment.WeaponA1} />
-                  <ItemSlot item={charData.equipment.WeaponA2} />
-                  <ItemSlot item={charData.equipment.WeaponB1} />
-                  <ItemSlot item={charData.equipment.WeaponB2} />
-                  <ItemSlot item={charData.equipment.WeaponAquaticA} />
-                  <ItemSlot item={charData.equipment.WeaponAquaticB} />
-                </div>
+                    <div className="col-xs gw-c1">
+                      <h3>Weapons</h3>
+                      <ItemSlot item={charData.equipment.WeaponA1} />
+                      <ItemSlot item={charData.equipment.WeaponA2} />
+                      <ItemSlot item={charData.equipment.WeaponB1} />
+                      <ItemSlot item={charData.equipment.WeaponB2} />
+                      <ItemSlot item={charData.equipment.WeaponAquaticA} />
+                      <ItemSlot item={charData.equipment.WeaponAquaticB} />
+                    </div>
 
-                <div className="gw-c1">
-                  <h2>Trinkets</h2>
-                  <ItemSlot item={charData.equipment.Backpack} />
-                  <ItemSlot item={charData.equipment.Accessory1} />
-                  <ItemSlot item={charData.equipment.Accessory2} />
-                  <ItemSlot item={charData.equipment.Amulet} />
-                  <ItemSlot item={charData.equipment.Ring1} />
-                  <ItemSlot item={charData.equipment.Ring2} />
-                </div>
+                    <div className="col-xs gw-c1">
+                      <h3>Trinkets</h3>
+                      <ItemSlot item={charData.equipment.Backpack} />
+                      <ItemSlot item={charData.equipment.Accessory1} />
+                      <ItemSlot item={charData.equipment.Accessory2} />
+                      <ItemSlot item={charData.equipment.Amulet} />
+                      <ItemSlot item={charData.equipment.Ring1} />
+                      <ItemSlot item={charData.equipment.Ring2} />
+                    </div>
 
-                <div className="gw-c1">
-                  <h2>Tools</h2>
-                  <ItemSlot item={charData.equipment.Sickle} />
-                  <ItemSlot item={charData.equipment.Axe} />
-                  <ItemSlot item={charData.equipment.Pick} />
+                    <div className="col-xs gw-c1">
+                      <h3>Tools</h3>
+                      <ItemSlot item={charData.equipment.Sickle} />
+                      <ItemSlot item={charData.equipment.Axe} />
+                      <ItemSlot item={charData.equipment.Pick} />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-xs-6 bag">
+                  {charData.bags.map((b, idx) =>
+                    b.inventory.map(
+                      (i, idx2) =>
+                        i ? (
+                          <img key={`item-${idx + idx2 + i}`} src={i.data.icon} />
+                        ) : (
+                          <img key={`item-${idx + idx2 + i}`} alt="empty slot" src={emptySlot} />
+                        )
+                    )
+                  )}
                 </div>
               </div>
 
