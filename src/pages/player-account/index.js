@@ -17,7 +17,7 @@ const PlayerAccount = () => (
     <Route path={routes.account.pvp} component={Pvp} />
     <Route path={routes.account.achievements} component={Achievements} />
     <Route path={routes.account.inventories} component={Inventories} />
-    <Route path={routes.account.unlocks} component={Unlocks} />
+    <Route path={routes.account.unlocks.index} component={Unlocks} />
     <Route path={routes.account.wallet} component={Wallet} />
     <Route path={routes.account.guilds} component={Guilds} />
     <Route path={routes.account.tradingpost} component={TradingPost} />

@@ -9,15 +9,11 @@ const contentClasses = ({ theme }) => css`
 
 const Pvp = () => (
   <Layout>
-    {
-      ({ SideNav, Content }) => (
-        <Fragment>
-          <Content customClasses={contentClasses}>
-            PVP
-          </Content>
-        </Fragment>
-      )
-    }
+    {({ SideNav, Content }) => (
+      <Fragment>
+        <Content styles={contentClasses}>PVP</Content>
+      </Fragment>
+    )}
   </Layout>
 )
 

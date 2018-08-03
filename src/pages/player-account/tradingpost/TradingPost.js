@@ -9,15 +9,11 @@ const contentClasses = ({ theme }) => css`
 
 const TradingPost = () => (
   <Layout>
-    {
-      ({ SideNav, Content }) => (
-        <Fragment>
-          <Content customClasses={contentClasses}>
-            Trading Post
-          </Content>
-        </Fragment>
-      )
-    }
+    {({ SideNav, Content }) => (
+      <Fragment>
+        <Content styles={contentClasses}>Trading Post</Content>
+      </Fragment>
+    )}
   </Layout>
 )
 

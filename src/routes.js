@@ -13,7 +13,14 @@ export default {
     inventories: '/act/inventories',
     pvp: '/act/pvp',
     tradingpost: '/act/trading-post',
-    unlocks: '/act/unlocks',
+    unlocks: {
+      index: '/act/unlocks',
+      skins: '/act/unlocks/skins',
+      dyes: '/act/unlocks/dyes',
+      minis: '/act/unlocks/minis',
+      finishers: '/act/unlocks/finishers',
+      titles: '/act/unlocks/titles'
+    },
     wallet: '/act/wallet'
   },
   redirect: to => () => <Redirect to={to} />

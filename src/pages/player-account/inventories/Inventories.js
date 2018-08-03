@@ -9,15 +9,11 @@ const contentClasses = ({ theme }) => css`
 
 const Inventories = () => (
   <Layout>
-    {
-      ({ SideNav, Content }) => (
-        <Fragment>
-          <Content customClasses={contentClasses}>
-            Inventories
-          </Content>
-        </Fragment>
-      )
-    }
+    {({ SideNav, Content }) => (
+      <Fragment>
+        <Content styles={contentClasses}>Inventories</Content>
+      </Fragment>
+    )}
   </Layout>
 )
 

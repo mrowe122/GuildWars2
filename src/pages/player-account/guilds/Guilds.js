@@ -9,15 +9,11 @@ const contentClasses = ({ theme }) => css`
 
 const Guilds = () => (
   <Layout>
-    {
-      ({ SideNav, Content }) => (
-        <Fragment>
-          <Content customClasses={contentClasses}>
-            Guilds
-          </Content>
-        </Fragment>
-      )
-    }
+    {({ SideNav, Content }) => (
+      <Fragment>
+        <Content styles={contentClasses}>Guilds</Content>
+      </Fragment>
+    )}
   </Layout>
 )
 

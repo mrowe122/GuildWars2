@@ -9,15 +9,11 @@ const contentClasses = ({ theme }) => css`
 
 const Achievements = () => (
   <Layout>
-    {
-      ({ SideNav, Content }) => (
-        <Fragment>
-          <Content customClasses={contentClasses}>
-            Achievements
-          </Content>
-        </Fragment>
-      )
-    }
+    {({ SideNav, Content }) => (
+      <Fragment>
+        <Content styles={contentClasses}>Achievements</Content>
+      </Fragment>
+    )}
   </Layout>
 )
 

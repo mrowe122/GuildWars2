@@ -11,7 +11,7 @@ const SideNav = styled.div`
   background-color: ${({ theme }) => theme.colors.loadingOverlay};
   ${({ theme }) => theme.generators.boxShadow(0, 0, 10, 3, theme.colors.primary)};
   ${({ theme }) => theme.generators.textShadow(0, 0, 5, 'rgba(0,0,0,1)')};
-  ${({ customClasses }) => customClasses};
+  ${({ styles }) => styles};
 `
 
 export default SideNav

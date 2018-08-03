@@ -21,3 +21,59 @@ export const Slot = {
   Account: 'Account Bound',
   Character: 'Soulbound'
 }
+
+export const SkinArray = [
+  'Helm - Light',
+  'Helm - Medium',
+  'Helm - Heavy',
+
+  'Shoulders - Light',
+  'Shoulders - Medium',
+  'Shoulders - Heavy',
+
+  'Coat - Light',
+  'Coat - Medium',
+  'Coat - Heavy',
+
+  'Gloves - Light',
+  'Gloves - Medium',
+  'Gloves - Heavy',
+
+  'Leggings - Light',
+  'Leggings - Medium',
+  'Leggings - Heavy',
+
+  'Boots - Light',
+  'Boots - Medium',
+  'Boots - Heavy',
+
+  'Back',
+
+  'HelmAquatic - Light',
+  'HelmAquatic - Medium',
+  'HelmAquatic - Heavy',
+  'Trident',
+
+  'Axe',
+  'Dagger',
+  'Focus',
+  'Greatsword',
+  'Hammer',
+  'Longbow',
+  'Mace',
+  'Pistol',
+  'Rifle',
+  'Scepter',
+  'Shield',
+  'Shortbow',
+  'Spear',
+  'Speargun',
+  'Staff',
+  'Sword',
+  'Torch',
+  'Warhorn',
+
+  'Foraging',
+  'Logging',
+  'Mining'
+]

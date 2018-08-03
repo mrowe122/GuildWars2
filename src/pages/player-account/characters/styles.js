@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 import styled, { css } from 'react-emotion'
 
-export const sideNavClasses = ({ theme }) => css`
+export const sideNavCSS = ({ theme }) => css`
   & > h2 {
     color: ${theme.colors.white};
     margin-bottom: 2rem;
@@ -25,7 +25,7 @@ export const sideNavClasses = ({ theme }) => css`
   }
 `
 
-export const contentClasses = ({ theme }) => css`
+export const contentCSS = ({ theme }) => css`
   color: ${theme.colors.white};
   margin-left: ${theme.sizes.sideNav};
 

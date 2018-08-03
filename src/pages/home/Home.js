@@ -10,7 +10,7 @@ const contentClasses = ({ theme }) => css`
 const Home = () => (
   <Layout>
     {({ Content }) => (
-      <Content customClasses={contentClasses}>
+      <Content styles={contentClasses}>
         <h3>Home</h3>
       </Content>
     )}

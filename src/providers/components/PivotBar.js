@@ -47,7 +47,7 @@ export const Permisions = {
   unlocks: {
     title: 'Unlocks',
     icon: <LockOpenIcon />,
-    link: routes.account.unlocks
+    link: routes.account.unlocks.skins
   },
   wallet: {
     title: 'Wallet',
@@ -104,15 +104,15 @@ const PivotBarEnhancer = compose(
       // TODO: check if can be simplified to not compute every render
       items: orderBy('access')('desc')(mapWithArgs((v, k) => assign(v, { access: includes(k)(data) }))(Permisions))
     })
-  }),
+  })
   // TODO: check if can be simplified to not compute every render
-  branch(
-    ({ location, items, loading }) =>
-      !loading &&
-      startsWith(routes.account.index)(location.pathname) &&
-      !get('access')(find(['link', location.pathname])(items)),
-    PermissionRedirect
-  )
+  // branch(
+  //   ({ location, items, loading }) =>
+  //     !loading &&
+  //     startsWith(routes.account.index)(location.pathname) &&
+  //     !get('access')(find(['link', location.pathname])(items)),
+  //   PermissionRedirect
+  // )
 )(PivotBar)
 
 export default styled(PivotBarEnhancer)`

@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
-import { compose } from 'recompose'
+import { compose } from 'lodash/fp'
 import { withConsumer } from 'context-hoc'
 import { Layout } from 'providers/MainLayout'
 import { fetchHocGet } from 'utils/cachedFetch'

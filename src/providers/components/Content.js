@@ -21,7 +21,7 @@ const Content = styled(ContentTemplate)`
   flex: 1 0 auto;
   padding: 2rem 2rem 1rem;
   margin-top: ${({ theme }) => theme.sizes.header};
-  ${({ customClasses }) => customClasses};
+  ${({ styles }) => styles};
 `
 
 export default Content
