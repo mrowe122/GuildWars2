@@ -30,9 +30,14 @@ const generators = {
     -moz-box-shadow:${x}px ${y}px ${blur}px ${spread}px ${color};
     -webkit-box-shadow: ${x}px ${y}px ${blur}px ${spread}px ${color};
   `,
-  textShadow: (y, x, blur, color) => `
-    text-shadow: ${y}px ${x}px ${blur}px ${color}, ${y}px ${x}px ${blur}px ${color}, ${y}px ${x}px ${blur}px ${color};
-  `,
+  textShadow: (y, x, blur, color, multiplier = 3) => {
+    let shadow = []
+    let i = 0
+    for (; i < multiplier; i += 1) {
+      shadow.push(`${y}px ${x}px ${blur}px ${color}`)
+    }
+    return `text-shadow: ${shadow.join(',')};`
+  },
   textNoSelect: `
     -webkit-touch-callout: none;
     -webkit-user-select: none;

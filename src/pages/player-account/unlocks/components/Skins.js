@@ -4,7 +4,8 @@ import styled from 'react-emotion'
 import { compose, groupBy, cond, matches } from 'lodash/fp'
 import { withConsumer } from 'context-hoc'
 import { fetchHocGet } from 'utils/cachedFetch'
-import { SkinArray } from 'utils/constants'
+import { SkinsOrder } from 'utils/constants'
+import { withFullPageLoader } from 'components'
 
 const SkinGroup = styled.div`
   color: ${({ theme }) => theme.colors.white};
@@ -20,7 +21,7 @@ const SkinGroup = styled.div`
 
 const Skins = ({ skins }) =>
   Object.keys(skins)
-    .sort((a, b) => SkinArray.indexOf(a) - SkinArray.indexOf(b))
+    .sort((a, b) => SkinsOrder.indexOf(a) - SkinsOrder.indexOf(b))
     .map(keyName => (
       <SkinGroup key={keyName}>
         <h3>{keyName}</h3>
@@ -50,7 +51,8 @@ const SkinsEnhancer = compose(
       return { loading, skins: _skins }
     },
     variables: ({ authUser }) => ({ token: authUser.token })
-  })
+  }),
+  withFullPageLoader(({ loading }) => loading)
 )(Skins)
 
 export default SkinsEnhancer

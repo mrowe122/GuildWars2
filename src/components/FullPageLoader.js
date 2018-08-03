@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'react-emotion'
 import Spinner from 'react-spinkit'
 import { compose } from 'lodash/fp'
-import { lifecycle } from 'recompose'
+import { lifecycle, branch, renderComponent } from 'recompose'
 
 const FullPageLoader = ({ className }) => (
   <div className={className}>
@@ -26,7 +26,7 @@ const FullPageLoaderEnhancer = compose(
   })
 )(FullPageLoader)
 
-export default styled(FullPageLoaderEnhancer)`
+const FullPageLoaderStyled = styled(FullPageLoaderEnhancer)`
   top: 0;
   left: 0;
   right: 0;
@@ -42,3 +42,7 @@ export default styled(FullPageLoaderEnhancer)`
     color: ${({ theme }) => theme.colors.primaryLight1};
   }
 `
+
+export const withFullPageLoader = loading => compose(branch(loading, renderComponent(FullPageLoaderStyled)))
+
+export default FullPageLoaderStyled

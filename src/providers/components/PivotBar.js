@@ -47,7 +47,7 @@ export const Permisions = {
   unlocks: {
     title: 'Unlocks',
     icon: <LockOpenIcon />,
-    link: routes.account.unlocks.skins
+    link: routes.account.unlocks.index
   },
   wallet: {
     title: 'Wallet',
@@ -78,7 +78,7 @@ const PivotBar = ({ className, items = [], handleMenu, loading }) => (
           <MenuIcon onClick={handleMenu} />
         </div>
         {items.map(i => (
-          <NavLink key={i.title} to={i.link} activeClassName="active" disabled={!i.access} title={i.title}>
+          <NavLink key={i.title} to={i.link} disabled={!i.access} title={i.title}>
             {i.icon} {i.title}
           </NavLink>
         ))}

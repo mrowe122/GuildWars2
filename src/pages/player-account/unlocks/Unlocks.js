@@ -4,8 +4,9 @@ import { Switch, Route, NavLink, Redirect } from 'react-router-dom'
 import { Layout } from 'providers/MainLayout'
 import routes from 'routes'
 
-import { ContentCSS, sideNavCSS } from './styles'
+import { contentCSS, sideNavCSS } from './styles'
 import Skins from './components/Skins'
+import Dyes from './components/Dyes'
 
 const unlockNav = [
   {
@@ -37,14 +38,15 @@ const Unlocks = () => (
         <SideNav styles={sideNavCSS}>
           <h2>Unlocks</h2>
           {unlockNav.map(i => (
-            <NavLink key={i.label} to={i.link} activeClassName="active">
+            <NavLink key={i.label} to={i.link}>
               {i.label}
             </NavLink>
           ))}
         </SideNav>
-        <Content styles={ContentCSS}>
+        <Content styles={contentCSS}>
           <Switch>
             <Route path={routes.account.unlocks.skins} component={Skins} />
+            <Route path={routes.account.unlocks.dyes} component={Dyes} />
             <Redirect to={routes.account.unlocks.skins} />
           </Switch>
         </Content>

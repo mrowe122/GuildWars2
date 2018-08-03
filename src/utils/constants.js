@@ -22,7 +22,7 @@ export const Slot = {
   Character: 'Soulbound'
 }
 
-export const SkinArray = [
+export const SkinsOrder = [
   'Helm - Light',
   'Helm - Medium',
   'Helm - Heavy',
@@ -77,3 +77,5 @@ export const SkinArray = [
   'Logging',
   'Mining'
 ]
+
+export const DyesOrder = ['undefined', 'Rare', 'Uncommon', 'Common', 'Starter']

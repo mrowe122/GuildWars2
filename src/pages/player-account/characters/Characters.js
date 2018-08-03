@@ -2,11 +2,11 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { compose, get, toLower } from 'lodash/fp'
-import { withState, withHandlers, branch, renderComponent, lifecycle, onlyUpdateForKeys } from 'recompose'
+import { withState, withHandlers, lifecycle, onlyUpdateForKeys } from 'recompose'
 import { withConsumer } from 'context-hoc'
 import { fetchHocGet } from 'utils/cachedFetch'
 import { ageFromSeconds, formatDate } from 'utils/utilities'
-import { ItemSlot, FullPageLoader } from 'components'
+import { ItemSlot, withFullPageLoader } from 'components'
 import { Layout } from 'providers/MainLayout'
 import { Bubble, Gradient, Specialization, sideNavCSS, contentCSS } from './styles'
 import emptySlot from 'media/images/empty_slot.gif'
@@ -216,7 +216,7 @@ const CharactersEnhancer = compose(
     props: ({ loading, charData = undefined }) => ({ charDataLoading: loading, charData }),
     variables: ({ authUser, allChars, selectedChar }) => ({ token: authUser.token, char: selectedChar || allChars[0] })
   }),
-  branch(p => p.allCharsLoading, renderComponent(FullPageLoader)),
+  withFullPageLoader(p => p.allCharsLoading),
   withHandlers({
     selectChar: ({ fetchChar, charData, setChar }) => e => {
       if (charData.name !== e.target.innerText) {

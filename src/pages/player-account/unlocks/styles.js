@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 import { css } from 'react-emotion'
 
-export const ContentCSS = ({ theme }) => css`
+export const contentCSS = ({ theme }) => css`
   margin-left: ${theme.sizes.sideNav};
 `
 
