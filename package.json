@@ -47,6 +47,7 @@
     "guildwars2-server": "https://github.com/mrowe122/GuildWars2-Server.git",
     "lodash": "^4.17.10",
     "mdi-react": "^4.0.0",
+    "outside-click-hoc": "https://github.com/mrowe122/OutsideClickHoc",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",

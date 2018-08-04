@@ -2,23 +2,24 @@ import styled from 'react-emotion'
 import { compose } from 'lodash/fp'
 import { withStateHandlers, branch, renderNothing } from 'recompose'
 import { withProvider, withConsumer } from 'context-hoc'
-import { withOutsideClick } from 'utils/clickOutside'
+import { withOutsideClick } from 'outside-click-hoc'
 
 export const withDropdown = compose(
-  withStateHandlers(
-    ({ initial = false }) => ({ showDropdown: initial }),
-    { handleDropdown: ({ showDropdown }) => () => ({ showDropdown: !showDropdown }) }
-  ),
-  withProvider('dropdown', ({ showDropdown, handleDropdown }) => ({ showDropdown, handleDropdown }))
+  withStateHandlers(({ initial = false }) => ({ showDropdown: initial }), {
+    handleDropdown: ({ showDropdown }) => () => ({ showDropdown: !showDropdown }),
+    closeDropdown: () => () => ({ showDropdown: false })
+  }),
+  withProvider('dropdown', ({ showDropdown, handleDropdown, closeDropdown }) => ({
+    showDropdown,
+    handleDropdown,
+    closeDropdown
+  }))
 )
 
 const DropdownEnhancer = compose(
   withConsumer('dropdown'),
-  branch(
-    ({ showDropdown }) => !showDropdown,
-    renderNothing
-  ),
-  withOutsideClick('handleDropdown')
+  branch(({ showDropdown }) => !showDropdown, renderNothing),
+  withOutsideClick(({ closeDropdown }) => closeDropdown)
 )
 
 export default DropdownEnhancer(styled.div`
@@ -29,7 +30,7 @@ export default DropdownEnhancer(styled.div`
   display: flex;
   flex-direction: column;
   padding: 0.6rem 0;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   background-color: ${({ theme }) => theme.colors.gray4};
 
   &:before {
