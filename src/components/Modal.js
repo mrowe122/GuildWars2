@@ -31,11 +31,11 @@ const Content = styled.div`
   }
 `
 
-const Modal = ({ className, contentClass, children, showModal, closeModal }) =>
+const Modal = ({ className, styles, children, showModal, closeModal }) =>
   showModal &&
   ReactDOM.createPortal(
     <div className={className}>
-      <Content styles={contentClass}>
+      <Content className={styles}>
         {closeModal && <CloseIcon onClick={closeModal} className="closeIcon" />}
         {children}
       </Content>

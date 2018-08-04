@@ -29,23 +29,23 @@ export const Characters = ({ selectChar, allChars, charData, charDataLoading }) 
               <div className="row middle-xs">
                 <Gradient>
                   <h2>{charData.name}</h2>
-                  <p className="p3">Lv: {charData.level}</p>
-                  <p className="p3">
+                  <p>Lv: {charData.level}</p>
+                  <p>
                     {charData.race} {charData.gender}
                   </p>
                 </Gradient>
-                <img src={`/media/banners/${toLower(charData.profession)}.jpg`} />
+                <img src={`/media/banners/${toLower(charData.profession)}.jpg`} alt="banner" />
               </div>
               <div className="row around-xs">
                 <Bubble guild={charData.guild.name}>
                   <h3>Guild</h3>
-                  <p className="p3">{charData.guild.name}</p>
+                  <p>{charData.guild.name}</p>
                   {charData.guild.name && <div className="emblem" />}
                 </Bubble>
 
                 <Bubble>
                   <h3>Playtime</h3>
-                  <p className="p3">{ageFromSeconds(charData.age)}</p>
+                  <p>{ageFromSeconds(charData.age)}</p>
                 </Bubble>
 
                 <Bubble>
@@ -53,19 +53,19 @@ export const Characters = ({ selectChar, allChars, charData, charDataLoading }) 
                   <div>
                     {charData.crafting.length ? (
                       charData.crafting.sort((a, b) => a.active < b.active).map(c => (
-                        <p className="p3" disabled={!c.active} key={c.discipline}>
+                        <p disabled={!c.active} key={c.discipline}>
                           {c.discipline} ({c.rating})
                         </p>
                       ))
                     ) : (
-                      <p className="p3">None</p>
+                      <p>None</p>
                     )}
                   </div>
                 </Bubble>
 
                 <Bubble>
                   <h3>Birthday</h3>
-                  <p className="p3">{formatDate(charData.created)}</p>
+                  <p>{formatDate(charData.created)}</p>
                 </Bubble>
               </div>
               <div className="row around-xs">
@@ -113,11 +113,11 @@ export const Characters = ({ selectChar, allChars, charData, charDataLoading }) 
                 <div className="col-xs-6 bag">
                   {charData.bags.map((b, idx) =>
                     b.inventory.map(
-                      (i, idx2) =>
-                        i ? (
-                          <img key={`item-${idx + idx2 + i}`} src={i.data.icon} />
+                      (inv, idx2) =>
+                        inv ? (
+                          <img key={`${inv.id}-${idx2}`} src={inv.data.icon} alt="bag-slot" />
                         ) : (
-                          <img key={`item-${idx + idx2 + i}`} alt="empty slot" src={emptySlot} />
+                          <img key={`empty-${idx2}`} src={emptySlot} alt="empty-slot" />
                         )
                     )
                   )}
@@ -131,54 +131,63 @@ export const Characters = ({ selectChar, allChars, charData, charDataLoading }) 
                       <Specialization key={`pve-${p.id}`} img={p.data.background}>
                         <h3>{p.data.name}</h3>
                         <span>
-                          <img src={p.data.traitData[p.data.minor_traits[0]].icon} />
+                          <img src={p.data.traitData[p.data.minor_traits[0]].icon} alt="trait" />
                         </span>
                         <span>
                           <img
                             disabled={p.traits[0] !== p.data.major_traits[0]}
                             src={p.data.traitData[p.data.major_traits[0]].icon}
+                            alt="trait"
                           />
                           <img
                             disabled={p.traits[0] !== p.data.major_traits[1]}
                             src={p.data.traitData[p.data.major_traits[1]].icon}
+                            alt="trait"
                           />
                           <img
                             disabled={p.traits[0] !== p.data.major_traits[2]}
                             src={p.data.traitData[p.data.major_traits[2]].icon}
+                            alt="trait"
                           />
                         </span>
                         <span>
-                          <img src={p.data.traitData[p.data.minor_traits[1]].icon} />
+                          <img src={p.data.traitData[p.data.minor_traits[1]].icon} alt="trait" />
                         </span>
                         <span>
                           <img
                             disabled={p.traits[1] !== p.data.major_traits[3]}
                             src={p.data.traitData[p.data.major_traits[3]].icon}
+                            alt="trait"
                           />
                           <img
                             disabled={p.traits[1] !== p.data.major_traits[4]}
                             src={p.data.traitData[p.data.major_traits[4]].icon}
+                            alt="trait"
                           />
                           <img
                             disabled={p.traits[1] !== p.data.major_traits[5]}
                             src={p.data.traitData[p.data.major_traits[5]].icon}
+                            alt="trait"
                           />
                         </span>
                         <span>
-                          <img src={p.data.traitData[p.data.minor_traits[2]].icon} />
+                          <img src={p.data.traitData[p.data.minor_traits[2]].icon} alt="trait" />
                         </span>
                         <span>
                           <img
                             disabled={p.traits[2] !== p.data.major_traits[6]}
                             src={p.data.traitData[p.data.major_traits[6]].icon}
+                            alt="trait"
                           />
                           <img
                             disabled={p.traits[2] !== p.data.major_traits[7]}
                             src={p.data.traitData[p.data.major_traits[7]].icon}
+                            alt="trait"
                           />
                           <img
                             disabled={p.traits[2] !== p.data.major_traits[8]}
                             src={p.data.traitData[p.data.major_traits[8]].icon}
+                            alt="trait"
                           />
                         </span>
                       </Specialization>

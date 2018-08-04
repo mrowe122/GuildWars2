@@ -78,23 +78,20 @@ h6 {
   letter-spacing: 1px;
 }
 
+p {
+  font-size: 0.93rem;
+  line-height: 1.3rem;
+}
+
 p, span {
   &.p1 {
-    line-height: 1.6rem;
-  }
-
-  &.p2 {
     font-size: 0.93rem;
     line-height: 1.3rem;
   }
 
-  &.p3 {
-    font-size: 0.93rem;
-    line-height: 1.4rem;
-  }
-
-  &.p4 {
+  &.p2 {
     font-size: .8rem;
+    line-height: .9rem;
   }
 
   &.error {

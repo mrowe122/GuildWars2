@@ -8,7 +8,7 @@ import { fetchHocPost } from 'utils/cachedFetch'
 import { validateApiKey } from 'utils/validation'
 import { Modal } from 'components'
 import { Button, Input } from 'elements'
-import modalStyle from './Style'
+import modalStyle from './style'
 
 import KeyIcon from 'mdi-react/KeyIcon'
 
@@ -24,7 +24,7 @@ export const ApiKeyModal = ({
   errors,
   status
 }) => (
-  <Modal size="sm" contentClass={className} showModal>
+  <Modal size="sm" styles={className} showModal>
     <KeyIcon size={36} className="accountKeyIcon" />
     <h3>Add an API key</h3>
     {status && <p className="error">{status}</p>}

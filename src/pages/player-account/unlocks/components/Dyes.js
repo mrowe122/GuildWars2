@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 import React from 'react'
 import styled from 'react-emotion'
-import { compose, groupBy } from 'lodash/fp'
+import { compose, groupBy, get } from 'lodash/fp'
 import { withConsumer } from 'context-hoc'
 import { fetchHocGet } from 'utils/cachedFetch'
 import { DyesOrder } from 'utils/constants'
@@ -36,13 +36,16 @@ const Skins = ({ dyes }) =>
       <DyeGroup key={keyName}>
         <h3>{keyName === 'undefined' ? 'Exclusive' : keyName}</h3>
         {dyes[keyName].map(d => (
-          <DyeSlot key={d.id} background={d.cloth.rgb}>
+          <DyeSlot key={d.id} background={get('cloth.rgb')(d)}>
             {d.data ? (
-              <img src={d.data.icon} />
+              <img src={get('data.icon')(d)} alt="dye" />
             ) : (
-              <img src="https://render.guildwars2.com/file/4C6A69A2F750523C239A075656E719ED07492B2E/66652.png" />
+              <img
+                src="https://render.guildwars2.com/file/4C6A69A2F750523C239A075656E719ED07492B2E/66652.png"
+                alt="dye"
+              />
             )}
-            <p className={d.data && d.data.rarity}>{d.name}</p>
+            <p className={get('data.rarity')(d)}>{d.name}</p>
           </DyeSlot>
         ))}
       </DyeGroup>
@@ -52,11 +55,7 @@ const SkinsEnhancer = compose(
   withConsumer('app'),
   fetchHocGet(`api/account/dyes?token=:token`, {
     dataProp: 'dyes',
-    props: ({ loading, dyes = [] }) => {
-      const _dyes = groupBy('categories[2]')(dyes)
-      console.log(_dyes)
-      return { loading, dyes: _dyes }
-    },
+    props: ({ loading, dyes = [] }) => ({ loading, dyes: groupBy('categories[2]')(dyes) }),
     variables: ({ authUser }) => ({ token: authUser.token })
   }),
   withFullPageLoader(({ loading }) => loading)

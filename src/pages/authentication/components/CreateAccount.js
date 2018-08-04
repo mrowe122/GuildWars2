@@ -7,7 +7,7 @@ import { withConsumer } from 'context-hoc'
 import { Modal } from 'components'
 import { Button, Input } from 'elements'
 import { validateEmail, validatePassword, validateConfirmPassword } from 'utils/validation'
-import modalStyle from './Style'
+import modalStyle from './style'
 
 import AccountOutlineIcon from 'mdi-react/AccountOutlineIcon'
 import LockOutlineIcon from 'mdi-react/LockOutlineIcon'
@@ -26,7 +26,7 @@ const CreateAccount = ({
   status,
   showLogin
 }) => (
-  <Modal size="sm" contentClass={className} showModal>
+  <Modal size="sm" styles={className} showModal>
     <LockIcon size={36} className="lockIcon" />
     {status && <p className="error">{status}</p>}
     <Input

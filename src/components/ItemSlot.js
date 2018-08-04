@@ -68,8 +68,8 @@ const GatheringTooltip = ({ item }) => (
   <Tooltip item={item}>
     <IconTitle />
     <Upgrades />
-    <p className="p2">{get('data.description')(item)}</p>
-    <p className="p2">{Slot[item.binding]}</p>
+    <p>{get('data.description')(item)}</p>
+    <p>{Slot[item.binding]}</p>
   </Tooltip>
 )
 
@@ -84,7 +84,7 @@ const custom = () => css`
 
 const ErrorTooltip = () => (
   <Tooltip position="top" customClass={custom}>
-    <p className="p1">There was an error getting this item</p>
+    <p>There was an error getting this item</p>
   </Tooltip>
 )
 
@@ -127,10 +127,10 @@ export const ItemSlot = ({ className, item, showTooltip, handleHover }) => (
       item.data ? (
         <Fragment>
           <img
-            alt="item slot"
             src={get('skin.icon')(item) || get('data.icon')(item)}
             onMouseOver={handleHover}
             onMouseLeave={handleHover}
+            alt="item-slot"
           />
           {showTooltip && renderTooltip(item)}
         </Fragment>
@@ -141,7 +141,7 @@ export const ItemSlot = ({ className, item, showTooltip, handleHover }) => (
         </Fragment>
       )
     ) : (
-      <img alt="empty slot" src={emptySlot} />
+      <img src={emptySlot} alt="empty-slot" />
     )}
   </div>
 )

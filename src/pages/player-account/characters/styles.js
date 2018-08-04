@@ -90,7 +90,7 @@ export const Bubble = styled.div`
     ${({ theme }) => theme.generators.textShadow(0, 0, 5, 'rgba(0,0,0,1)')};
   }
 
-  .p3 {
+  p {
     align-self: stretch;
   }
 

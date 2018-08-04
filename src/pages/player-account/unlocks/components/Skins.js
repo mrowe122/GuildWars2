@@ -26,7 +26,7 @@ const Skins = ({ skins }) =>
       <SkinGroup key={keyName}>
         <h3>{keyName}</h3>
         {skins[keyName].map(s => (
-          <img key={s.id} src={s.icon} title={s.name} />
+          <img key={s.id} src={s.icon} title={s.name} alt="skin" />
         ))}
       </SkinGroup>
     ))

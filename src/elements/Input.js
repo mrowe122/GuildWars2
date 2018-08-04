@@ -6,16 +6,14 @@ const InputTemplate = ({ className, icon, error, ...props }) => (
   <div className={className}>
     {icon}
     <input {...props} />
-    { error && <span className='p4'>{error}</span>}
+    {error && <span className="p2">{error}</span>}
   </div>
 )
 
 InputTemplate.propTypes = {
   className: PropTypes.string,
   icon: PropTypes.node,
-  error: PropTypes.oneOfType([
-    PropTypes.string, PropTypes.bool
-  ])
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
 }
 
 const Input = styled(InputTemplate)`
@@ -28,20 +26,20 @@ const Input = styled(InputTemplate)`
   border: 1px solid transparent;
   background: rgba(0, 0, 0, 0.4);
   color: ${({ theme }) => theme.colors.white};
-  
-  ${({ theme, error }) => error && `
+
+  ${({ theme, error }) =>
+    error &&
+    `
     background: rgba(100, 0, 0, .5);
     border: 1px solid ${theme.colors.error};
     border-bottom-right-radius: 0;
-  `}
-  
-  input {
+  `} input {
     border: none;
     outline: none;
     width: 100%;
     height: 100%;
-    padding: .8rem 0;
-    margin-left: .7rem;
+    padding: 0.8rem 0;
+    margin-left: 0.7rem;
     background: transparent;
     color: ${({ theme }) => theme.colors.white};
   }
@@ -58,7 +56,7 @@ const Input = styled(InputTemplate)`
   }
 
   .mdi-icon {
-    margin-left: .7rem;
+    margin-left: 0.7rem;
   }
 `
 

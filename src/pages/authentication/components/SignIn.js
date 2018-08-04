@@ -9,7 +9,7 @@ import routes from 'routes'
 import { Modal } from 'components'
 import { validateEmail, validatePassword } from 'utils/validation'
 import { Button, Input } from 'elements'
-import modalStyle from './Style'
+import modalStyle from './style'
 
 import AccountOutlineIcon from 'mdi-react/AccountOutlineIcon'
 import LockOutlineIcon from 'mdi-react/LockOutlineIcon'
@@ -28,7 +28,7 @@ const SignIn = ({
   status,
   showCreate
 }) => (
-  <Modal size="sm" contentClass={className} showModal>
+  <Modal size="sm" styles={className} showModal>
     <LockIcon size={36} className="lockIcon" />
     {status && <p className="error">{status}</p>}
     <form onSubmit={handleSubmit}>
