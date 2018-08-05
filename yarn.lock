@@ -4827,7 +4827,7 @@ gud@^1.0.0:
 
 "guildwars2-server@https://github.com/mrowe122/GuildWars2-Server":
   version "0.0.0"
-  resolved "https://github.com/mrowe122/GuildWars2-Server#5da78508cc017b3a6701a75f54d7aabe240881cd"
+  resolved "https://github.com/mrowe122/GuildWars2-Server#924c31a35a70b2be5c78e84e8c968c8954bd5d37"
   dependencies:
     body-parser "^1.18.3"
     debug "^3.1.0"

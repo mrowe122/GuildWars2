@@ -34,6 +34,7 @@ export const contentCSS = ({ theme }) => css`
     margin-bottom: 1rem;
     img {
       width: 100%;
+      border-radius: 5px;
       ${theme.generators.boxShadow(0, 0, 20, -3, '#000')};
     }
   }
@@ -76,7 +77,7 @@ export const Bubble = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: space-around;
-  border-radius: 20px;
+  border-radius: 5px;
   position: relative;
   box-sizing: border-box;
   background-color: ${({ theme }) => theme.colors.primaryDark1};
@@ -131,6 +132,7 @@ export const Specialization = styled.div`
   max-width: 645px;
   height: 135px;
   margin: 2rem 0;
+  border-radius: 5px;
   background: url(${({ img }) => img}) no-repeat left bottom;
   display: flex;
   flex-direction: row;

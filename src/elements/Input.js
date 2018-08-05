@@ -22,7 +22,7 @@ const Input = styled(InputTemplate)`
   display: flex;
   align-items: center;
   position: relative;
-  border-radius: 4px;
+  border-radius: 5px;
   border: 1px solid transparent;
   background: rgba(0, 0, 0, 0.4);
   color: ${({ theme }) => theme.colors.white};

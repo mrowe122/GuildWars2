@@ -5,8 +5,10 @@ import { Layout } from 'providers/MainLayout'
 import routes from 'routes'
 
 import { contentCSS, sideNavCSS } from './styles'
-import Skins from './components/Skins'
 import Dyes from './components/Dyes'
+import Finishers from './components/Finishers'
+import Minis from './components/Minis'
+import Skins from './components/Skins'
 import Titles from './components/Titles'
 
 const unlockNav = [
@@ -48,6 +50,8 @@ const Unlocks = () => (
           <Switch>
             <Route path={routes.account.unlocks.skins} component={Skins} />
             <Route path={routes.account.unlocks.dyes} component={Dyes} />
+            <Route path={routes.account.unlocks.minis} component={Minis} />
+            <Route path={routes.account.unlocks.finishers} component={Finishers} />
             <Route path={routes.account.unlocks.titles} component={Titles} />
             <Redirect to={routes.account.unlocks.skins} />
           </Switch>

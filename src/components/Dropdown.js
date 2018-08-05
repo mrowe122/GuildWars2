@@ -30,7 +30,7 @@ export default DropdownEnhancer(styled.div`
   display: flex;
   flex-direction: column;
   padding: 0.6rem 0;
-  border-radius: 0.5rem;
+  border-radius: 5px;
   background-color: ${({ theme }) => theme.colors.gray4};
 
   &:before {

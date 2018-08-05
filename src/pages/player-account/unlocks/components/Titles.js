@@ -8,25 +8,31 @@ import { fetchHocGet } from 'utils/cachedFetch'
 import { cleanString } from 'utils/utilities'
 import { withFullPageLoader } from 'components'
 
-const SkinGroup = styled.div`
+const Title = styled.div`
   text-align: left;
   color: ${({ theme }) => theme.colors.white};
+  padding: 1rem;
   margin-bottom: 2rem;
+  border-radius: 5px;
+  background-color: ${({ theme }) => theme.colors.primary};
 
   h3 {
     color: ${({ theme }) => theme.colors.primaryLight1};
+    margin-bottom: 0.8rem;
   }
 `
 
 const Titles = ({ titles }) => (
   <div className="row">
     {titles.map(t => (
-      <SkinGroup key={t.id} className="col-xs-6">
-        <h3>{t.name}</h3>
-        <p>
-          {cleanString(get('achievements[0].requirement')(t)) || cleanString(get('achievements[0].description')(t))}
-        </p>
-      </SkinGroup>
+      <div key={t.id} className="col-xs-6">
+        <Title>
+          <h3>{t.name}</h3>
+          <p>
+            {cleanString(get('achievements[0].requirement')(t)) || cleanString(get('achievements[0].description')(t))}
+          </p>
+        </Title>
+      </div>
     ))}
   </div>
 )

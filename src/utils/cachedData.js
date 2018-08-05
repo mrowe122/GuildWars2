@@ -1,7 +1,7 @@
 class CachedDataClass {
-  constructor () {
+  constructor() {
     this.cache = Object.create(null)
-    this.cacheLimit = 5 * 60 * 1000 // 5 minutes
+    this.cacheLimit = 10 * 60 * 1000 // 5 minutes
   }
 
   add = url => data => {
@@ -11,7 +11,7 @@ class CachedDataClass {
 
   get = (url, forever) => {
     const _cache = this.cache[url]
-    if (_cache && (forever || (Date.now() - _cache.time) < this.cacheLimit)) {
+    if (_cache && (forever || Date.now() - _cache.time < this.cacheLimit)) {
       return _cache.data
     }
     return null

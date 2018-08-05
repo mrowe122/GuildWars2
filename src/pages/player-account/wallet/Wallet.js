@@ -12,7 +12,7 @@ const CurrencySlot = styled.div`
   text-align: center;
   padding: 1rem;
   margin: 1rem 3rem 2rem;
-  border-radius: 0.5rem;
+  border-radius: 5px;
   background-color: ${({ theme }) => theme.colors.primary};
 
   img {
