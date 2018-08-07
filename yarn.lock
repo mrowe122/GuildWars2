@@ -447,12 +447,12 @@
   resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.0.tgz#719551d2352d301ac8b81db732acb6bdc28dbdef"
 
 "@types/node@*", "@types/node@^10.1.0":
-  version "10.5.6"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.5.6.tgz#1640f021dd0eaf12e731e54198c12ad2e020dc8e"
+  version "10.5.7"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.5.7.tgz#960d9feb3ade2233bcc9843c918d740b4f78a7cf"
 
 "@types/node@^8.0.53":
-  version "8.10.23"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.23.tgz#e5ccfdafff42af5397c29669b6d7d65f7d629a00"
+  version "8.10.24"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.24.tgz#302a8f0c00bd1bf364471b6687258617c5d410fc"
 
 "@types/request@*", "@types/request@^2.47.0":
   version "2.47.1"
@@ -973,9 +973,13 @@ aws-sign2@~0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.7.0.tgz#b46e890934a9591f2d2f6f86d7e6a9f1b3fe76a8"
 
-aws4@^1.2.1, aws4@^1.6.0:
+aws4@^1.2.1:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.7.0.tgz#d4d0e9b9dbfca77bf08eeb0a8a471550fe39e289"
+
+aws4@^1.6.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
 
 axios@^0.18.0:
   version "0.18.0"
@@ -4827,7 +4831,7 @@ gud@^1.0.0:
 
 "guildwars2-server@https://github.com/mrowe122/GuildWars2-Server":
   version "0.0.0"
-  resolved "https://github.com/mrowe122/GuildWars2-Server#924c31a35a70b2be5c78e84e8c968c8954bd5d37"
+  resolved "https://github.com/mrowe122/GuildWars2-Server#f7bffd373e2b185b6eff45365c8ea16cd42b9555"
   dependencies:
     body-parser "^1.18.3"
     debug "^3.1.0"

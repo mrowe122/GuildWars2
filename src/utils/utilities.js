@@ -19,3 +19,13 @@ export const ageFromSeconds = seconds => {
 export const formatDate = date => format(date, 'MM/DD/YYYY')
 
 export const cleanString = s => s && s.replace(/(<([^>]+)>)/gi, ' ')
+
+export const hashString = str => {
+  let hash = 5381
+  let i = str.length
+
+  while (i) {
+    hash = (hash * 33) ^ str.charCodeAt(--i)
+  }
+  return hash >>> 0
+}

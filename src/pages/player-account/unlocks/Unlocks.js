@@ -1,10 +1,10 @@
 /* istanbul ignore file */
 import React, { Fragment } from 'react'
 import { Switch, Route, NavLink, Redirect } from 'react-router-dom'
+import { css } from 'react-emotion'
 import { Layout } from 'providers/MainLayout'
 import routes from 'routes'
 
-import { contentCSS, sideNavCSS } from './styles'
 import Dyes from './components/Dyes'
 import Finishers from './components/Finishers'
 import Minis from './components/Minis'
@@ -34,11 +34,15 @@ const unlockNav = [
   }
 ]
 
+const contentCSS = ({ theme }) => css`
+  margin-left: ${theme.sizes.sideNav};
+`
+
 const Unlocks = () => (
   <Layout>
     {({ Content, SideNav }) => (
       <Fragment>
-        <SideNav styles={sideNavCSS}>
+        <SideNav>
           <h2>Unlocks</h2>
           {unlockNav.map(i => (
             <NavLink key={i.label} to={i.link}>

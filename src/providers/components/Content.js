@@ -19,7 +19,7 @@ ContentTemplate.propTypes = {
 const Content = styled(ContentTemplate)`
   max-width: 1200px;
   flex: 1 0 auto;
-  padding: 2rem 2rem 1rem;
+  padding: 1.5rem 1.5rem 1rem;
   margin-top: ${({ theme }) => theme.sizes.header};
   ${({ styles }) => styles};
 `
