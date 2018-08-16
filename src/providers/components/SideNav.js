@@ -3,8 +3,9 @@ import styled from 'react-emotion'
 const SideNav = styled.div`
   height: 100%;
   width: ${({ theme }) => theme.sizes.sideNav};
-  padding: 1.5rem;
+  padding: 1.5rem 1.5rem 8rem;
   position: fixed;
+  overflow: auto;
   box-sizing: border-box;
   top: ${({ theme }) => theme.sizes.header};
   left: 0;

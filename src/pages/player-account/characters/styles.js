@@ -56,7 +56,7 @@ export const Bubble = styled.div`
   border-radius: 5px;
   position: relative;
   box-sizing: border-box;
-  background-color: ${({ theme }) => theme.colors.primaryDark1};
+  background-color: ${({ theme }) => theme.colors.primary2};
   ${({ theme }) => theme.generators.boxShadow(0, 0, 20, -3, '#000')} * {
     z-index: 5;
   }

@@ -2,8 +2,9 @@ import { keyframes } from 'react-emotion'
 
 const colors = {
   primary: '#1d2730',
+  primary2: '#25313a',
   primaryLight1: '#0090eb',
-  primaryDark1: '#25313a',
+  primaryDark1: '#040E17',
   white: '#FFFFFF',
   black: '#000000',
   gray1: '#AEAEAE',
@@ -12,6 +13,7 @@ const colors = {
   gray4: '#474747',
   gray5: '#323232',
   error: '#fC3838',
+  completed: '#28D21E',
   loadingOverlay: 'rgba(0, 0, 0, 0.6)',
   modalOverlay: 'rgba(100, 100, 100, 0.5)',
   tooltip: 'rgba(30, 30, 30, 0.9)'
