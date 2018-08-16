@@ -17,7 +17,16 @@ html, body {
   overflow: hidden;
 }
 
+.iconText {
+  display: flex;
+  align-items: center;
+  img {
+    margin-right: .5rem;
+  }
+}
+
 #root {
+  color: #fff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -107,11 +116,6 @@ a {
   }
 }
 
-em {
-  font-style: italic;
-  line-height: 1.5;
-  font-size: smaller;
-}
 
 // react-tabs overwrite
 .react-tabs {
