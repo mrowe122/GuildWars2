@@ -8,7 +8,6 @@ import { Layout } from 'providers/MainLayout'
 import { fetchHocGet } from 'utils/cachedFetch'
 
 const CurrencySlot = styled.div`
-  color: ${({ theme }) => theme.colors.white};
   text-align: center;
   padding: 1rem;
   margin: 1rem 3rem 2rem;

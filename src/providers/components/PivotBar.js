@@ -7,7 +7,7 @@ import MenuIcon from 'mdi-react/MenuIcon'
 const PivotBar = ({ className, items = [], handleMenu, loading }) => (
   <div className={className}>
     <div className="menu">
-      <MenuIcon onClick={handleMenu} />
+      <MenuIcon onClick={handleMenu} size={22} />
     </div>
     {items.map(i => (
       <NavLink key={i.title} to={i.link} disabled={!i.access} title={i.title}>
@@ -25,7 +25,6 @@ PivotBar.propTypes = {
 }
 
 export default styled(PivotBar)`
-  color: ${({ theme }) => theme.colors.white};
   width: ${({ theme }) => theme.sizes.pivotBar};
   top: 0;
   left: 0;
@@ -42,8 +41,6 @@ export default styled(PivotBar)`
   ${({ theme }) => theme.generators.transition(200, 'ease-out')};
 
   .mdi-icon {
-    width: 22px;
-    height: 22px;
     vertical-align: middle;
     padding: 0.5rem;
     margin-right: 1rem;

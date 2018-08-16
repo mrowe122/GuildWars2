@@ -2,7 +2,6 @@
 import styled, { css } from 'react-emotion'
 
 export const contentCSS = ({ theme }) => css`
-  color: ${theme.colors.white};
   margin-left: ${theme.sizes.sideNav};
 
   .middle-xs {

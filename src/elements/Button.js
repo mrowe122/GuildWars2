@@ -6,7 +6,7 @@ import Spinner from 'react-spinkit'
 const ButtonTemplate = ({ children, loading, ...props }) => (
   <button {...props}>
     <p>{children}</p>
-    {loading && <Spinner name='three-bounce' color='white' fadeIn='none' />}
+    {loading && <Spinner name="three-bounce" color="white" fadeIn="none" />}
   </button>
 )
 
@@ -16,10 +16,10 @@ ButtonTemplate.propTypes = {
 }
 
 const Button = styled(ButtonTemplate)`
+  color: ${({ theme }) => theme.colors.white};
   width: initial;
   position: relative;
   cursor: pointer;
-  color: ${({ theme }) => theme.colors.white};
   border: 0;
   border-radius: 5px;
   outline: none;
@@ -27,14 +27,14 @@ const Button = styled(ButtonTemplate)`
   text-transform: uppercase;
   background-color: ${({ theme }) => theme.colors.primaryLight1};
 
-  ${({ loading }) => loading && `
+  ${({ loading }) =>
+    loading &&
+    `
     pointer-events: none;
     & > p {
       visibility: hidden;
     }
-  `}
-
-  .sk-spinner {
+  `} .sk-spinner {
     top: 0;
     left: 0;
     right: 0;

@@ -5,7 +5,6 @@ export default ({ theme }) => css`
   text-align: center;
 
   h3 {
-    color: ${theme.colors.white};
     margin-bottom: 1.5rem;
   }
 
@@ -28,7 +27,8 @@ export default ({ theme }) => css`
     margin-bottom: 1rem;
   }
 
-  .lockIcon, .accountKeyIcon {
+  .lockIcon,
+  .accountKeyIcon {
     padding: 1rem;
     box-sizing: initial;
     border-radius: 50%;

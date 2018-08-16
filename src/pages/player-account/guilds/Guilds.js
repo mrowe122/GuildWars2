@@ -1,20 +1,7 @@
 /* istanbul ignore file */
-import React, { Fragment } from 'react'
-import { css } from 'react-emotion'
+import React from 'react'
 import { Layout } from 'providers/MainLayout'
 
-const contentClasses = ({ theme }) => css`
-  color: ${theme.colors.white};
-`
-
-const Guilds = () => (
-  <Layout>
-    {({ SideNav, Content }) => (
-      <Fragment>
-        <Content styles={contentClasses}>Guilds</Content>
-      </Fragment>
-    )}
-  </Layout>
-)
+const Guilds = () => <Layout>{({ Content }) => <Content>Guilds</Content>}</Layout>
 
 export default Guilds

@@ -8,7 +8,6 @@ import { fetchHocGet } from 'utils/cachedFetch'
 import { withFullPageLoader } from 'components'
 
 const Finisher = styled.div`
-  color: ${({ theme }) => theme.colors.white};
   position: relative;
   display: flex;
   align-items: center;

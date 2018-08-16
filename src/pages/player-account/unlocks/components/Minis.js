@@ -8,7 +8,6 @@ import { fetchHocGet } from 'utils/cachedFetch'
 import { withFullPageLoader } from 'components'
 
 const Mini = styled.div`
-  color: ${({ theme }) => theme.colors.white};
   display: flex;
   align-items: center;
   margin-bottom: 2rem;

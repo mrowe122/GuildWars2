@@ -136,7 +136,7 @@ export const ItemSlot = ({ className, item, showTooltip, handleHover }) => (
         </Fragment>
       ) : (
         <Fragment>
-          <AlertBoxIcon onMouseOver={handleHover} onMouseLeave={handleHover} />
+          <AlertBoxIcon onMouseOver={handleHover} onMouseLeave={handleHover} size={50} />
           {showTooltip && renderTooltip({ slot: null })}
         </Fragment>
       )
@@ -171,8 +171,6 @@ export default styled(ItemSlotEnhancer)`
   }
 
   .mdi-icon {
-    width: 50px;
-    height: 50px;
     color: ${({ theme }) => theme.colors.error};
 
     path {

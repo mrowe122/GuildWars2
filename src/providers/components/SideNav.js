@@ -14,7 +14,6 @@ const SideNav = styled.div`
   ${({ theme }) => theme.generators.textShadow(0, 0, 5, 'rgba(0,0,0,1)')};
 
   & > h2 {
-    color: ${({ theme }) => theme.colors.white};
     margin-bottom: 2rem;
   }
 

@@ -10,7 +10,6 @@ import { withFullPageLoader } from 'components'
 
 const Title = styled.div`
   text-align: left;
-  color: ${({ theme }) => theme.colors.white};
   padding: 1rem;
   margin-bottom: 2rem;
   border-radius: 5px;

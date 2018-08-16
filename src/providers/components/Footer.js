@@ -22,7 +22,6 @@ const Footer = styled(FooterTemplate)`
   align-self: stretch;
   background: ${({ theme }) => theme.colors.gray5};
   z-index: ${({ theme }) => theme.zIndexLayers.footer};
-  color: ${({ theme }) => theme.colors.white};
 `
 
 export default Footer

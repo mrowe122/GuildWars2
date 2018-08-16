@@ -8,7 +8,6 @@ import { DyesOrder } from 'utils/constants'
 import { withFullPageLoader } from 'components'
 
 const DyeGroup = styled.div`
-  color: ${({ theme }) => theme.colors.white};
   margin-bottom: 2rem;
 `
 

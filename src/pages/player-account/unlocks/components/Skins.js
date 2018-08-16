@@ -8,7 +8,6 @@ import { SkinsOrder } from 'utils/constants'
 import { withFullPageLoader } from 'components'
 
 const SkinGroup = styled.div`
-  color: ${({ theme }) => theme.colors.white};
   margin-bottom: 2rem;
 
   img {

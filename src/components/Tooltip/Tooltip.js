@@ -11,9 +11,7 @@ export const TooltipConsumer = Consumer
 
 const TooltipTemplate = ({ className, children, item }) => (
   <Provider value={item}>
-    <div className={className}>
-      {children}
-    </div>
+    <div className={className}>{children}</div>
   </Provider>
 )
 
@@ -78,9 +76,8 @@ const bottom = ({ theme }) => css`
 `
 
 const Tooltip = styled(TooltipTemplate)`
-  color: ${({ theme }) => theme.colors.white};
   width: 250px;
-  padding: .7rem;
+  padding: 0.7rem;
   position: absolute;
   z-index: ${({ theme }) => theme.zIndexLayers.tooltip};
   background-color: ${({ theme }) => theme.colors.tooltip};
@@ -96,14 +93,18 @@ const Tooltip = styled(TooltipTemplate)`
 
   ${({ position = 'right' }) => {
     switch (position) {
-      case 'top': return top
-      case 'right': return right
-      case 'left': return left
-      case 'bottom': return bottom
+      case 'top':
+        return top
+      case 'right':
+        return right
+      case 'left':
+        return left
+      case 'bottom':
+        return bottom
     }
   }};
 
-  ${({ customClass }) => customClass}
+  ${({ customClass }) => customClass};
 `
 
 export default Tooltip
