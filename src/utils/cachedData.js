@@ -1,5 +1,5 @@
 class CachedDataClass {
-  constructor() {
+  constructor () {
     this.cache = Object.create(null)
     this.cacheLimit = 10 * 60 * 1000 // 5 minutes
   }

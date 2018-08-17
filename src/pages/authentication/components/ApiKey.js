@@ -24,25 +24,25 @@ export const ApiKeyModal = ({
   errors,
   status
 }) => (
-  <Modal size="sm" styles={className} showModal>
-    <KeyIcon size={36} className="accountKeyIcon" />
+  <Modal size='sm' styles={className} showModal>
+    <KeyIcon size={36} className='accountKeyIcon' />
     <h3>Add an API key</h3>
-    {status && <p className="error">{status}</p>}
+    {status && <p className='error'>{status}</p>}
     <form onSubmit={handleSubmit}>
       <Input
-        type="text"
-        name="apiKey"
-        placeholder="API key"
+        type='text'
+        name='apiKey'
+        placeholder='API key'
         value={values.apiKey}
         onChange={handleChange}
         onBlur={handleBlur}
         error={touched.apiKey && errors.apiKey}
         icon={<KeyIcon />}
       />
-      <a href="https://account.arena.net/applications" target="_blank" rel="noopener noreferrer">
+      <a href='https://account.arena.net/applications' target='_blank' rel='noopener noreferrer'>
         Get an API Key
       </a>
-      <Button type="submit" onClick={handleSubmit} loading={isSubmitting} disabled={!isValid}>
+      <Button type='submit' onClick={handleSubmit} loading={isSubmitting} disabled={!isValid}>
         Submit
       </Button>
     </form>

@@ -14,9 +14,9 @@ export const Header = ({ className, authUser, handleDropdown, handleSignOut }) =
   <div className={className}>
     <Logo />
     {authUser.token ? (
-      <div className="wrapper">
+      <div className='wrapper'>
         <AccountOutlineIcon onClick={handleDropdown} />
-        <Dropdown arrow="70%" dropdown="20%">
+        <Dropdown arrow='70%' dropdown='20%'>
           <a onClick={handleSignOut}>Sign Out</a>
         </Dropdown>
       </div>
@@ -55,7 +55,7 @@ export default styled(HeaderEnhancer)`
   height: ${({ theme }) => theme.sizes.header};
   line-height: ${({ theme }) => theme.sizes.header};
   ${({ theme }) => theme.generators.boxShadow(0, 0, 15, 0, '#000')} ${({ theme }) =>
-    theme.generators.gradient('#1f2730', '#27303c')}
+  theme.generators.gradient('#1f2730', '#27303c')}
 
   a {
     color: ${({ theme }) => theme.colors.white};

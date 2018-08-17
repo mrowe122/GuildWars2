@@ -6,7 +6,7 @@ import Spinner from 'react-spinkit'
 const ButtonTemplate = ({ children, loading, ...props }) => (
   <button {...props}>
     <p>{children}</p>
-    {loading && <Spinner name="three-bounce" color="white" fadeIn="none" />}
+    {loading && <Spinner name='three-bounce' color='white' fadeIn='none' />}
   </button>
 )
 

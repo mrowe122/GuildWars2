@@ -14,7 +14,7 @@ const ArmorTooltip = ({ item }) => (
   <Tooltip item={item}>
     <IconTitle />
     <p>
-      Defense: <span className="Masterwork">{get('data.details.defense')(item)}</span>
+      Defense: <span className='Masterwork'>{get('data.details.defense')(item)}</span>
     </p>
     <Attributes />
     <Upgrades />
@@ -33,7 +33,7 @@ const WeaponTooltip = ({ item }) => (
     <IconTitle weapon />
     <p>
       Weapon Strength:{' '}
-      <span className="Masterwork">
+      <span className='Masterwork'>
         {get('data.details.min_power')(item)} - {get('data.details.max_power')(item)}
       </span>
     </p>
@@ -83,7 +83,7 @@ const custom = () => css`
 `
 
 const ErrorTooltip = () => (
-  <Tooltip position="top" customClass={custom}>
+  <Tooltip position='top' customClass={custom}>
     <p>There was an error getting this item</p>
   </Tooltip>
 )
@@ -130,7 +130,7 @@ export const ItemSlot = ({ className, item, showTooltip, handleHover }) => (
             src={get('skin.icon')(item) || get('data.icon')(item)}
             onMouseOver={handleHover}
             onMouseLeave={handleHover}
-            alt="item-slot"
+            alt='item-slot'
           />
           {showTooltip && renderTooltip(item)}
         </Fragment>
@@ -141,7 +141,7 @@ export const ItemSlot = ({ className, item, showTooltip, handleHover }) => (
         </Fragment>
       )
     ) : (
-      <img src={emptySlot} alt="empty-slot" />
+      <img src={emptySlot} alt='empty-slot' />
     )}
   </div>
 )

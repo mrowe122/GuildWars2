@@ -7,7 +7,7 @@ import { lifecycle, branch, renderComponent } from 'recompose'
 
 const FullPageLoader = ({ className }) => (
   <div className={className}>
-    <Spinner name="three-bounce" fadeIn="none" />
+    <Spinner name='three-bounce' fadeIn='none' />
   </div>
 )
 
@@ -17,10 +17,10 @@ FullPageLoader.propTypes = {
 
 const FullPageLoaderEnhancer = compose(
   lifecycle({
-    componentDidMount() {
+    componentDidMount () {
       document.body.className = 'noScroll'
     },
-    componentWillUnmount() {
+    componentWillUnmount () {
       document.body.className = ''
     }
   })

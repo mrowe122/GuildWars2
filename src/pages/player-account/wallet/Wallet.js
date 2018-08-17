@@ -24,12 +24,12 @@ const Wallet = ({ wallet, loading }) => (
   <Layout>
     {({ Content }) => (
       <Content loading={loading}>
-        <div className="row">
+        <div className='row'>
           {wallet.map(c => (
-            <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" key={c.id}>
+            <div className='col-lg-3 col-md-4 col-sm-6 col-xs-12' key={c.id}>
               <CurrencySlot title={c.data.description}>
                 <p>{c.data.name}</p>
-                <img src={c.data.icon} alt="coin" />
+                <img src={c.data.icon} alt='coin' />
                 <p>{c.value.toLocaleString()}</p>
               </CurrencySlot>
             </div>

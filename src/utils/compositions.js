@@ -8,7 +8,7 @@ const withLoading = (dataProp = 'data') =>
   compose(
     withProps(() => ({ controller: new AbortController() })),
     lifecycle({
-      componentWillUnmount() {
+      componentWillUnmount () {
         this.props.controller.abort()
       }
     }),
@@ -21,7 +21,7 @@ const withLoading = (dataProp = 'data') =>
 export const withAchievements = compose(
   withLoading(),
   lifecycle({
-    componentDidMount() {
+    componentDidMount () {
       fetch(`${config.gwHost}/achievements/daily`)
         .then(res => res.json())
         .then(({ pvp, pve, wvw, fractals, special }) => {

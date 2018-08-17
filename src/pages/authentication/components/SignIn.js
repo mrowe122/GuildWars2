@@ -28,14 +28,14 @@ const SignIn = ({
   status,
   showCreate
 }) => (
-  <Modal size="sm" styles={className} showModal>
-    <LockIcon size={36} className="lockIcon" />
-    {status && <p className="error">{status}</p>}
+  <Modal size='sm' styles={className} showModal>
+    <LockIcon size={36} className='lockIcon' />
+    {status && <p className='error'>{status}</p>}
     <form onSubmit={handleSubmit}>
       <Input
-        type="email"
-        name="email"
-        placeholder="Email"
+        type='email'
+        name='email'
+        placeholder='Email'
         value={values.email}
         onChange={handleChange}
         onBlur={handleBlur}
@@ -43,19 +43,19 @@ const SignIn = ({
         icon={<AccountOutlineIcon />}
       />
       <Input
-        type="password"
-        name="password"
-        placeholder="Password"
+        type='password'
+        name='password'
+        placeholder='Password'
         value={values.password}
         onChange={handleChange}
         onBlur={handleBlur}
         error={touched.password && errors.password}
         icon={<LockOutlineIcon />}
       />
-      <a onClick={showCreate} className="a1">
+      <a onClick={showCreate} className='a1'>
         Create account
       </a>
-      <Button type="submit" onClick={handleSubmit} loading={isSubmitting} disabled={!isValid}>
+      <Button type='submit' onClick={handleSubmit} loading={isSubmitting} disabled={!isValid}>
         Sign In
       </Button>
     </form>

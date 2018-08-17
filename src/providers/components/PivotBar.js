@@ -6,7 +6,7 @@ import MenuIcon from 'mdi-react/MenuIcon'
 
 const PivotBar = ({ className, items = [], handleMenu, loading }) => (
   <div className={className}>
-    <div className="menu">
+    <div className='menu'>
       <MenuIcon onClick={handleMenu} size={22} />
     </div>
     {items.map(i => (

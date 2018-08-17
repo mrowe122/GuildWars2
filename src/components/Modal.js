@@ -36,7 +36,7 @@ const Modal = ({ className, styles, children, showModal, closeModal }) =>
   ReactDOM.createPortal(
     <div className={className}>
       <Content className={styles}>
-        {closeModal && <CloseIcon onClick={closeModal} className="closeIcon" />}
+        {closeModal && <CloseIcon onClick={closeModal} className='closeIcon' />}
         {children}
       </Content>
     </div>,

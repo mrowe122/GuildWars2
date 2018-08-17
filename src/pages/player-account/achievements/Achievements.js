@@ -144,10 +144,10 @@ const determineFraction = (progress, tiers) => {
   return `${obtainedPoints} / ${totalPoints}`
 }
 
-const ItemReward = reward => <img key={uniqueId('item_')} src={reward.data.icon} width="36" height="36" />
+const ItemReward = reward => <img key={uniqueId('item_')} src={reward.data.icon} width='36' height='36' />
 
 const TitleReward = reward => (
-  <img key={uniqueId('title_')} src="/media/images/title.png" title={reward.data.name} width="36" height="36" />
+  <img key={uniqueId('title_')} src='/media/images/title.png' title={reward.data.name} width='36' height='36' />
 )
 
 const CoinReward = reward => (
@@ -157,7 +157,7 @@ const CoinReward = reward => (
 )
 
 const MasteryReward = reward => (
-  <img key={uniqueId('mastery_')} src={`/media/images/Mastery_point_${reward.region}.png`} width="36" height="36" />
+  <img key={uniqueId('mastery_')} src={`/media/images/Mastery_point_${reward.region}.png`} width='36' height='36' />
 )
 
 export const Achievements = ({ achievements, selectedGroup, selectGroup, selectedCategory, selectCategory }) => (
@@ -174,8 +174,8 @@ export const Achievements = ({ achievements, selectedGroup, selectGroup, selecte
               </a>
               {selectedGroup === g.id &&
                 filter(get('achievements.length'))(sortBy('order')(g.categories)).map(c => (
-                  <div key={c.id} className="iconText">
-                    <img src={c.icon} width="36" height="36" />
+                  <div key={c.id} className='iconText'>
+                    <img src={c.icon} width='36' height='36' />
                     <a
                       onClick={() => {
                         selectCategory(c)
@@ -194,23 +194,23 @@ export const Achievements = ({ achievements, selectedGroup, selectGroup, selecte
           </h1>
 
           {getOr([], 'achievements')(selectedCategory).map(a => (
-            <div className="daily" key={a.id}>
-              <div className="row middle-xs">
-                <div className="col-xs">
-                  <div className="iconText">
+            <div className='daily' key={a.id}>
+              <div className='row middle-xs'>
+                <div className='col-xs'>
+                  <div className='iconText'>
                     <img src={a.icon || selectedCategory.icon} />
                     <span>
                       <h4>
                         <strong>{a.name}</strong> {get('achievementProgress.done')(a) && <CheckCircleIcon size={20} />}
                       </h4>
-                      <p className="p2">{a.requirement}</p>
-                      <p className="p2">{a.description}</p>
+                      <p className='p2'>{a.requirement}</p>
+                      <p className='p2'>{a.description}</p>
                     </span>
                   </div>
                 </div>
 
                 {a.rewards && (
-                  <div className="col-xs-2 center-xs directionRow">
+                  <div className='col-xs-2 center-xs directionRow'>
                     {a.rewards.map(
                       cond([
                         [matches({ type: 'Item' }), ItemReward],
@@ -222,17 +222,17 @@ export const Achievements = ({ achievements, selectedGroup, selectGroup, selecte
                   </div>
                 )}
 
-                <div className="col-xs-2">
-                  <div className="iconText end-xs">
+                <div className='col-xs-2'>
+                  <div className='iconText end-xs'>
                     <p>{determineFraction(a.achievementProgress, a.tiers)}</p>
-                    <img src={achievementIcon} width="26" height="26" />
+                    <img src={achievementIcon} width='26' height='26' />
                   </div>
                 </div>
               </div>
 
               {get('tiers.length')(a) > 1 && (
-                <div className="row">
-                  <Tiers className="col-xs">
+                <div className='row'>
+                  <Tiers className='col-xs'>
                     <h4>Tiers:</h4>
                     <table>
                       <tbody>
@@ -247,8 +247,8 @@ export const Achievements = ({ achievements, selectedGroup, selectGroup, selecte
                               <p>{getOr(`${t.count} Objectives Completed`, `bits[${i}].text`)(a)}</p>
                             </td>
                             <td>
-                              <span className="p1">{t.points}</span>{' '}
-                              <img src={achievementIcon} width="26" height="26" />
+                              <span className='p1'>{t.points}</span>{' '}
+                              <img src={achievementIcon} width='26' height='26' />
                             </td>
                           </tr>
                         ))}

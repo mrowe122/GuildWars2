@@ -33,11 +33,11 @@ const Finisher = styled.div`
 `
 
 const Finishers = ({ finishers }) => (
-  <div className="row">
+  <div className='row'>
     {finishers.map(f => (
-      <div key={f.id} className="col-xs-4">
+      <div key={f.id} className='col-xs-4'>
         <Finisher>
-          <img src={f.data.icon} alt="finisher-icon" /> <span className="p1">{f.quantity && `x ${f.quantity}`}</span>
+          <img src={f.data.icon} alt='finisher-icon' /> <span className='p1'>{f.quantity && `x ${f.quantity}`}</span>
           {f.data.name}
         </Finisher>
       </div>

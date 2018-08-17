@@ -22,9 +22,9 @@ const Title = styled.div`
 `
 
 const Titles = ({ titles }) => (
-  <div className="row">
+  <div className='row'>
     {titles.map(t => (
-      <div key={t.id} className="col-xs-6">
+      <div key={t.id} className='col-xs-6'>
         <Title>
           <h3>{t.name}</h3>
           <p>

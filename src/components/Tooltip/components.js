@@ -9,8 +9,8 @@ import { cleanString } from 'utils/utilities'
 export const IconTitle = ({ weapon }) => (
   <TooltipConsumer>
     {item => (
-      <div className="img-title">
-        <img src={get('skin.icon')(item) || get('data.icon')(item)} alt="icon" />
+      <div className='img-title'>
+        <img src={get('skin.icon')(item) || get('data.icon')(item)} alt='icon' />
         <h4 className={get('data.rarity')(item)}>
           {get('skin.name')(item) || get('data.name')(item)}
           &nbsp;
@@ -30,7 +30,7 @@ export const Attributes = () => (
     {item => (
       <div>
         {getOr([], 'data.details.infix_upgrade.attributes')(item).map(a => (
-          <p key={a.attribute} className="Masterwork">
+          <p key={a.attribute} className='Masterwork'>
             +{a.modifier} {a.attribute}
           </p>
         ))}
@@ -42,21 +42,21 @@ export const Attributes = () => (
 export const Upgrades = () => (
   <TooltipConsumer>
     {({ upgrades = [] }) => (
-      <div className="space">
+      <div className='space'>
         {upgrades.map((u, i) => (
           <Fragment key={u.id + i}>
-            <div className="img-title">
-              <img src={u.icon} alt="icon" />
-              <p className="Fine">{u.name}</p>
+            <div className='img-title'>
+              <img src={u.icon} alt='icon' />
+              <p className='Fine'>{u.name}</p>
             </div>
             {u.details.type === 'Rune' ? (
               getOr([], 'details.bonuses')(u).map((b, i) => (
-                <p key={b} className="Fine">
+                <p key={b} className='Fine'>
                   ({++i}) {cleanString(b)}
                 </p>
               ))
             ) : (
-              <p className="Fine">{cleanString(get('details.infix_upgrade.buff.description')(u))}</p>
+              <p className='Fine'>{cleanString(get('details.infix_upgrade.buff.description')(u))}</p>
             )}
           </Fragment>
         ))}
@@ -68,11 +68,11 @@ export const Upgrades = () => (
 export const Infusions = () => (
   <TooltipConsumer>
     {({ infusions = [] }) => (
-      <div className="space">
+      <div className='space'>
         {infusions.map((u, i) => (
-          <div key={u.id + i} className="img-title">
-            <img src={u.icon} alt="icon" />
-            <p className="Fine">
+          <div key={u.id + i} className='img-title'>
+            <img src={u.icon} alt='icon' />
+            <p className='Fine'>
               {u.name}
               <br />
               {getOr([], 'details.infix_upgrade.attributes')(u).map(a => (
@@ -107,7 +107,7 @@ export const ItemSkin = () => (
   <TooltipConsumer>
     {item =>
       item.skin && (
-        <div className="space">
+        <div className='space'>
           <p>Transmuted</p>
           <p>{get('data.name')(item)}</p>
         </div>

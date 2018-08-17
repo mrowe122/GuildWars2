@@ -103,7 +103,7 @@ const ContainerStyled = styled(Container)`
 
     ${Footer} { margin-top: auto; }
   `} ${({ expanded, theme }) =>
-    expanded &&
+  expanded &&
     css`
     padding-left: ${theme.sizes.pivotBarExpanded};
 

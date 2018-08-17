@@ -37,11 +37,11 @@ const Skins = ({ dyes }) =>
         {dyes[keyName].map(d => (
           <DyeSlot key={d.id} background={get('cloth.rgb')(d)}>
             {d.data ? (
-              <img src={get('data.icon')(d)} alt="dye" />
+              <img src={get('data.icon')(d)} alt='dye' />
             ) : (
               <img
-                src="https://render.guildwars2.com/file/4C6A69A2F750523C239A075656E719ED07492B2E/66652.png"
-                alt="dye"
+                src='https://render.guildwars2.com/file/4C6A69A2F750523C239A075656E719ED07492B2E/66652.png'
+                alt='dye'
               />
             )}
             <p className={get('data.rarity')(d)}>{d.name}</p>

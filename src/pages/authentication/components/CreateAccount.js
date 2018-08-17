@@ -26,13 +26,13 @@ const CreateAccount = ({
   status,
   showLogin
 }) => (
-  <Modal size="sm" styles={className} showModal>
-    <LockIcon size={36} className="lockIcon" />
-    {status && <p className="error">{status}</p>}
+  <Modal size='sm' styles={className} showModal>
+    <LockIcon size={36} className='lockIcon' />
+    {status && <p className='error'>{status}</p>}
     <Input
-      type="email"
-      name="email"
-      placeholder="Email"
+      type='email'
+      name='email'
+      placeholder='Email'
       value={values.email}
       onChange={handleChange}
       onBlur={handleBlur}
@@ -40,9 +40,9 @@ const CreateAccount = ({
       icon={<AccountOutlineIcon />}
     />
     <Input
-      type="password"
-      name="password"
-      placeholder="Password"
+      type='password'
+      name='password'
+      placeholder='Password'
       value={values.password}
       onChange={handleChange}
       onBlur={handleBlur}
@@ -50,19 +50,19 @@ const CreateAccount = ({
       icon={<LockOutlineIcon />}
     />
     <Input
-      type="password"
-      name="confirmPassword"
-      placeholder="Confirm Password"
+      type='password'
+      name='confirmPassword'
+      placeholder='Confirm Password'
       value={values.confirmPassword}
       onChange={handleChange}
       onBlur={handleBlur}
       error={touched.confirmPassword && errors.confirmPassword}
       icon={<LockOutlineIcon />}
     />
-    <a onClick={showLogin} className="a1">
+    <a onClick={showLogin} className='a1'>
       Already have an account?
     </a>
-    <Button type="submit" onClick={handleSubmit} loading={isSubmitting} disabled={!isValid}>
+    <Button type='submit' onClick={handleSubmit} loading={isSubmitting} disabled={!isValid}>
       Create Account
     </Button>
   </Modal>

@@ -24,11 +24,11 @@ const Mini = styled.div`
 `
 
 const Minis = ({ minis }) => (
-  <div className="row">
+  <div className='row'>
     {minis.map(m => (
-      <div key={m.id} className="col-xs-4">
+      <div key={m.id} className='col-xs-4'>
         <Mini>
-          <img src={m.icon} alt="mini-icon" /> {m.name}
+          <img src={m.icon} alt='mini-icon' /> {m.name}
         </Mini>
       </div>
     ))}

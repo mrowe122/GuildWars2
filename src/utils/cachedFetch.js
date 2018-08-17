@@ -19,8 +19,8 @@ const cachedFetch = (url, options, forever) => {
   return _data
     ? Promise.resolve(_data)
     : fetch(url, options)
-        .then(checkErrors)
-        .then(cachedData.add(_hashedUrl))
+      .then(checkErrors)
+      .then(cachedData.add(_hashedUrl))
 }
 
 const parseUrl = (url, variables) => {
@@ -54,7 +54,7 @@ const withDefaults = ({ dataProp, call, props }) =>
       }
     ),
     lifecycle({
-      componentWillUnmount() {
+      componentWillUnmount () {
         controller.abort()
       }
     }),
@@ -96,7 +96,7 @@ export const fetchHocGet = (
     branch(
       () => call === 'onLoad',
       lifecycle({
-        componentDidMount() {
+        componentDidMount () {
           this.props[name]()
         }
       })

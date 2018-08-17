@@ -6,7 +6,7 @@ const InputTemplate = ({ className, icon, error, ...props }) => (
   <div className={className}>
     {icon}
     <input {...props} />
-    {error && <span className="p2">{error}</span>}
+    {error && <span className='p2'>{error}</span>}
   </div>
 )
 
