@@ -3,8 +3,7 @@
   "parserOptions": { "ecmaVersion": 6 },
   "extends": [
     "standard",
-    "standard-react",
-    "prettier"
+    "standard-react"
   ],
   "plugins": [
     "babel",
