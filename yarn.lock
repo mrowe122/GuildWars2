@@ -4721,7 +4721,7 @@ gud@^1.0.0:
 
 "guildwars2-server@https://github.com/mrowe122/GuildWars2-Server":
   version "0.0.0"
-  resolved "https://github.com/mrowe122/GuildWars2-Server#bd8c8d2381bb778d32cc9001f5f2c587549e4edc"
+  resolved "https://github.com/mrowe122/GuildWars2-Server#b5ab3acdbbe1ba067ae6296c8bdfd53abc974cc7"
   dependencies:
     body-parser "^1.18.3"
     debug "^3.1.0"
@@ -8944,13 +8944,17 @@ semver-truncate@^1.0.0:
   dependencies:
     semver "^5.3.0"
 
-"semver@2 || 3 || 4 || 5", semver@^5.0.3, semver@^5.1.0, semver@^5.3.0, semver@^5.4.1, semver@^5.5.0:
+"semver@2 || 3 || 4 || 5", semver@^5.4.1, semver@^5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
 
 semver@^4.0.3:
   version "4.3.6"
   resolved "https://registry.yarnpkg.com/semver/-/semver-4.3.6.tgz#300bc6e0e86374f7ba61068b5b1ecd57fc6532da"
+
+semver@^5.0.3, semver@^5.1.0, semver@^5.3.0:
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.1.tgz#7dfdd8814bdb7cabc7be0fb1d734cfb66c940477"
 
 semver@~5.3.0:
   version "5.3.0"

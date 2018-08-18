@@ -10,18 +10,19 @@ import routes from 'routes'
 import { Dropdown, withDropdown, Logo } from 'components'
 import AccountOutlineIcon from 'mdi-react/AccountOutlineIcon'
 
-export const Header = ({ className, authUser, handleDropdown, handleSignOut }) => (
+export const Header = ({ className, authUser, handleDropdown, closeDropdown, handleSignOut }) => (
   <div className={className}>
     <Logo />
     {authUser.token ? (
       <div className='wrapper'>
         <AccountOutlineIcon onClick={handleDropdown} />
-        <Dropdown arrow='70%' dropdown='20%'>
-          <a onClick={handleSignOut}>Sign Out</a>
+        <Dropdown arrow='80%' dropdown='-15px' onClick={closeDropdown}>
+          <Link className='a2' to={routes.account.settings}>Account Settings</Link>
+          <a onClick={handleSignOut} className='a2'>Sign Out</a>
         </Dropdown>
       </div>
     ) : (
-      <Link to={routes.authorize}>Sign In</Link>
+      <Link className='a2' to={routes.authorize}>Sign In</Link>
     )}
   </div>
 )
@@ -30,7 +31,8 @@ Header.propTypes = {
   className: PropTypes.string,
   authUser: PropTypes.object,
   handleDropdown: PropTypes.func,
-  handleSignOut: PropTypes.func
+  handleSignOut: PropTypes.func,
+  closeDropdown: PropTypes.func
 }
 
 const HeaderEnhancer = compose(
@@ -38,30 +40,30 @@ const HeaderEnhancer = compose(
   withRouter,
   withConsumer('app'),
   withHandlers({
-    handleSignOut: ({ authUser, history }) => () => authUser.firebase.signOut().then(() => history.push(routes.index))
+    handleSignOut: ({ closeDropdown, authUser, history }) => () =>
+      authUser.firebase.signOut().then(() => history.push(routes.index))
   })
 )(Header)
 
-export default styled(HeaderEnhancer)`
+const HeaderStyled = styled(HeaderEnhancer)`
   top: 0;
   left: 0;
   right: 0;
   z-index: ${({ theme }) => theme.zIndexLayers.header};
   position: fixed;
-  padding: 0rem 1rem;
+  padding: 0 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: ${({ theme }) => theme.sizes.header};
   line-height: ${({ theme }) => theme.sizes.header};
-  ${({ theme }) => theme.generators.boxShadow(0, 0, 15, 0, '#000')} ${({ theme }) =>
-  theme.generators.gradient('#1f2730', '#27303c')}
+  ${({ theme }) => theme.generators.boxShadow(0, 0, 15, 0, theme.colors.black)}
+  ${({ theme }) => theme.generators.gradient('#1f2730', '#27303c')}
 
   a {
     color: ${({ theme }) => theme.colors.white};
     text-decoration: none;
-    text-transform: uppercase;
-    padding: 0.7rem;
+    padding: .5rem 1rem;
     border: 2px solid transparent;
     cursor: pointer;
     white-space: nowrap;
@@ -69,6 +71,10 @@ export default styled(HeaderEnhancer)`
     &:hover {
       background-color: ${({ theme }) => theme.colors.primaryLight1};
     }
+  }
+
+  ${Dropdown} {
+    text-align: right;
   }
 
   .wrapper {
@@ -86,3 +92,5 @@ export default styled(HeaderEnhancer)`
     box-sizing: border-box;
   }
 `
+
+export default HeaderStyled

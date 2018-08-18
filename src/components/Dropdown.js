@@ -1,8 +1,21 @@
+import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'react-emotion'
 import { compose } from 'lodash/fp'
 import { withStateHandlers, branch, renderNothing } from 'recompose'
 import { withProvider, withConsumer } from 'context-hoc'
 import { withOutsideClick } from 'outside-click-hoc'
+
+export const Dropdown = ({ className, children }) => (
+  <div className={className}>
+    {children}
+  </div>
+)
+
+Dropdown.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node
+}
 
 export const withDropdown = compose(
   withStateHandlers(({ initial = false }) => ({ showDropdown: initial }), {
@@ -20,9 +33,9 @@ const DropdownEnhancer = compose(
   withConsumer('dropdown'),
   branch(({ showDropdown }) => !showDropdown, renderNothing),
   withOutsideClick(({ closeDropdown }) => closeDropdown)
-)
+)(Dropdown)
 
-export default DropdownEnhancer(styled.div`
+const DropdownStyled = styled(DropdownEnhancer)`
   top: calc(100% + 0.4rem);
   left: ${({ dropdown }) => dropdown || '50%'};
   transform: translateX(-50%);
@@ -47,4 +60,6 @@ export default DropdownEnhancer(styled.div`
     left: ${({ arrow }) => arrow || '50%'};
     transform: translateX(-50%);
   }
-`)
+`
+
+export default DropdownStyled

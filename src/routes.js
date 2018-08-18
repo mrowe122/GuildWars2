@@ -7,6 +7,7 @@ export default {
   authorize: '/authenticate',
   account: {
     index: '/act',
+    settings: '/act/settings',
     achievements: '/act/achievements',
     characters: '/act/characters',
     guilds: '/act/guilds',

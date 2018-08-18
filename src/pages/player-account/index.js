@@ -10,6 +10,7 @@ import Unlocks from './unlocks/Unlocks'
 import Wallet from './wallet/Wallet'
 import Guilds from './guilds/Guilds'
 import TradingPost from './tradingpost/TradingPost'
+import Settings from './settings/Settings'
 
 const PlayerAccount = () => (
   <Switch>
@@ -21,6 +22,7 @@ const PlayerAccount = () => (
     <Route path={routes.account.wallet} component={Wallet} />
     <Route path={routes.account.guilds} component={Guilds} />
     <Route path={routes.account.tradingpost} component={TradingPost} />
+    <Route path={routes.account.settings} component={Settings} />
   </Switch>
 )
 
