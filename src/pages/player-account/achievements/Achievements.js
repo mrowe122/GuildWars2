@@ -291,6 +291,6 @@ const AchievementsEnhancer = compose(
       selectCategory: () => cat => ({ selectedCategory: cat })
     }
   )
-)
+)(Achievements)
 
-export default AchievementsEnhancer(Achievements)
+export default AchievementsEnhancer

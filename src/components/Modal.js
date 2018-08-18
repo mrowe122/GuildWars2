@@ -31,9 +31,8 @@ const Content = styled.div`
   }
 `
 
-const Modal = ({ className, styles, children, showModal, closeModal }) =>
-  showModal &&
-  ReactDOM.createPortal(
+export const Modal = ({ className, styles, children, showModal, closeModal }) =>
+  showModal && ReactDOM.createPortal(
     <div className={className}>
       <Content className={styles}>
         {closeModal && <CloseIcon onClick={closeModal} className='closeIcon' />}
@@ -51,7 +50,7 @@ Modal.propTypes = {
   closeModal: PropTypes.func
 }
 
-export default styled(Modal)`
+const ModalStyled = styled(Modal)`
   top: 0;
   left: 0;
   right: 0;
@@ -67,6 +66,8 @@ export default styled(Modal)`
   ${Content} {
     width: ${({ size = 'md' }) => sizeMap[size]};
     animation: ${({ theme }) => theme.animations.scaleUp} 500ms ease;
-    ${({ theme }) => theme.generators.boxShadow(0, 0, 40, -5, 'rgba(0, 0, 0, 1)')};
+    ${({ theme }) => theme.generators.boxShadow(0, 0, 40, -5, theme.colors.black)};
   }
 `
+
+export default ModalStyled

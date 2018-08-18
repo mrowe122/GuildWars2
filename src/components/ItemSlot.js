@@ -159,7 +159,7 @@ const ItemSlotEnhancer = compose(
   })
 )(ItemSlot)
 
-export default styled(ItemSlotEnhancer)`
+const ItemSlotStyled = styled(ItemSlotEnhancer)`
   width: 50px;
   height: 50px;
   margin: 0.35rem;
@@ -200,3 +200,5 @@ export default styled(ItemSlotEnhancer)`
     }
   }
 `
+
+export default ItemSlotStyled

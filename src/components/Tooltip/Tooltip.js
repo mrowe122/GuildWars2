@@ -9,13 +9,13 @@ const { Provider, Consumer } = createContext({
 
 export const TooltipConsumer = Consumer
 
-const TooltipTemplate = ({ className, children, item }) => (
+export const Tooltip = ({ className, children, item }) => (
   <Provider value={item}>
     <div className={className}>{children}</div>
   </Provider>
 )
 
-TooltipTemplate.propTypes = {
+Tooltip.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
   item: PropTypes.object
@@ -75,7 +75,7 @@ const bottom = ({ theme }) => css`
   }
 `
 
-const Tooltip = styled(TooltipTemplate)`
+const TooltipStyled = styled(Tooltip)`
   width: 250px;
   padding: 0.7rem;
   position: absolute;
@@ -107,4 +107,4 @@ const Tooltip = styled(TooltipTemplate)`
   ${({ customClass }) => customClass};
 `
 
-export default Tooltip
+export default TooltipStyled

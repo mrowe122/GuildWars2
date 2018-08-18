@@ -5,7 +5,7 @@ import Spinner from 'react-spinkit'
 import { compose } from 'lodash/fp'
 import { lifecycle, branch, renderComponent } from 'recompose'
 
-const FullPageLoader = ({ className }) => (
+export const FullPageLoader = ({ className }) => (
   <div className={className}>
     <Spinner name='three-bounce' fadeIn='none' />
   </div>
@@ -43,6 +43,11 @@ const FullPageLoaderStyled = styled(FullPageLoaderEnhancer)`
   }
 `
 
-export const withFullPageLoader = loading => compose(branch(loading, renderComponent(FullPageLoaderStyled)))
+export const withFullPageLoader = loading => compose(
+  branch(
+    loading,
+    renderComponent(FullPageLoaderStyled)
+  )
+)
 
 export default FullPageLoaderStyled

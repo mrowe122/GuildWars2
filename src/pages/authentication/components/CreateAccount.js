@@ -113,6 +113,8 @@ const CreateAccountEnhancer = compose(
   })
 )(CreateAccount)
 
-export default styled(CreateAccountEnhancer)`
+const CreateAccountStyled = styled(CreateAccountEnhancer)`
   ${modalStyle};
 `
+
+export default CreateAccountStyled

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
 
-const InputTemplate = ({ className, icon, error, ...props }) => (
+export const Input = ({ className, icon, error, ...props }) => (
   <div className={className}>
     {icon}
     <input {...props} />
@@ -10,13 +10,13 @@ const InputTemplate = ({ className, icon, error, ...props }) => (
   </div>
 )
 
-InputTemplate.propTypes = {
+Input.propTypes = {
   className: PropTypes.string,
   icon: PropTypes.node,
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
 }
 
-const Input = styled(InputTemplate)`
+const InputStyled = styled(Input)`
   width: 100%;
   margin-bottom: 1.7rem;
   display: flex;
@@ -60,4 +60,4 @@ const Input = styled(InputTemplate)`
   }
 `
 
-export default Input
+export default InputStyled

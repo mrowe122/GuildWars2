@@ -3,19 +3,19 @@ import PropTypes from 'prop-types'
 import styled from 'react-emotion'
 import Spinner from 'react-spinkit'
 
-const ButtonTemplate = ({ children, loading, ...props }) => (
+export const Button = ({ children, loading, ...props }) => (
   <button {...props}>
     <p>{children}</p>
     {loading && <Spinner name='three-bounce' color='white' fadeIn='none' />}
   </button>
 )
 
-ButtonTemplate.propTypes = {
+Button.propTypes = {
   children: PropTypes.node,
   loading: PropTypes.bool
 }
 
-const Button = styled(ButtonTemplate)`
+const ButtonStyled = styled(Button)`
   color: ${({ theme }) => theme.colors.white};
   width: initial;
   position: relative;
@@ -44,4 +44,4 @@ const Button = styled(ButtonTemplate)`
   }
 `
 
-export default Button
+export default ButtonStyled

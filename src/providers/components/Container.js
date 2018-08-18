@@ -90,9 +90,7 @@ const ContainerStyled = styled(Container)`
   flex-direction: column;
   align-items: center;
 
-  ${({ token, theme }) =>
-    token &&
-    css`
+  ${({ token, theme }) => token && css`
     padding-left: ${theme.sizes.pivotBar};
     ${theme.generators.transition(200, 'ease-out')};
 
@@ -102,9 +100,9 @@ const ContainerStyled = styled(Container)`
     }
 
     ${Footer} { margin-top: auto; }
-  `} ${({ expanded, theme }) =>
-  expanded &&
-    css`
+  `}
+  
+  ${({ expanded, theme }) => expanded && css`
     padding-left: ${theme.sizes.pivotBarExpanded};
 
     ${PivotBar} {

@@ -108,6 +108,8 @@ const SignInEnhancer = compose(
   })
 )(SignIn)
 
-export default styled(SignInEnhancer)`
+const SignInStyled = styled(SignInEnhancer)`
   ${modalStyle};
 `
+
+export default SignInStyled

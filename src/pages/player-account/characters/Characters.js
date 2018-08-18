@@ -212,13 +212,13 @@ Characters.propTypes = {
 const CharactersEnhancer = compose(
   withConsumer('app'),
   withState('selectedChar', 'setChar'),
-  fetchHocGet(`api/characters?token=:token`, {
+  fetchHocGet('api/characters?token=:token', {
     dataProp: 'allChars',
     options: { forever: true },
     props: ({ loading, allChars = [], errorStatus }) => ({ allCharsLoading: loading, allChars, errorStatus }),
     variables: ({ authUser }) => ({ token: authUser.token })
   }),
-  fetchHocGet(`api/characters/:char?token=:token`, {
+  fetchHocGet('api/characters/:char?token=:token', {
     name: 'fetchChar',
     call: 'onClick',
     dataProp: 'charData',

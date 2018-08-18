@@ -12,7 +12,7 @@ import modalStyle from './style'
 
 import KeyIcon from 'mdi-react/KeyIcon'
 
-export const ApiKeyModal = ({
+export const ApiKey = ({
   className,
   values,
   handleChange,
@@ -49,7 +49,7 @@ export const ApiKeyModal = ({
   </Modal>
 )
 
-ApiKeyModal.propTypes = {
+ApiKey.propTypes = {
   className: PropTypes.string,
   values: PropTypes.object,
   handleChange: PropTypes.func,
@@ -62,9 +62,9 @@ ApiKeyModal.propTypes = {
   status: PropTypes.string
 }
 
-const ApiKeyModalEnhancer = compose(
+const ApiKeyEnhancer = compose(
   withConsumer('app'),
-  fetchHocPost(`api/tokeninfo`, {
+  fetchHocPost('api/tokeninfo', {
     name: 'authenticate',
     props: ({ loading }) => ({ keyLoading: loading })
   }),
@@ -87,8 +87,10 @@ const ApiKeyModalEnhancer = compose(
       })
     }
   })
-)(ApiKeyModal)
+)(ApiKey)
 
-export default styled(ApiKeyModalEnhancer)`
+const ApiKeyStyled = styled(ApiKeyEnhancer)`
   ${modalStyle};
 `
+
+export default ApiKeyStyled
