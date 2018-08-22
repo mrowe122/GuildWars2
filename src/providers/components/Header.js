@@ -22,7 +22,7 @@ export const Header = ({ className, authUser, handleDropdown, closeDropdown, han
         </Dropdown>
       </div>
     ) : (
-      <Link className='a2' to={routes.authorize}>Sign In</Link>
+      <Link className='a2' to={routes.authenticate}>Sign In</Link>
     )}
   </div>
 )

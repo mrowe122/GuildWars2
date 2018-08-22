@@ -64,6 +64,7 @@ ApiKey.propTypes = {
 
 const ApiKeyEnhancer = compose(
   withConsumer('app'),
+  withConsumer('permissionsProvider'),
   fetchHocPost('api/tokeninfo', {
     name: 'authenticate',
     props: ({ loading }) => ({ keyLoading: loading })
@@ -84,6 +85,7 @@ const ApiKeyEnhancer = compose(
           return setStatus('The key you provided is invalid')
         }
         props.authComplete()
+        props.fetchPermissions()
       })
     }
   })

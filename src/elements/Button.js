@@ -21,11 +21,11 @@ const ButtonStyled = styled(Button)`
   position: relative;
   cursor: pointer;
   border: 0;
-  border-radius: 5px;
+  border-radius: 3rem;
   outline: none;
-  padding: 0.7rem 1rem;
+  padding: 0.6rem 1rem;
   text-transform: uppercase;
-  background-color: ${({ theme }) => theme.colors.primaryLight1};
+  background-color: ${({ theme, background }) => theme.colors[background] || theme.colors.primaryLight1};
 
   ${({ loading }) =>
     loading &&

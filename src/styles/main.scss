@@ -25,8 +25,11 @@ html, body {
   }
 }
 
-#root {
+#root, #modal {
   color: #fff;
+}
+
+#root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -161,6 +164,6 @@ a {
 
 // spinkit overwrite
 .sk-three-bounce > div {
-  margin-right: .4rem;
+  margin-right: .3rem;
   &:last-child { margin-right: 0; }
 }

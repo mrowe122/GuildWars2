@@ -17,7 +17,7 @@ const App = props => (
       <LayoutProvider {...props}>
         <Switch>
           <Route exact path={routes.index} component={Home} />
-          <Route path={routes.authorize} component={Authentication} />
+          <Route path={routes.authenticate} component={Authentication} />
           <Authorized path={routes.account.index} component={PlayerAccount} />
           <Redirect to={routes.index} />
         </Switch>
@@ -26,6 +26,8 @@ const App = props => (
   </BrowserRouter>
 )
 
-const AppEnhancer = compose(withProvider('app', ({ authUser }) => ({ authUser })))(App)
+const AppEnhancer = compose(
+  withProvider('app', ({ authUser }) => ({ authUser }))
+)(App)
 
 export default AppEnhancer

@@ -13,10 +13,10 @@ const checkErrors = response => {
   return response.text()
 }
 
-const cachedFetch = (url, options, forever) => {
+const cachedFetch = (url, options, neverCache) => {
   const _hashedUrl = hashString(url)
-  const _data = cachedData.get(_hashedUrl, forever)
-  return _data
+  const _data = cachedData.get(_hashedUrl)
+  return _data && !neverCache
     ? Promise.resolve(_data)
     : fetch(url, options)
       .then(checkErrors)
@@ -36,7 +36,7 @@ const parseUrl = (url, variables) => {
 const withHandleErrors = compose(
   branch(
     ({ errorStatus }) => errorStatus === 403,
-    renderComponent(routes.redirect({ pathname: routes.authorize, state: { authState: 'apiKey' } }))
+    renderComponent(routes.redirect({ pathname: routes.authenticate, state: { authState: 'apiKey' } }))
   )
 )
 
@@ -65,12 +65,12 @@ const omitProps = ['startLoading', 'handleError', 'finishedLoading']
 
 export const fetchHocGet = (
   url,
-  { dataProp = 'data', call = 'onLoad', name = 'getFetch', variables = noop, options = { forever: false }, props } = {
+  { dataProp = 'data', call = 'onLoad', name = 'getFetch', variables = noop, options = { neverCache: false }, props } = {
     dataProp: 'data',
     call: 'onLoad',
     name: 'getFetch',
     variables: noop,
-    options: { forever: false }
+    options: { neverCache: false }
   },
   fetchOptions
 ) =>
@@ -83,9 +83,12 @@ export const fetchHocGet = (
         const _opts = {
           signal: controller.signal
         }
-        return cachedFetch(parseUrl(url, variables(rest)), mergeAll([fetchOptions, _opts]), options.forever)
+        return cachedFetch(parseUrl(url, variables(rest)), mergeAll([fetchOptions, _opts]), options.neverCache)
           .then(data => finishedLoading(JSON.parse(data)))
           .catch(err => {
+            if (err === 403) {
+              cachedData.clearCache()
+            }
             if (err.name !== 'AbortError') {
               handleError(err)
             }

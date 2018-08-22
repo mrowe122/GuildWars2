@@ -6,15 +6,16 @@ import { withStateHandlers, branch, renderNothing } from 'recompose'
 import { withProvider, withConsumer } from 'context-hoc'
 import { withOutsideClick } from 'outside-click-hoc'
 
-export const Dropdown = ({ className, children }) => (
-  <div className={className}>
+export const Dropdown = ({ className, children, onClick }) => (
+  <div className={className} onClick={onClick}>
     {children}
   </div>
 )
 
 Dropdown.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
+  onClick: PropTypes.func
 }
 
 export const withDropdown = compose(

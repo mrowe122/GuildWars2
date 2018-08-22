@@ -3,7 +3,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'react-emotion'
 import { compose, map, includes, assign, orderBy } from 'lodash/fp'
-import { withStateHandlers } from 'recompose'
+import { withStateHandlers, branch } from 'recompose'
+import { withProvider } from 'context-hoc'
 import { fetchHocGet } from 'utils/cachedFetch'
 import routes from 'routes'
 
@@ -116,16 +117,26 @@ const ContainerStyled = styled(Container)`
 `
 
 const ContainerEnhancer = compose(
-  withStateHandlers(() => ({ expanded: false }), { handleMenu: ({ expanded }) => () => ({ expanded: !expanded }) }),
-  fetchHocGet('api/permissions?token=:token', {
-    variables: ({ token }) => ({ token }),
-    options: { forever: true },
-    props: ({ data }) => ({
-      // TODO: check if can be simplified to not compute every render
-      pivotItems: orderBy('access')('desc')(mapWithArgs((v, k) => assign(v, { access: includes(k)(data) }))(Permisions))
-    })
-  }),
-  withFullPageLoader(({ loading }) => loading)
-)
+  withStateHandlers(
+    () => ({ expanded: false }),
+    { handleMenu: ({ expanded }) => () => ({ expanded: !expanded }) }
+  ),
+  branch(
+    ({ token }) => token,
+    compose(
+      fetchHocGet('api/permissions?token=:token', {
+        variables: ({ token }) => ({ token }),
+        name: 'fetchPermissions',
+        options: { neverCache: true },
+        props: ({ data }) => ({
+          // TODO: check if can be simplified to not compute every render
+          pivotItems: orderBy('access')('desc')(mapWithArgs((v, k) => assign(v, { access: includes(k)(data) }))(Permisions))
+        })
+      }),
+      withFullPageLoader(({ loading }) => loading),
+      withProvider('permissionsProvider', ({ fetchPermissions }) => ({ fetchPermissions }))
+    )
+  )
+)(ContainerStyled)
 
-export default ContainerEnhancer(ContainerStyled)
+export default ContainerEnhancer

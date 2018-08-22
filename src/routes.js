@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 
 export default {
   index: '/',
-  authorize: '/authenticate',
+  authenticate: '/authenticate',
   account: {
     index: '/act',
     settings: '/act/settings',

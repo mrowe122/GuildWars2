@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { compose, get, toLower } from 'lodash/fp'
+import { compose, get, getOr, toLower } from 'lodash/fp'
 import { withState, withHandlers, lifecycle, onlyUpdateForKeys } from 'recompose'
 import { withConsumer } from 'context-hoc'
 import { fetchHocGet } from 'utils/cachedFetch'
@@ -125,7 +125,7 @@ export const Characters = ({ selectChar, allChars, charData, charDataLoading }) 
               </div>
 
               <div className='row center-xs'>
-                {charData.specializations.pve.map(
+                {getOr([], 'specializations.pve')(charData).map(
                   p =>
                     p && (
                       <Specialization key={`pve-${p.id}`} img={p.data.background}>
@@ -214,7 +214,6 @@ const CharactersEnhancer = compose(
   withState('selectedChar', 'setChar'),
   fetchHocGet('api/characters?token=:token', {
     dataProp: 'allChars',
-    options: { forever: true },
     props: ({ loading, allChars = [], errorStatus }) => ({ allCharsLoading: loading, allChars, errorStatus }),
     variables: ({ authUser }) => ({ token: authUser.token })
   }),

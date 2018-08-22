@@ -22,7 +22,7 @@ Authorized.propTypes = {
 
 const AuthorizedEnhancer = compose(
   withConsumer('app'),
-  branch(({ authUser }) => !authUser.token, renderComponent(routes.redirect(routes.authorize)))
+  branch(({ authUser }) => !authUser.token, renderComponent(routes.redirect(routes.authenticate)))
 )(Authorized)
 
 export default AuthorizedEnhancer

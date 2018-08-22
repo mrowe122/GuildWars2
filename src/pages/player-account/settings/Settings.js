@@ -2,13 +2,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'react-emotion'
-import { compose } from 'lodash/fp'
+import { compose, getOr } from 'lodash/fp'
+import { withFormik } from 'formik'
 import { withConsumer } from 'context-hoc'
-import { fetchHocGet } from 'utils/cachedFetch'
+import { fetchHocGet, fetchHocPost } from 'utils/cachedFetch'
 import { Layout } from 'providers/MainLayout'
-import { Input } from 'elements'
+import { Button, Input } from 'elements'
 import { withFullPageLoader } from 'components'
 import KeyIcon from 'mdi-react/KeyIcon'
+import { validateApiKey } from 'utils/validation'
 
 const descriptionMap = {
   tradingpost: 'Your Trading Post transactions.',
@@ -27,6 +29,7 @@ const contentCSS = ({ theme }) => css`
   width: 75%;
 
   h2 {
+    padding-left: 1rem;
     padding-bottom: .5rem;
     margin-bottom: 1rem;
     border-bottom: 1px solid ${theme.colors.gray1};
@@ -48,28 +51,47 @@ const Section = styled.div`
   background-color: ${({ theme }) => theme.colors.primary2};
 
   ${Input} {
-    margin-top: 1rem;
+    margin-top: .8rem;
+    margin-bottom: .8rem;
+    margin-right: 1rem;
+  }
+
+  ${Button} {
+    margin-right: 1rem;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 `
 
-const Settings = ({ settings }) => (
+const Settings = ({ settings, values, handleChange, handleBlur, handleSubmit, isSubmitting, isValid, keyLoading }) => (
   <Layout>
     {({ Content }) => (
-      <Content styles={contentCSS}>
+      <Content styles={contentCSS} loading={keyLoading}>
         <Section>
           <h2 className='Exotic'>API Key</h2>
 
           <Input
-            value={settings.apiKey}
+            name='apiKey'
+            value={values.apiKey}
+            onChange={handleChange}
+            onBlur={handleBlur}
             icon={<KeyIcon />} />
 
           <div className='row'>
-            {settings.permissions.map(p => (
+            {getOr([], 'permissions')(settings).map(p => (
               <div className='permission col-xs-6' key={p}>
                 <p className='Exotic'>{p}</p>
                 <p className='p2'>{descriptionMap[p]}</p>
               </div>
             ))}
+          </div>
+
+          <div className='end-xs'>
+            <Button type='button' onClick={handleSubmit} disabled={!isValid}>
+              Save changes
+            </Button>
           </div>
         </Section>
       </Content>
@@ -78,18 +100,48 @@ const Settings = ({ settings }) => (
 )
 
 Settings.propTypes = {
-  settings: PropTypes.object
+  settings: PropTypes.object,
+  values: PropTypes.object,
+  handleChange: PropTypes.func,
+  handleBlur: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  isSubmitting: PropTypes.bool,
+  isValid: PropTypes.bool,
+  keyLoading: PropTypes.bool
 }
 
 const SettingsEnhancer = compose(
   withConsumer('app'),
-  fetchHocGet('api/account/settings?token=:token', {
+  withConsumer('permissionsProvider'),
+  fetchHocGet('api/settings?token=:token', {
     dataProp: 'settings',
-    options: { forever: true },
+    options: { neverCache: true },
     props: ({ loading, settings = {}, errorStatus }) => ({ loading, settings, errorStatus }),
     variables: ({ authUser }) => ({ token: authUser.token })
   }),
-  withFullPageLoader(p => p.loading)
+  withFullPageLoader(p => p.loading),
+  fetchHocPost('api/tokeninfo', {
+    name: 'updateApiKey',
+    props: ({ loading }) => ({ keyLoading: loading })
+  }),
+  withFormik({
+    mapPropsToValues: ({ settings }) => ({ apiKey: settings.apiKey }),
+    validate: values => {
+      const apiKey = validateApiKey(values.apiKey)
+      return {
+        ...(apiKey && { apiKey })
+      }
+    },
+    handleSubmit: ({ apiKey }, { props, setSubmitting, setStatus }) => {
+      setStatus(null)
+      props.updateApiKey({ apiKey, token: props.authUser.token }).then(res => {
+        if (res === 403) {
+          return setStatus('The key you provided is invalid')
+        }
+        props.fetchPermissions()
+      })
+    }
+  })
 )(Settings)
 
 export default SettingsEnhancer
