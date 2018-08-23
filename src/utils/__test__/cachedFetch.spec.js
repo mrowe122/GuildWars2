@@ -27,7 +27,7 @@ describe('fetchHoc', () => {
       expect(_props).toEqual({
         loading: true,
         data: undefined,
-        errorStatus: null,
+        error: null,
         getFetch: _props.getFetch
       })
     })
@@ -40,7 +40,7 @@ describe('fetchHoc', () => {
       expect(_props).toEqual({
         loading: true,
         testData: undefined,
-        errorStatus: null,
+        error: null,
         testFetch: _props.testFetch
       })
     })
@@ -67,7 +67,7 @@ describe('fetchHoc', () => {
         const _props = _root.find(EmptyDiv).props()
         expect(_props.loading).toBeFalsy()
         expect(_props.data).toBe('12345')
-        expect(_props.errorStatus).toBeNull()
+        expect(_props.error).toBeNull()
       })
     })
 
@@ -81,7 +81,7 @@ describe('fetchHoc', () => {
         const _updatedProps = _root.find(EmptyDiv).props()
         expect(_updatedProps.loading).toBeFalsy()
         expect(_updatedProps.data).toBe('12345')
-        expect(_updatedProps.errorStatus).toBeNull()
+        expect(_updatedProps.error).toBeNull()
       })
     })
 
@@ -97,19 +97,19 @@ describe('fetchHoc', () => {
         const _updatedProps1 = _root.find(EmptyDiv).props()
         expect(_updatedProps1.loading).toBeFalsy()
         expect(_updatedProps1.data).toBe('cached data')
-        expect(_updatedProps1.errorStatus).toBeNull()
+        expect(_updatedProps1.error).toBeNull()
         return _props.getFetch()
       }).then(() => {
         _root.update()
         const _updatedProps2 = _root.find(EmptyDiv).props()
         expect(_updatedProps2.loading).toBeFalsy()
         expect(_updatedProps2.data).toBe('cached data')
-        expect(_updatedProps2.errorStatus).toBeNull()
+        expect(_updatedProps2.error).toBeNull()
       })
     })
 
     it('should return a user error response', () => {
-      fetch.once(JSON.stringify({ text: 'unauthorized' }), { status: 403 })
+      fetch.once(JSON.stringify({ text: 'unauthorized' }), { status: 400 })
       _Hoc = fetchHoc.get(url, { call: 'onClick' })(EmptyDiv)
       const _root = mount(<_Hoc />)
       _props = _root.find(EmptyDiv).props()
@@ -118,7 +118,7 @@ describe('fetchHoc', () => {
         const _updatedProps = _root.find(EmptyDiv).props()
         expect(_updatedProps.loading).toBeFalsy()
         expect(_updatedProps.data).toBeUndefined()
-        expect(_updatedProps.errorStatus).toBe(403)
+        expect(_updatedProps.error).toBe(400)
       })
     })
 
@@ -187,12 +187,12 @@ describe('fetchHoc', () => {
         const _updatedProps = _root.find(EmptyDiv).props()
         expect(_updatedProps.loading).toBeFalsy()
         expect(_updatedProps.data).toBe(JSON.stringify(payload))
-        expect(_updatedProps.errorStatus).toBeNull()
+        expect(_updatedProps.error).toBeNull()
       })
     })
 
     it('should return an error', () => {
-      fetch.once(JSON.stringify({ text: 'unauthorized' }), { status: 403 })
+      fetch.once(JSON.stringify({ text: 'unauthorized' }), { status: 400 })
       _Hoc = fetchHoc.post(url)(EmptyDiv)
       const _root = mount(<_Hoc />)
       _props = _root.find(EmptyDiv).props()
@@ -201,7 +201,7 @@ describe('fetchHoc', () => {
         const _updatedProps = _root.find(EmptyDiv).props()
         expect(_updatedProps.loading).toBeFalsy()
         expect(_updatedProps.data).toBeUndefined()
-        expect(_updatedProps.errorStatus).toBe(403)
+        expect(_updatedProps.error).toBe(400)
       })
     })
 

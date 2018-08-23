@@ -56,9 +56,9 @@ describe('ApiKey', () => {
       _component = props => shallow(<ApiKeyModal {...globalProps} {...props} />).dive()
     })
 
-    it('should render invalid key error for 403', () => {
+    it('should render invalid key error for 400', () => {
       const _props = {
-        errorStatus: 403
+        error: 400
       }
       expect(_component(_props).debug()).toContain('The key you provided is invalid')
     })

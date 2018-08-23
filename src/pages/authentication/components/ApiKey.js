@@ -81,7 +81,7 @@ const ApiKeyEnhancer = compose(
       setStatus(null)
       props.authenticate({ apiKey, token: props.authUser.token }).then(res => {
         setSubmitting(false)
-        if (res === 403) {
+        if (res.status === 400) {
           return setStatus('The key you provided is invalid')
         }
         props.authComplete()

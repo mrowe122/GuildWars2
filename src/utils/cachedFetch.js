@@ -8,7 +8,7 @@ let controller = new AbortController()
 
 const checkErrors = response => {
   if (!response.ok) {
-    throw response.status
+    throw response
   }
   return response.text()
 }
@@ -35,31 +35,34 @@ const parseUrl = (url, variables) => {
 
 const withHandleErrors = compose(
   branch(
-    ({ errorStatus }) => errorStatus === 403,
+    ({ error }) => (error.status === 400 && location.pathname !== '/act/settings'),
     renderComponent(routes.redirect({ pathname: routes.authenticate, state: { authState: 'apiKey' } }))
   )
 )
 
-const withDefaults = ({ dataProp, call, props }) =>
-  compose(
-    withStateHandlers(
-      () => ({
-        loading: call !== 'onClick',
-        [dataProp]: undefined
-      }),
-      {
-        startLoading: () => () => ({ loading: true, errorStatus: null }),
-        finishedLoading: () => data => ({ loading: false, errorStatus: null, [dataProp]: data }),
-        handleError: () => data => ({ loading: false, errorStatus: data })
-      }
-    ),
-    lifecycle({
-      componentWillUnmount () {
-        controller.abort()
-      }
+const withDefaults = ({ dataProp, call, props }) => compose(
+  withStateHandlers(
+    () => ({
+      loading: call !== 'onClick',
+      [dataProp]: undefined,
+      error: {}
     }),
-    branch(() => typeof props === 'function', withProps(props))
+    {
+      startLoading: () => () => ({ loading: true, error: {} }),
+      finishedLoading: () => data => ({ loading: false, error: {}, [dataProp]: data }),
+      handleError: () => data => ({ loading: false, error: data })
+    }
+  ),
+  lifecycle({
+    componentWillUnmount () {
+      controller.abort()
+    }
+  }),
+  branch(
+    () => typeof props === 'function',
+    withProps(props)
   )
+)
 
 const omitProps = ['startLoading', 'handleError', 'finishedLoading']
 
@@ -77,16 +80,16 @@ export const fetchHocGet = (
   compose(
     withDefaults({ dataProp, call, props }),
     withHandlers({
-      [name]: ({ startLoading, finishedLoading, handleError, ...rest }) => () => {
+      [name]: ({ startLoading, finishedLoading, handleError, ...props }) => () => {
         startLoading()
         controller = new AbortController()
         const _opts = {
           signal: controller.signal
         }
-        return cachedFetch(parseUrl(url, variables(rest)), mergeAll([fetchOptions, _opts]), options.neverCache)
+        return cachedFetch(parseUrl(url, variables(props)), mergeAll([fetchOptions, _opts]), options.neverCache)
           .then(data => finishedLoading(JSON.parse(data)))
           .catch(err => {
-            if (err === 403) {
+            if (err.status === 400) {
               cachedData.clearCache()
             }
             if (err.name !== 'AbortError') {

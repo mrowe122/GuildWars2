@@ -214,7 +214,7 @@ const CharactersEnhancer = compose(
   withState('selectedChar', 'setChar'),
   fetchHocGet('api/characters?token=:token', {
     dataProp: 'allChars',
-    props: ({ loading, allChars = [], errorStatus }) => ({ allCharsLoading: loading, allChars, errorStatus }),
+    props: ({ loading, allChars = [] }) => ({ allCharsLoading: loading, allChars }),
     variables: ({ authUser }) => ({ token: authUser.token })
   }),
   fetchHocGet('api/characters/:char?token=:token', {

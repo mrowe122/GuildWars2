@@ -50,6 +50,11 @@ const Section = styled.div`
   border-radius: 5px;
   background-color: ${({ theme }) => theme.colors.primary2};
 
+  .error {
+    color: ${({ theme }) => theme.colors.error};
+    text-align: center;
+  }
+
   ${Input} {
     margin-top: .8rem;
     margin-bottom: .8rem;
@@ -65,18 +70,22 @@ const Section = styled.div`
   }
 `
 
-const Settings = ({ settings, values, handleChange, handleBlur, handleSubmit, isSubmitting, isValid, keyLoading }) => (
+const Settings = ({ settings, values, handleChange, handleBlur, handleSubmit, isSubmitting, isValid, keyLoading, touched, errors, status }) => (
   <Layout>
     {({ Content }) => (
       <Content styles={contentCSS} loading={keyLoading}>
         <Section>
           <h2 className='Exotic'>API Key</h2>
 
+          {status && <p className='error'>{status}</p>}
+
           <Input
             name='apiKey'
+            placeholder='API key'
             value={values.apiKey}
             onChange={handleChange}
             onBlur={handleBlur}
+            error={touched.apiKey && errors.apiKey}
             icon={<KeyIcon />} />
 
           <div className='row'>
@@ -107,7 +116,10 @@ Settings.propTypes = {
   handleSubmit: PropTypes.func,
   isSubmitting: PropTypes.bool,
   isValid: PropTypes.bool,
-  keyLoading: PropTypes.bool
+  keyLoading: PropTypes.bool,
+  touched: PropTypes.object,
+  errors: PropTypes.object,
+  status: PropTypes.string
 }
 
 const SettingsEnhancer = compose(
@@ -116,7 +128,7 @@ const SettingsEnhancer = compose(
   fetchHocGet('api/settings?token=:token', {
     dataProp: 'settings',
     options: { neverCache: true },
-    props: ({ loading, settings = {}, errorStatus }) => ({ loading, settings, errorStatus }),
+    props: ({ loading, settings = {} }) => ({ loading, settings }),
     variables: ({ authUser }) => ({ token: authUser.token })
   }),
   withFullPageLoader(p => p.loading),
@@ -135,7 +147,7 @@ const SettingsEnhancer = compose(
     handleSubmit: ({ apiKey }, { props, setSubmitting, setStatus }) => {
       setStatus(null)
       props.updateApiKey({ apiKey, token: props.authUser.token }).then(res => {
-        if (res === 403) {
+        if (res.status === 400) {
           return setStatus('The key you provided is invalid')
         }
         props.fetchPermissions()
